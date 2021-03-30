@@ -1,8 +1,10 @@
 <template>
   <div class="w-full h-full preview__box rounded-md">
     <template v-if="val === ''">
-      <div class="flex flex-col justify-center p-12 text-center text-gray-300">
-        <p class=" text-4xl leading-loose mb-4">
+      <div class="h-full
+        flex flex-col justify-center
+        p-12 text-center text-gray-300">
+        <p class=" text-5xl leading-loose mb-2">
           ¯\_(ツ)_/¯
         </p>
 

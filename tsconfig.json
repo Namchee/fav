@@ -8,6 +8,7 @@
     "jsx": "preserve",
     "moduleResolution": "node",
     "types": [
+      "node",
       "vite-svg-loader",
       "vite/client"
     ]

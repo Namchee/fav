@@ -2,20 +2,27 @@
   <div class="min-h-screen flex flex-col items-start">
     <navigation />
     <main class="mx-auto w-full max-w-4xl">
-      <h1 class="font-bold
-        text-5xl text-gray-800
-        tracking-tight py-12 pb-16">
-        Modern favicons for 2021 websites.
-      </h1>
+      <div class="py-12">
+        <h1 class="font-semibold
+          text-5xl text-gray-800
+          tracking-tight
+          leading-normal">
+          Modern favicons for modern websites.
+        </h1>
 
-      <div class="app">
+        <h2 class="text-2xl text-gray-500 tracking-tight leading-normal">
+          Generate compact favicon set for your 2021 websites.
+        </h2>
+      </div>
+
+      <div class="app py-8">
         <div class="space-y-8">
           <div>
             <p class="form__header mb-2">
-              Step 1: Upload your files
+              Step 1: Upload an image
             </p>
 
-            <UploadButton />
+            <UploadBox />
           </div>
 
           <div>
@@ -32,7 +39,7 @@
         </div>
 
         <div class="preview">
-          <preview-box />
+          <preview-box @file-change="onImageUpload" />
         </div>
       </div>
     </main>
@@ -40,16 +47,29 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
+
 import Navigation from './components/Navigation.vue';
 import PreviewBox from './components/PreviewBox.vue';
-import UploadButton from './components/UploadButton.vue';
+import UploadBox from './components/UploadBox.vue';
 
 export default defineComponent({
   components: {
     Navigation,
     PreviewBox,
-    UploadButton,
+    UploadBox,
+  },
+
+  setup() {
+    const file = ref('');
+
+    const onImageUpload = (value: string) => {
+      file.value = value;
+    };
+
+    return {
+      onImageUpload,
+    };
   },
 });
 </script>
@@ -57,11 +77,11 @@ export default defineComponent({
 <style lang="postcss" scoped>
 .app {
   display: grid;
-  grid-template-columns: 55% 45%;
-  column-gap: 2rem;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 12rem;
 }
 
 .form__header {
-  @apply text-gray-400 text-xl leading-loose;
+  @apply text-gray-500 text-lg leading-loose;
 }
 </style>
