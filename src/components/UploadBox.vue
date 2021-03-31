@@ -22,23 +22,39 @@
       </div>
     </template>
     <template v-else>
-      <label for="image-file" class="cursor-pointer">
+      <label
+        @dragenter="isDragging = true"
+        @dragleave="isDragging = false"
+        @dragover.prevent
+        @drop.prevent="onFileDrop($event)"
+        for="image-file"
+        class="cursor-pointer block h-48">
         <div class="border-2 border-gray-200 border-dashed
           grid place-items-center
           rounded-md p-8
           transition-colors
           hover:bg-gray-50
-          hover:border-gray-300">
-          <UploadIcon class="w-16 h-auto text-gray-400" />
-          <p class="leading-normal text-gray-400 mt-2 text-lg">
-            <span class="text-indigo-400 font-bold">
-              Upload a file
-            </span>
-            or drag and drop
-          </p>
-          <p class="italic text-sm text-gray-400">
-            Accepts .png, .jpeg, .ico, and .svg
-          </p>
+          hover:border-gray-300
+          h-full"
+          :class="{ 'bg-gray-50': isDragging, 'border-gray-300': isDragging }">
+          <template v-if="isDragging">
+            <FileIcon class="w-16 h-auto text-gray-400" />
+            <p class="leading-normal text-gray-400 text-lg font-bold">
+              Drop your image now
+            </p>
+          </template>
+          <template v-else>
+            <UploadIcon class="w-16 h-auto text-gray-400" />
+            <p class="leading-normal text-gray-400 mt-2 text-lg">
+              <span class="text-indigo-400 font-bold">
+                Upload a file
+              </span>
+              or drag and drop
+            </p>
+            <p class="italic text-sm text-gray-400">
+              Accepts .png, .jpeg, .ico, and .svg
+            </p>
+          </template>
       </div>
       </label>
       <input
@@ -69,6 +85,8 @@ export default defineComponent({
     const currentFile: Ref<File | null> = ref(null);
     const fileInput: Ref<HTMLInputElement | null> = ref(null);
 
+    const isDragging = ref(false);
+
     const deleteFile = () => {
       currentFile.value = null;
     };
@@ -77,6 +95,26 @@ export default defineComponent({
       if (fileInput.value && fileInput.value.files) {
         currentFile.value = fileInput.value.files[0];
       }
+    };
+
+    const onFileDrop = (event: DragEvent) => {
+      event.preventDefault();
+
+      if (event.dataTransfer?.items) {
+        for (let i = 0; i < event.dataTransfer.items.length; i++) {
+          if (event.dataTransfer.items[i].kind === 'file') {
+            currentFile.value = event.dataTransfer.items[i].getAsFile();
+          }
+        }
+      } else {
+        const len = event.dataTransfer?.files.length as number;
+
+        for (let i = 0; i < len; i++) {
+          currentFile.value = event.dataTransfer?.files[i] as File;
+        }
+      }
+
+      isDragging.value = false;
     };
 
     watch(currentFile, (value) => {
@@ -90,6 +128,8 @@ export default defineComponent({
       fileInput,
       onFileChange,
       deleteFile,
+      isDragging,
+      onFileDrop,
     };
   },
 });

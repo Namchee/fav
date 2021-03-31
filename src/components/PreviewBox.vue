@@ -39,6 +39,7 @@ export default defineComponent({
 
 <style lang="postcss" scoped>
 .preview__box {
+  aspect-ratio: 1;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.15);
 
   min-width: 16rem;
