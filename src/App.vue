@@ -30,19 +30,30 @@
               Step 2: Choose your favicons flavor
             </p>
 
-            <div class="grid grid-cols-2">
-              <p>
-                Cock
-              </p>
-              <p>
-                Sucker
-              </p>
-              <p>
-                Ass
-              </p>
-              <p>
-                Kisser
-              </p>
+            <div class="space-y-2">
+              <PlatformBox
+                v-for="platform in platforms"
+                :key="platform.value"
+                :id="platform.value"
+                :value="platform.value"
+                :disabled="platform.value === 'legacy'"
+                v-model="selectedPlatforms">
+                <template v-slot:icon>
+                  <component
+                    :is="platform.icon"
+                    class="w-8 h-8 stroke-current" />
+                </template>
+                <template v-slot:title>
+                  <p class="font-bold text-lg">
+                    {{ platform.name }}
+                  </p>
+                </template>
+                <template v-slot:description>
+                  <p class="italic text-sm">
+                    {{ platform.description }}
+                  </p>
+                </template>
+              </PlatformBox>
             </div>
           </div>
 
@@ -50,6 +61,19 @@
             <p class="form__header">
               Step 3: Generate!
             </p>
+
+            <button class="bg-indigo-700
+              text-white
+              rounded-md
+              px-4 py-2
+              text-lg
+              tracking-wide
+              transition-colors
+              hover:bg-indigo-800
+              focus:outline-none
+              focus:ring-2 focus:ring-indigo-300">
+              Generate
+            </button>
           </div>
         </div>
 
@@ -67,6 +91,11 @@ import { defineComponent, Ref, ref } from 'vue';
 import Navigation from './components/Navigation.vue';
 import PreviewBox from './components/PreviewBox.vue';
 import UploadBox from './components/UploadBox.vue';
+import PlatformBox from './components/PlatformBox.vue';
+import GlobeIcon from './assets/icons/globe.svg';
+import AtomIcon from './assets/icons/atom.svg';
+import AndroidIcon from './assets/icons/android.svg';
+import AppleIcon from './assets/icons/apple.svg';
 
 import { toBase64 } from './utils';
 
@@ -75,12 +104,19 @@ export default defineComponent({
     Navigation,
     PreviewBox,
     UploadBox,
+    PlatformBox,
+    GlobeIcon,
+    AtomIcon,
+    AndroidIcon,
+    AppleIcon,
   },
 
   setup() {
     const file: Ref<File | null> = ref(null);
     const fileError: Ref<string> = ref('');
     const imageBlob: Ref<string> = ref('');
+
+    const selectedPlatforms: Ref<string[]> = ref(['legacy']);
 
     const handleFileUpload = async (val: File | null) => {
       file.value = val;
@@ -95,13 +131,42 @@ export default defineComponent({
     };
 
     const handleSubmit = () => {
-      fileError.value = 'Rqeuire';
+      fileError.value = 'Require';
     };
+
+    const platforms = [
+      {
+        name: 'Legacy',
+        description: 'Supported by almost all browsers',
+        icon: 'GlobeIcon',
+        value: 'legacy',
+      },
+      {
+        name: 'Modern',
+        description: 'Brings modern favicon features',
+        icon: 'AtomIcon',
+        value: 'modern',
+      },
+      {
+        name: 'Android',
+        description: 'Bring your favicons to Android devices',
+        icon: 'AndroidIcon',
+        value: 'android',
+      },
+      {
+        name: 'Apple',
+        description: 'Bring your favicons to Apple devices',
+        icon: 'AppleIcon',
+        value: 'apple',
+      },
+    ];
 
     return {
       handleFileUpload,
       handleSubmit,
       imageBlob,
+      selectedPlatforms,
+      platforms,
     };
   },
 });

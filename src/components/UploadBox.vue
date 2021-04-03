@@ -23,12 +23,15 @@
     </template>
     <template v-else>
       <label
+        tabindex="0"
         @dragenter="isDragging = true"
         @dragleave="isDragging = false"
         @dragover.prevent
         @drop="onFileDrop($event)"
         for="image-file"
-        class="cursor-pointer block h-48">
+        class="cursor-pointer block h-48
+          focus:outline-none
+          focus:ring-1 focus:ring-gray-300">
         <div class="border-2 border-gray-200 border-dashed
           grid place-items-center
           rounded-md p-8
