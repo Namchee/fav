@@ -1,6 +1,6 @@
 <template>
-  <div class="w-full h-full preview__box rounded-md">
-    <template v-if="val === ''">
+  <div class="rounded-md preview__box">
+    <template v-if="value === ''">
       <div class="h-full
         flex flex-col justify-center
         p-12 text-center text-gray-300">
@@ -9,11 +9,12 @@
         </p>
 
         <p class="text-xl tracking-wide">
-          Nothing is uploaded
+          Nothing to see here
         </p>
       </div>
     </template>
     <template v-else>
+      <img :src="value" title="Favicon" />
     </template>
   </div>
 </template>
@@ -28,12 +29,6 @@ export default defineComponent({
       default: '',
     },
   },
-
-  setup(props) {
-    return {
-      val: props.value,
-    };
-  },
 });
 </script>
 
@@ -42,7 +37,9 @@ export default defineComponent({
   aspect-ratio: 1;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.15);
 
-  min-width: 16rem;
-  min-height: auto;
+  width: 20rem;
+  height: auto;
+  display: grid;
+  place-items: center;
 }
 </style>

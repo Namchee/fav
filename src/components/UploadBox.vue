@@ -26,7 +26,7 @@
         @dragenter="isDragging = true"
         @dragleave="isDragging = false"
         @dragover.prevent
-        @drop.prevent="onFileDrop($event)"
+        @drop="onFileDrop($event)"
         for="image-file"
         class="cursor-pointer block h-48">
         <div class="border-2 border-gray-200 border-dashed
@@ -52,7 +52,7 @@
               or drag and drop
             </p>
             <p class="italic text-sm text-gray-400">
-              Accepts .png, .jpeg, .ico, and .svg
+              Accepts .png, .jpeg, .ico, and .svg (max 192 KB)
             </p>
           </template>
       </div>
@@ -62,8 +62,13 @@
         class="hidden"
         id="image-file"
         ref="fileInput"
+        accept="image/png, image/jpeg, image/vnd.microsoft.icon, image/svg+xml"
         @change="onFileChange"
       />
+      <p v-if="error || validationError"
+        class="font-bold text-red-700 italic mt-2">
+        {{ error || validationError }}
+      </p>
     </template>
   </div>
 </template>
@@ -75,6 +80,18 @@ import FileIcon from './../assets/icons/file.svg';
 import CloseIcon from './../assets/icons/close.svg';
 
 export default defineComponent({
+  emits: [
+    'fileChange',
+  ],
+
+  props: {
+    error: {
+      type: String,
+      required: false,
+      default: '',
+    },
+  },
+
   components: {
     UploadIcon,
     FileIcon,
@@ -85,7 +102,19 @@ export default defineComponent({
     const currentFile: Ref<File | null> = ref(null);
     const fileInput: Ref<HTMLInputElement | null> = ref(null);
 
+    const validationError: Ref<string> = ref('');
+
     const isDragging = ref(false);
+
+    const isImageFile = (currentFile: File): boolean => {
+      return [
+        'image/png',
+        'image/jpeg',
+        'image/vnd.microsoft.icon',
+        'image/x-icon',
+        'image/svg+xml',
+      ].includes(currentFile.type);
+    };
 
     const deleteFile = () => {
       currentFile.value = null;
@@ -100,18 +129,11 @@ export default defineComponent({
     const onFileDrop = (event: DragEvent) => {
       event.preventDefault();
 
-      if (event.dataTransfer?.items) {
-        for (let i = 0; i < event.dataTransfer.items.length; i++) {
-          if (event.dataTransfer.items[i].kind === 'file') {
-            currentFile.value = event.dataTransfer.items[i].getAsFile();
-          }
-        }
+      if (event.dataTransfer?.items &&
+        event.dataTransfer.items[0].kind === 'file') {
+        currentFile.value = event.dataTransfer.items[0].getAsFile();
       } else {
-        const len = event.dataTransfer?.files.length as number;
-
-        for (let i = 0; i < len; i++) {
-          currentFile.value = event.dataTransfer?.files[i] as File;
-        }
+        currentFile.value = event.dataTransfer?.files[0] as File;
       }
 
       isDragging.value = false;
@@ -119,7 +141,15 @@ export default defineComponent({
 
     watch(currentFile, (value) => {
       if (value) {
-        emit('file-change', value);
+        if (isImageFile(value)) {
+          emit('fileChange', value);
+        } else {
+          currentFile.value = null;
+          validationError.value =
+            'Only .png, .jpeg, .svg, and .ico file are allowed';
+        }
+      } else {
+        emit('fileChange', null);
       }
     });
 
@@ -130,6 +160,7 @@ export default defineComponent({
       deleteFile,
       isDragging,
       onFileDrop,
+      validationError,
     };
   },
 });
