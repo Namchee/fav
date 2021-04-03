@@ -43,5 +43,6 @@ export default defineComponent({
   place-items: center;
   position: sticky;
   top: 25%;
+  margin: auto;
 }
 </style>

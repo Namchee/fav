@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen flex flex-col items-start">
     <navigation />
-    <main class="mx-auto w-full max-w-4xl mb-8">
+    <main class="mx-auto w-full max-w-4xl py-12">
       <div class="py-12">
         <h1 class="font-semibold
           text-5xl text-gray-800
@@ -90,6 +90,7 @@
         </div>
       </div>
     </main>
+    <Footer />
   </div>
 </template>
 
@@ -97,9 +98,13 @@
 import { defineComponent, Ref, ref } from 'vue';
 
 import Navigation from './components/Navigation.vue';
+import Footer from './components/Footer.vue';
+
 import PreviewBox from './components/PreviewBox.vue';
 import UploadBox from './components/UploadBox.vue';
 import PlatformBox from './components/PlatformBox.vue';
+
+
 import GlobeIcon from './assets/icons/globe.svg';
 import AtomIcon from './assets/icons/atom.svg';
 import AndroidIcon from './assets/icons/android.svg';
@@ -110,6 +115,7 @@ import { toBase64 } from './utils';
 export default defineComponent({
   components: {
     Navigation,
+    Footer,
     PreviewBox,
     UploadBox,
     PlatformBox,
