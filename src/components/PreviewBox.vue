@@ -41,5 +41,7 @@ export default defineComponent({
   height: auto;
   display: grid;
   place-items: center;
+  position: sticky;
+  top: 25%;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen flex flex-col items-start">
     <navigation />
-    <main class="mx-auto w-full max-w-4xl">
+    <main class="mx-auto w-full max-w-4xl mb-8">
       <div class="py-12">
         <h1 class="font-semibold
           text-5xl text-gray-800
@@ -22,7 +22,9 @@
               Step 1: Upload an image
             </p>
 
-            <UploadBox @file-change="handleFileUpload" />
+            <UploadBox
+              @file-change="handleFileUpload"
+              :error="fileError" />
           </div>
 
           <div>
@@ -55,6 +57,11 @@
                 </template>
               </PlatformBox>
             </div>
+
+            <p v-if="platformError"
+              class="font-bold text-red-700 italic mt-2">
+              {{ platformError }}
+            </p>
           </div>
 
           <div>
@@ -71,13 +78,14 @@
               transition-colors
               hover:bg-indigo-800
               focus:outline-none
-              focus:ring-2 focus:ring-indigo-300">
+              focus:ring-2 focus:ring-indigo-300"
+              @click="generateIcons">
               Generate
             </button>
           </div>
         </div>
 
-        <div class="grid place-items-center">
+        <div>
           <preview-box :value="imageBlob" />
         </div>
       </div>
@@ -113,10 +121,12 @@ export default defineComponent({
 
   setup() {
     const file: Ref<File | null> = ref(null);
-    const fileError: Ref<string> = ref('');
     const imageBlob: Ref<string> = ref('');
 
     const selectedPlatforms: Ref<string[]> = ref(['legacy']);
+
+    const fileError: Ref<string> = ref('');
+    const platformError: Ref<string> = ref('');
 
     const handleFileUpload = async (val: File | null) => {
       file.value = val;
@@ -130,8 +140,18 @@ export default defineComponent({
       }
     };
 
-    const handleSubmit = () => {
-      fileError.value = 'Require';
+    const generateIcons = () => {
+      if (!file.value) {
+        fileError.value = 'This field is required';
+      }
+
+      if (!selectedPlatforms.value.length) {
+        platformError.value = 'These fields are required';
+      }
+
+      if (file.value || selectedPlatforms.value) {
+        return;
+      }
     };
 
     const platforms = [
@@ -163,10 +183,12 @@ export default defineComponent({
 
     return {
       handleFileUpload,
-      handleSubmit,
+      generateIcons,
       imageBlob,
       selectedPlatforms,
       platforms,
+      fileError,
+      platformError,
     };
   },
 });
