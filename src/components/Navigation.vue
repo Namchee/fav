@@ -1,6 +1,8 @@
 <template>
   <nav class="w-full max-w-4xl
-    py-6
+    p-6
+    md:px-8
+    lg:px-0
     mx-auto
     flex justify-between items-center">
     <header>

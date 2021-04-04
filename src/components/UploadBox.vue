@@ -41,20 +41,20 @@
           h-full"
           :class="{ 'bg-gray-50': isDragging, 'border-gray-300': isDragging }">
           <template v-if="isDragging">
-            <FileIcon class="w-16 h-auto text-gray-400" />
+            <FileIcon class="w-12 lg:w-16 h-auto text-gray-400" />
             <p class="leading-normal text-gray-400 text-lg font-bold">
               Drop your image now
             </p>
           </template>
           <template v-else>
-            <UploadIcon class="w-16 h-auto text-gray-400" />
-            <p class="leading-normal text-gray-400 mt-2 text-lg">
+            <UploadIcon class="w-12 lg:w-16 h-auto text-gray-400" />
+            <p class="leading-normal text-gray-400 mt-6 lg:mt-2 text-lg">
               <span class="text-indigo-400 font-bold">
                 Upload a file
               </span>
               or drag and drop
             </p>
-            <p class="italic text-sm text-gray-400">
+            <p class="text-center italic text-sm text-gray-400">
               Accepts .png, .jpeg, .ico, and .svg (max 192 KB)
             </p>
           </template>

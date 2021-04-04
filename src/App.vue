@@ -1,22 +1,24 @@
 <template>
   <div class="min-h-screen flex flex-col items-start">
     <navigation />
-    <main class="mx-auto w-full max-w-4xl py-12">
-      <div class="py-12">
+    <main class="mx-auto w-full max-w-4xl py-12 px-6 md:px-8 lg:px-0">
+      <div class="lg:leading-normal py-12">
         <h1 class="font-semibold
-          text-5xl text-gray-800
+          text-4xl text-gray-800
           tracking-tight
-          leading-normal">
+          leading-tight
+          lg:text-5xl
+          lg:leading-normal">
           Modern favicons for modern websites.
         </h1>
 
-        <h2 class="text-2xl text-gray-500 tracking-tight leading-normal">
+        <h2 class="text-lg text-gray-500 tracking-tight lg:text-2xl">
           Generate compact favicon set for your 2021 websites.
         </h2>
       </div>
 
       <div class="app py-8">
-        <div class="space-y-8">
+        <div class="space-y-10">
           <div>
             <p class="form__header">
               Step 1: Upload an image
@@ -103,7 +105,6 @@ import Footer from './components/Footer.vue';
 import PreviewBox from './components/PreviewBox.vue';
 import UploadBox from './components/UploadBox.vue';
 import PlatformBox from './components/PlatformBox.vue';
-
 
 import GlobeIcon from './assets/icons/globe.svg';
 import AtomIcon from './assets/icons/atom.svg';
@@ -201,13 +202,21 @@ export default defineComponent({
 </script>
 
 <style lang="postcss" scoped>
-.app {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  column-gap: 8rem;
-}
-
 .form__header {
   @apply text-gray-500 text-lg leading-loose mb-2;
+}
+
+@screen md {
+  .app {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 4rem;
+  }
+}
+
+@screen lg {
+  .app {
+    column-gap: 8rem;
+  }
 }
 </style>
