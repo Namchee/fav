@@ -1,5 +1,5 @@
 <template>
-  <div class="rounded-md preview__box">
+  <div class="rounded-md mt-8 md:mt-0 preview__box">
     <template v-if="value === ''">
       <div class="w-full h-full
         flex flex-col justify-center
@@ -41,7 +41,8 @@ export default defineComponent({
   width: 100%;
   max-width: 20rem;
   height: auto;
-  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
   display: grid;
   place-items: center;
   position: sticky;
