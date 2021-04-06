@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html, body {
+  scroll-behavior: smooth;
+}
+
 @font-face {
   font-family: 'Anderson Grotesk';
   src: local('Anderson Grotesk'), 

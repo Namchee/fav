@@ -8,14 +8,14 @@
     "jsx": "preserve",
     "moduleResolution": "node",
     "types": [
-      "node",
       "vite-svg-loader",
       "vite/client"
     ]
   },
   "include": [
     "./src/**/*.ts",
-    "./src/**/*.vue"
+    "./src/**/*.vue",
+    "./src/vue-shims.d.ts"
   ],
   "exclude": [
     "node_modules"

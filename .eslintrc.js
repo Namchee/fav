@@ -18,6 +18,10 @@ module.exports = {
     '@typescript-eslint',
   ],
   'rules': {
+    'indent': [
+      'error',
+      2,
+    ],
     'linebreak-style': [
       'warn',
       'windows',
@@ -26,5 +30,6 @@ module.exports = {
       'error',
       'always',
     ],
+    'require-jsdoc': 'off',
   },
 };

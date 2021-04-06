@@ -19,7 +19,7 @@
 
       <div class="app py-8">
         <div class="space-y-10">
-          <div>
+          <div ref="upload">
             <p class="form__header">
               Step 1: Upload an image
             </p>
@@ -29,7 +29,7 @@
               :error="fileError" />
           </div>
 
-          <div>
+          <div ref="platformSelector">
             <p class="form__header">
               Step 2: Choose your favicons flavor
             </p>
@@ -71,18 +71,29 @@
               Step 3: Generate!
             </p>
 
-            <button class="bg-indigo-700
-              text-white
+            <button class="text-white
               rounded-md
               px-4 py-2
               text-lg
               tracking-wide
               transition-colors
-              hover:bg-indigo-800
               focus:outline-none
               focus:ring-2 focus:ring-indigo-300"
+              :class="generatorClass"
+              :disabled="isProcessing"
+              :aria-disabled="isProcessing"
               @click="generateIcons">
-              Generate
+              <template v-if="isProcessing">
+                <div class="flex items-center">
+                  <LoadingIcon class="w-5 h-5 animate-spin" />
+                  <span class="ml-3">
+                    Processing
+                  </span>
+                </div>
+              </template>
+              <template v-else>
+                Generate
+              </template>
             </button>
           </div>
         </div>
@@ -97,7 +108,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, Ref, ref } from 'vue';
+import { computed, defineComponent, Ref, ref } from 'vue';
 
 import Navigation from './components/Navigation.vue';
 import Footer from './components/Footer.vue';
@@ -110,8 +121,9 @@ import GlobeIcon from './assets/icons/globe.svg';
 import AtomIcon from './assets/icons/atom.svg';
 import AndroidIcon from './assets/icons/android.svg';
 import AppleIcon from './assets/icons/apple.svg';
+import LoadingIcon from './assets/icons/loading.svg';
 
-import { toBase64 } from './utils';
+import { generateFavicons } from './utils';
 
 export default defineComponent({
   components: {
@@ -124,6 +136,7 @@ export default defineComponent({
     AtomIcon,
     AndroidIcon,
     AppleIcon,
+    LoadingIcon,
   },
 
   setup() {
@@ -135,19 +148,34 @@ export default defineComponent({
     const fileError: Ref<string> = ref('');
     const platformError: Ref<string> = ref('');
 
+    const upload: Ref<HTMLElement | null> = ref(null);
+    const platformSelector: Ref<HTMLElement | null> = ref(null);
+
+    const isProcessing = ref(false);
+    const generatorClass = computed(() => {
+      return {
+        'hover:bg-indigo-800': !isProcessing.value,
+        'bg-indigo-700': !isProcessing.value,
+        'bg-indigo-500': isProcessing.value,
+        'cursor-not-allowed': isProcessing.value,
+      };
+    });
+
     const handleFileUpload = async (val: File | null) => {
       file.value = val;
 
       if (!val) {
         imageBlob.value = '';
       } else {
-        const encodedFile = await toBase64(val);
-
-        imageBlob.value = encodedFile as string;
+        imageBlob.value = URL.createObjectURL(val);
       }
     };
 
-    const generateIcons = () => {
+    const generateIcons = async () => {
+      if (isProcessing.value) {
+        return;
+      }
+
       if (!file.value) {
         fileError.value = 'This field is required';
       }
@@ -156,9 +184,37 @@ export default defineComponent({
         platformError.value = 'These fields are required';
       }
 
-      if (file.value || selectedPlatforms.value) {
+      if (!file.value || !selectedPlatforms.value.length) {
+        if (upload.value) {
+          upload.value.scrollIntoView();
+        } else if (platformSelector.value) {
+          platformSelector.value.scrollIntoView();
+        }
+
         return;
       }
+
+      isProcessing.value = true;
+
+      const blobZip = await generateFavicons(
+        file.value,
+        selectedPlatforms.value,
+      );
+
+      isProcessing.value = false;
+
+      const filename = `${new Date().getTime()} - a.zip`;
+
+      const dummyElem = document.createElement('a');
+      dummyElem.style.display = 'none';
+
+      const url = URL.createObjectURL(blobZip);
+
+      dummyElem.href = url;
+      dummyElem.download = filename;
+      dummyElem.click();
+
+      URL.revokeObjectURL(url);
     };
 
     const platforms = [
@@ -196,6 +252,9 @@ export default defineComponent({
       platforms,
       fileError,
       platformError,
+      isProcessing,
+      generatorClass,
+      upload,
     };
   },
 });
