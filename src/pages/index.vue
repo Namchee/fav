@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-4xl mx-auto">
+  <div class="max-w-4xl mx-auto py-6">
     <div class="lg:leading-normal py-12">
       <h1
         class="font-semibold
@@ -42,8 +42,7 @@
               :key="platform.value"
               v-model:platforms="selectedPlatforms"
               :value="platform.value"
-
-              :disabled="platform.value === 'modern'"
+              :disabled="platform.value === 'legacy'"
             >
               <template #icon>
                 <component
@@ -144,7 +143,7 @@ export default defineComponent({
     const file: Ref<File | null> = ref(null);
     const imageBlob: Ref<string> = ref('');
 
-    const selectedPlatforms: Ref<string[]> = ref(['modern']);
+    const selectedPlatforms: Ref<string[]> = ref(['legacy']);
 
     const fileError: Ref<string> = ref('');
     const platformError: Ref<string> = ref('');
@@ -223,16 +222,16 @@ export default defineComponent({
 
     const platforms = [
       {
-        name: 'Modern',
-        description: 'Brings modern favicon features',
-        icon: 'AtomIcon',
-        value: 'modern',
-      },
-      {
         name: 'Legacy',
         description: 'Supported by classic to modern browsers',
         icon: 'GlobeIcon',
         value: 'legacy',
+      },
+      {
+        name: 'Modern',
+        description: 'Brings modern favicon features',
+        icon: 'AtomIcon',
+        value: 'modern',
       },
       {
         name: 'Android',

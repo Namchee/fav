@@ -1,8 +1,8 @@
 <template>
   <nav
-    class="w-full max-w-4xl
-      px-6
-      py-8
+    class="w-full
+      max-w-4xl
+      px-6 py-12
       md:px-8
       lg:px-0
       mx-auto

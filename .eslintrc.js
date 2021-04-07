@@ -15,7 +15,6 @@ module.exports = {
     'sourceType': 'module',
   },
   'plugins': [
-    'vue',
     '@typescript-eslint',
   ],
   'rules': {
@@ -36,5 +35,6 @@ module.exports = {
       'always',
     ],
     'require-jsdoc': 'off',
+    'vue/no-v-model-argument': 'off',
   },
 };

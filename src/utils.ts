@@ -1,5 +1,6 @@
 import * as Pica from 'pica';
 import * as JSZip from 'jszip';
+import * as ImageTracer from 'imagetracerjs';
 
 const manifest = `{
   "icons": [
@@ -11,7 +12,7 @@ const manifest = `{
 interface Favicon {
   name: string;
   mime: string;
-  size: number;
+  size?: number;
 }
 
 interface ImageBlob {
@@ -25,6 +26,12 @@ const platformIcons: Record<string, Favicon[]> = {
       name: 'favicon.ico',
       mime: 'image/x-icon',
       size: 32,
+    },
+  ],
+  modern: [
+    {
+      name: 'icon.svg',
+      mime: 'image/svg+xml',
     },
   ],
   android: [
@@ -85,25 +92,35 @@ export async function generateFavicons(
   const img = await fileToImage(image);
 
   for (const platform of platforms) {
-    if (platform === 'modern') {
-      continue;
-    }
-
     const favicons = platformIcons[platform];
 
     if (favicons) {
       for (const favicon of favicons) {
         const canvas = document.createElement('canvas');
-        canvas.width = favicon.size;
-        canvas.height = favicon.size;
+        if (favicon.size) {
+          canvas.width = favicon.size;
+          canvas.height = favicon.size;
 
-        const resizerCanvas = await resizer.resize(img, canvas, {
-          unsharpRadius: 50,
-          alpha: true,
-        });
+          const resizerCanvas = await resizer.resize(img, canvas, {
+            unsharpRadius: 50,
+            alpha: true,
+          });
 
-        const blob = await resizer.toBlob(resizerCanvas, favicon.mime);
-        ibs.push({ name: favicon.name, blob });
+          const blob = await resizer.toBlob(resizerCanvas, favicon.mime);
+          ibs.push({ name: favicon.name, blob });
+        } else if (image.type !== 'image/svg+xml') { // it's an svg
+          canvas.height = img.height;
+          canvas.width = img.width;
+
+          const ctx = canvas.getContext('2d');
+          ctx?.drawImage(img, 0, 0);
+
+          const imgData = ImageTracer.getImgdata(canvas);
+          const svgString = ImageTracer.imagedataToSVG(imgData);
+
+          const blob = new Blob([svgString], { type: favicon.mime });
+          ibs.push({ name: favicon.name, blob });
+        }
       }
     } else {
       throw new Error(`Illegal platform: ${platform}`);
@@ -122,9 +139,14 @@ export async function generateFavicons(
     );
   }
 
+  if (image.type === 'image/svg+xml' && platforms.includes('modern')) {
+    const renamed = new File([image], 'icon.svg');
+
+    files.push(renamed);
+  }
+
   const archiver = new JSZip();
   files.forEach((file) => archiver.file(file.name, file));
-  archiver.file('icon.svg', image);
 
   return archiver.generateAsync({ type: 'blob', mimeType: 'application/zip' });
 }

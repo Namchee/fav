@@ -10,3 +10,5 @@ declare module '*.svg?inline' {
 
   export default content;
 }
+
+declare module 'imagetracerjs'

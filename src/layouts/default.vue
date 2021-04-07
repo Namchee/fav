@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col items-start">
     <Navigation />
-    <main class="w-full flex-1 py-8">
+    <main class="w-full flex-1">
       <nuxt />
     </main>
     <Footer />

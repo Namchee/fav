@@ -63,7 +63,7 @@
               or drag and drop
             </p>
             <p class="text-center italic text-sm text-gray-400">
-              Accepts SVG file (max 192 KB)
+              Accepts .png, .jpeg, .ico, and .svg file (max 192 KB)
             </p>
           </template>
         </div>
@@ -73,7 +73,11 @@
         ref="fileInput"
         type="file"
         class="hidden"
-        accept="image/svg+xml"
+        accept="image/png,
+          image/jpeg,
+          image/x-icon,
+          image/vnd-microsoft-icon,
+          image/svg+xml"
         @change="onFileChange"
       >
       <p
@@ -109,7 +113,7 @@ export default defineComponent({
   },
 
   emits: [
-    'fileChange',
+    'file-change',
   ],
 
   setup(_, { emit }) {
@@ -120,8 +124,12 @@ export default defineComponent({
 
     const isDragging = ref(false);
 
-    const isImageFile = (currentFile: File): boolean => {
+    const isSupported = (currentFile: File): boolean => {
       return [
+        'image/png',
+        'image/jpeg',
+        'image/x-icon',
+        'image/vnd-microsoft-icon',
         'image/svg+xml',
       ].includes(currentFile.type);
     };
@@ -151,15 +159,15 @@ export default defineComponent({
 
     watch(currentFile, (value) => {
       if (value) {
-        if (isImageFile(value)) {
-          emit('fileChange', value);
+        if (isSupported(value)) {
+          emit('file-change', value);
         } else {
           currentFile.value = null;
           validationError.value =
-            'Only SVG file are allowed';
+            'Only .png, .jpeg, .ico, and .svg files are allowed';
         }
       } else {
-        emit('fileChange', null);
+        emit('file-change', null);
       }
     });
 
