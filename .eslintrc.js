@@ -6,6 +6,7 @@ module.exports = {
   },
   'extends': [
     'plugin:vue/essential',
+    '@nuxtjs/eslint-config-typescript',
     'google',
   ],
   'parserOptions': {
@@ -18,6 +19,10 @@ module.exports = {
     '@typescript-eslint',
   ],
   'rules': {
+    'semi': [
+      'error',
+      'always',
+    ],
     'indent': [
       'error',
       2,

@@ -1,26 +1,31 @@
 <template>
   <footer class="w-full">
-    <div class="
-      flex flex-col items-center md:flex-row md:justify-between
-      w-full
-      max-w-4xl
-      mx-auto
-      border-t border-gray-200
-      p-8
-      lg:px-2
-      text-sm
-      text-gray-700">
+    <div
+      class="flex flex-col items-center md:flex-row md:justify-between
+        w-full
+        max-w-4xl
+        mx-auto
+        border-t border-gray-200
+        p-8
+        lg:px-2
+        text-sm
+      text-gray-700"
+    >
       <p>
-        Inspired by <a
+        Inspired by
+        <a
           class="link"
-          href="https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs" target="_blank">
-            this blogpost
-          </a>
+          href="https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs"
+          target="_blank"
+        >
+          this blogpost
+        </a>
         written by
         <a
           class="link"
           href="https://evilmartians.com/"
-          target="_blank">
+          target="_blank"
+        >
           Evil Martians
         </a>
       </p>
@@ -36,7 +41,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from '@nuxtjs/composition-api';
 
 export default defineComponent({});
 </script>

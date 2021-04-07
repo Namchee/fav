@@ -1,45 +1,53 @@
 <template>
   <div>
     <template v-if="currentFile">
-      <div class="flex justify-between
-        rounded-md p-3 pl-6 border border-gray-200">
+      <div
+        class="flex justify-between
+        rounded-md p-3 pl-6 border border-gray-200"
+      >
         <div class="text-gray-500 flex justify-center">
           <FileIcon class="w-5 h-auto mr-3" />
-          <p class="font-extrabold tracking-tight
-            overflow-hidden
-            overflow-ellipsis
-            leading-loose
-            file__name">
+          <p
+            class="font-extrabold tracking-tight
+              overflow-hidden
+              overflow-ellipsis
+              leading-loose
+              file__name"
+          >
             {{ currentFile.name }}
           </p>
         </div>
 
         <button
+          class="p-2 rounded-full transition-colors hover:bg-gray-100"
           @click="deleteFile"
-          class="p-2 rounded-full transition-colors hover:bg-gray-100">
+        >
           <CloseIcon class="w-4 h-auto text-gray-600" />
         </button>
       </div>
     </template>
     <template v-else>
       <label
+        for="image-file"
+        class="cursor-pointer block h-48
+          focus:outline-none
+          focus:ring-1 focus:ring-gray-300"
         tabindex="0"
         @dragenter="isDragging = true"
         @dragleave="isDragging = false"
         @dragover.prevent
         @drop="onFileDrop($event)"
-        for="image-file"
-        class="cursor-pointer block h-48
-          focus:outline-none
-          focus:ring-1 focus:ring-gray-300">
-        <div class="border-2 border-gray-200 border-dashed
-          grid place-items-center
-          rounded-md p-8
-          transition-colors
-          hover:bg-gray-50
-          hover:border-gray-300
-          h-full"
-          :class="{ 'bg-gray-50': isDragging, 'border-gray-300': isDragging }">
+      >
+        <div
+          class="border-2 border-gray-200 border-dashed
+            grid place-items-center
+            rounded-md p-8
+            transition-colors
+            hover:bg-gray-50
+            hover:border-gray-300
+            h-full"
+          :class="{ 'bg-gray-50': isDragging, 'border-gray-300': isDragging }"
+        >
           <template v-if="isDragging">
             <FileIcon class="w-12 lg:w-16 h-auto text-gray-400" />
             <p class="leading-normal text-gray-400 text-lg font-bold">
@@ -58,18 +66,20 @@
               Accepts SVG file (max 192 KB)
             </p>
           </template>
-      </div>
+        </div>
       </label>
       <input
-        type="file"
-        class="hidden"
         id="image-file"
         ref="fileInput"
+        type="file"
+        class="hidden"
         accept="image/svg+xml"
         @change="onFileChange"
-      />
-      <p v-if="error || validationError"
-        class="font-bold text-red-700 italic mt-2">
+      >
+      <p
+        v-if="error || validationError"
+        class="font-bold text-red-700 italic mt-2"
+      >
         {{ error || validationError }}
       </p>
     </template>
@@ -77,15 +87,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, Ref, watch } from 'vue';
-import UploadIcon from './../assets/icons/upload.svg';
-import FileIcon from './../assets/icons/file.svg';
-import CloseIcon from './../assets/icons/close.svg';
+import { defineComponent, ref, Ref, watch } from '@nuxtjs/composition-api';
+
+import UploadIcon from '@/assets/icons/upload.svg?inline';
+import FileIcon from '@/assets/icons/file.svg?inline';
+import CloseIcon from '@/assets/icons/close.svg?inline';
 
 export default defineComponent({
-  emits: [
-    'fileChange',
-  ],
+  components: {
+    UploadIcon,
+    FileIcon,
+    CloseIcon,
+  },
 
   props: {
     error: {
@@ -95,11 +108,9 @@ export default defineComponent({
     },
   },
 
-  components: {
-    UploadIcon,
-    FileIcon,
-    CloseIcon,
-  },
+  emits: [
+    'fileChange',
+  ],
 
   setup(_, { emit }) {
     const currentFile: Ref<File | null> = ref(null);

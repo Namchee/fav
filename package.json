@@ -1,21 +1,27 @@
 {
   "name": "fav",
+  "private": true,
   "version": "1.0.0",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "serve": "vite preview",
-    "eslint:init": "eslint --init",
-    "tailwind:init": "tailwind init",
-    "tsc:init": "tsc --init"
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "generate": "nuxt generate",
+    "start": "nuxt start"
   },
   "dependencies": {
+    "@nuxtjs/composition-api": "^0.22.4",
+    "@nuxtjs/tailwindcss": "^4.0.3",
     "@tailwindcss/forms": "^0.3.2",
+    "imagetracerjs": "^1.2.6",
     "jszip": "^3.6.0",
-    "pica": "^6.1.1",
-    "vue": "^3.0.5"
+    "nuxt": "^2.15.4",
+    "pica": "^6.1.1"
   },
   "devDependencies": {
+    "@nuxt/types": "^2.15.4",
+    "@nuxt/typescript-build": "^2.1.0",
+    "@nuxtjs/eslint-config-typescript": "^6.0.0",
+    "@nuxtjs/svg": "^0.1.12",
     "@tailwindcss/jit": "^0.1.17",
     "@types/pica": "^5.1.2",
     "@typescript-eslint/eslint-plugin": "^4.19.0",

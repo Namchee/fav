@@ -15,11 +15,12 @@
         'bg-gray-100': checked,
         'hover:bg-gray-100': checked,
         'focus:bg-gray-100': checked
-      }">
+      }"
+    >
       <input
-        tabindex="-1"
-        ref="checkbox"
         :id="id"
+        ref="checkbox"
+        tabindex="-1"
         type="checkbox"
         class="rounded-md
           w-4 h-4
@@ -27,10 +28,11 @@
           focus:outline-none
           focus:ring-2 focus:ring-indigo-500"
         :class="checkboxClass"
-        :value='value'
+        :value="value"
         :checked="checked"
+        :disabled="disabled"
         @change="handleChecked"
-        :disabled="disabled" />
+      >
 
       <div class="ml-4 flex items-center">
         <slot name="icon" />
@@ -44,16 +46,21 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue';
+import { defineComponent, computed } from '@nuxtjs/composition-api';
 
 export default defineComponent({
+  model: {
+    prop: 'platforms',
+    event: 'updatePlatforms',
+  },
+
   props: {
     id: {
       type: String,
       required: true,
     },
 
-    modelValue: {
+    platforms: {
       type: Array,
       required: true,
     },
@@ -71,7 +78,7 @@ export default defineComponent({
   },
 
   setup(props, { emit }) {
-    const checked = computed(() => props.modelValue.includes(props.value));
+    const checked = computed(() => props.platforms.includes(props.value));
 
     const checkboxClass = computed(() => {
       return {
@@ -81,7 +88,7 @@ export default defineComponent({
     });
 
     const handleChecked = () => {
-      const newVal = [...props.modelValue];
+      const newVal = [...props.platforms];
 
       if (checked.value) {
         newVal.splice(newVal.indexOf(props.value), 1);
@@ -89,7 +96,7 @@ export default defineComponent({
         newVal.push(props.value);
       }
 
-      emit('update:modelValue', newVal);
+      emit('updatePlatforms', newVal);
     };
 
     return {

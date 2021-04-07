@@ -7,6 +7,15 @@
     "strict": true,
     "jsx": "preserve",
     "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      "~/*": [
+        "./src/*"
+      ],
+      "@/*": [
+        "./src/*"
+      ]
+    },
     "types": [
       "vite-svg-loader",
       "vite/client"

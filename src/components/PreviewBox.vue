@@ -1,9 +1,11 @@
 <template>
   <div class="rounded-md mt-8 md:mt-0 preview__box">
     <template v-if="value === ''">
-      <div class="w-full h-full
-        flex flex-col justify-center
-        p-12 text-center text-gray-300">
+      <div
+        class="w-full h-full
+          flex flex-col justify-center
+          p-12 text-center text-gray-300"
+      >
         <p class="text-4xl leading-loose mb-2">
           ¯\_(ツ)_/¯
         </p>
@@ -14,13 +16,13 @@
       </div>
     </template>
     <template v-else>
-      <img :src="value" title="Favicon" />
+      <img :src="value" title="Favicon">
     </template>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from '@nuxtjs/composition-api';
 
 export default defineComponent({
   props: {

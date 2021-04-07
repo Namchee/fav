@@ -1,77 +1,84 @@
 <template>
-  <div class="min-h-screen flex flex-col items-start">
-    <navigation />
-    <main class="mx-auto w-full max-w-4xl py-12 px-6 md:px-8 lg:px-0">
-      <div class="lg:leading-normal py-12">
-        <h1 class="font-semibold
+  <div class="max-w-4xl mx-auto">
+    <div class="lg:leading-normal py-12">
+      <h1
+        class="font-semibold
           text-4xl text-gray-800
           tracking-tight
           leading-tight
           lg:text-5xl
-          lg:leading-normal">
-          Modern favicons for modern websites.
-        </h1>
+          lg:leading-normal"
+      >
+        Modern favicons for modern websites.
+      </h1>
 
-        <h2 class="text-lg text-gray-500 tracking-tight lg:text-2xl">
-          Generate compact favicon set for your 2021 websites.
-        </h2>
-      </div>
+      <h2 class="text-lg text-gray-500 tracking-tight lg:text-2xl">
+        Generate compact favicon set for your 2021 websites.
+      </h2>
+    </div>
 
-      <div class="app py-8">
-        <div class="space-y-10">
-          <div ref="upload">
-            <p class="form__header">
-              Step 1: Upload an image
-            </p>
+    <div class="app py-8">
+      <div class="space-y-10">
+        <div ref="upload">
+          <p class="form__header">
+            Step 1: Upload an image
+          </p>
 
-            <UploadBox
-              @file-change="handleFileUpload"
-              :error="fileError" />
+          <UploadBox
+            :error="fileError"
+            @file-change="handleFileUpload"
+          />
+        </div>
+
+        <div ref="platformSelector">
+          <p class="form__header">
+            Step 2: Choose your favicons flavor
+          </p>
+
+          <div class="space-y-2">
+            <PlatformBox
+              v-for="platform in platforms"
+              :id="platform.value"
+              :key="platform.value"
+              v-model:platforms="selectedPlatforms"
+              :value="platform.value"
+
+              :disabled="platform.value === 'modern'"
+            >
+              <template #icon>
+                <component
+                  :is="platform.icon"
+                  class="w-8 h-8 stroke-current"
+                />
+              </template>
+              <template #title>
+                <p class="font-bold text-lg">
+                  {{ platform.name }}
+                </p>
+              </template>
+              <template #description>
+                <p class="italic text-sm">
+                  {{ platform.description }}
+                </p>
+              </template>
+            </PlatformBox>
           </div>
 
-          <div ref="platformSelector">
-            <p class="form__header">
-              Step 2: Choose your favicons flavor
-            </p>
+          <p
+            v-if="platformError"
+            class="font-bold text-red-700 italic mt-2"
+          >
+            {{ platformError }}
+          </p>
+        </div>
 
-            <div class="space-y-2">
-              <PlatformBox
-                v-for="platform in platforms"
-                :key="platform.value"
-                :id="platform.value"
-                :value="platform.value"
-                :disabled="platform.value === 'modern'"
-                v-model="selectedPlatforms">
-                <template v-slot:icon>
-                  <component
-                    :is="platform.icon"
-                    class="w-8 h-8 stroke-current" />
-                </template>
-                <template v-slot:title>
-                  <p class="font-bold text-lg">
-                    {{ platform.name }}
-                  </p>
-                </template>
-                <template v-slot:description>
-                  <p class="italic text-sm">
-                    {{ platform.description }}
-                  </p>
-                </template>
-              </PlatformBox>
-            </div>
+        <div>
+          <p class="form__header">
+            Step 3: Generate!
+          </p>
 
-            <p v-if="platformError"
-              class="font-bold text-red-700 italic mt-2">
-              {{ platformError }}
-            </p>
-          </div>
-
-          <div>
-            <p class="form__header">
-              Step 3: Generate!
-            </p>
-
-            <button class="text-white
+          <button
+            class="text-white
               rounded-md
               px-4 py-2
               text-lg
@@ -79,56 +86,50 @@
               transition-colors
               focus:outline-none
               focus:ring-2 focus:ring-indigo-300"
-              :class="generatorClass"
-              :disabled="isProcessing"
-              :aria-disabled="isProcessing"
-              @click="generateIcons">
-              <template v-if="isProcessing">
-                <div class="flex items-center">
-                  <LoadingIcon class="w-5 h-5 animate-spin" />
-                  <span class="ml-3">
-                    Processing
-                  </span>
-                </div>
-              </template>
-              <template v-else>
-                Generate
-              </template>
-            </button>
-          </div>
-        </div>
-
-        <div>
-          <preview-box :value="imageBlob" />
+            :class="generatorClass"
+            :disabled="isProcessing"
+            :aria-disabled="isProcessing"
+            @click="generateIcons"
+          >
+            <template v-if="isProcessing">
+              <div class="flex items-center">
+                <LoadingIcon class="w-5 h-5 animate-spin" />
+                <span class="ml-3">
+                  Processing
+                </span>
+              </div>
+            </template>
+            <template v-else>
+              Generate
+            </template>
+          </button>
         </div>
       </div>
-    </main>
-    <Footer />
+
+      <div>
+        <preview-box :value="imageBlob" />
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, Ref, ref } from 'vue';
+import { computed, defineComponent, Ref, ref } from '@nuxtjs/composition-api';
 
-import Navigation from './components/Navigation.vue';
-import Footer from './components/Footer.vue';
+import PreviewBox from '@/components/PreviewBox.vue';
+import UploadBox from '@/components/UploadBox.vue';
+import PlatformBox from '@/components/PlatformBox.vue';
 
-import PreviewBox from './components/PreviewBox.vue';
-import UploadBox from './components/UploadBox.vue';
-import PlatformBox from './components/PlatformBox.vue';
+import GlobeIcon from '@/assets/icons/globe.svg?inline';
+import AtomIcon from '@/assets/icons/atom.svg?inline';
+import AndroidIcon from '@/assets/icons/android.svg?inline';
+import AppleIcon from '@/assets/icons/apple.svg?inline';
+import LoadingIcon from '@/assets/icons/loading.svg?inline';
 
-import GlobeIcon from './assets/icons/globe.svg';
-import AtomIcon from './assets/icons/atom.svg';
-import AndroidIcon from './assets/icons/android.svg';
-import AppleIcon from './assets/icons/apple.svg';
-import LoadingIcon from './assets/icons/loading.svg';
-
-import { generateFavicons, getFilenameWithoutExtension } from './utils';
+import { generateFavicons, getFilenameWithoutExtension } from '@/utils';
 
 export default defineComponent({
   components: {
-    Navigation,
-    Footer,
     PreviewBox,
     UploadBox,
     PlatformBox,
@@ -161,7 +162,7 @@ export default defineComponent({
       };
     });
 
-    const handleFileUpload = async (val: File | null) => {
+    const handleFileUpload = (val: File | null) => {
       file.value = val;
 
       if (!val) {
