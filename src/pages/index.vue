@@ -76,6 +76,24 @@
             Step 3: Generate!
           </p>
 
+          <p class="flex items-center mb-8">
+            <input
+              id="template"
+              v-model="includeTemplate"
+              type="checkbox"
+              class="rounded
+                w-4 h-4
+                cursor-pointer
+                text-indigo-700
+                focus:outline-none
+                focus:ring-2 focus:ring-indigo-500"
+            >
+
+            <label for="template" class="cursor-pointer ml-3">
+              Include HTML template
+            </label>
+          </p>
+
           <button
             class="text-white
               rounded-md
@@ -151,6 +169,8 @@ export default defineComponent({
     const upload: Ref<HTMLElement | null> = ref(null);
     const platformSelector: Ref<HTMLElement | null> = ref(null);
 
+    const includeTemplate = ref(false);
+
     const isProcessing = ref(false);
     const generatorClass = computed(() => {
       return {
@@ -199,6 +219,7 @@ export default defineComponent({
       const blobZip = await generateFavicons(
         file.value,
         selectedPlatforms.value,
+        includeTemplate.value,
       );
 
       // eslint-disable-next-line max-len
@@ -258,6 +279,7 @@ export default defineComponent({
       isProcessing,
       generatorClass,
       upload,
+      includeTemplate,
     };
   },
 });

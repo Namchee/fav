@@ -22,7 +22,7 @@
         ref="checkbox"
         tabindex="-1"
         type="checkbox"
-        class="rounded-md
+        class="rounded
           w-4 h-4
           cursor-pointer
           focus:outline-none

@@ -9,6 +9,24 @@ const manifest = `{
   ]
 }`;
 
+const template = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sample Project</title>
+  <link rel="icon" href="/favicon.ico">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.webmanifest">
+</head>
+<body>
+  
+</body>
+</html>
+`;
+
 interface Favicon {
   name: string;
   mime: string;
@@ -85,6 +103,7 @@ export function getFilenameWithoutExtension(str: string): string {
 export async function generateFavicons(
   image: File,
   platforms: string[],
+  includeTemplate: boolean = false,
 ): Promise<Blob> {
   const resizer = new Pica();
   const ibs: ImageBlob[] = [];
@@ -143,6 +162,14 @@ export async function generateFavicons(
     const renamed = new File([image], 'icon.svg');
 
     files.push(renamed);
+  }
+
+  if (includeTemplate) {
+    const blob = new Blob([template]);
+
+    files.push(
+      blobToFile(blob, new Date(), 'index.html'),
+    );
   }
 
   const archiver = new JSZip();
