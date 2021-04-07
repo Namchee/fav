@@ -11,7 +11,7 @@ const manifest = `{
 interface Favicon {
   name: string;
   mime: string;
-  size?: number;
+  size: number;
 }
 
 interface ImageBlob {
@@ -25,12 +25,6 @@ const platformIcons: Record<string, Favicon[]> = {
       name: 'favicon.ico',
       mime: 'image/x-icon',
       size: 32,
-    },
-  ],
-  modern: [
-    {
-      name: 'icon.svg',
-      mime: 'image/svg+xml',
     },
   ],
   android: [
@@ -77,6 +71,10 @@ function fileToImage(src: File): Promise<HTMLImageElement> {
   });
 }
 
+export function getFilenameWithoutExtension(str: string): string {
+  return str.slice(0, str.lastIndexOf('.'));
+}
+
 export async function generateFavicons(
   image: File,
   platforms: string[],
@@ -87,26 +85,22 @@ export async function generateFavicons(
   const img = await fileToImage(image);
 
   for (const platform of platforms) {
+    if (platform === 'modern') {
+      continue;
+    }
+
     const favicons = platformIcons[platform];
 
     if (favicons) {
       for (const favicon of favicons) {
         const canvas = document.createElement('canvas');
-        let resizerCanvas: HTMLCanvasElement;
+        canvas.width = favicon.size;
+        canvas.height = favicon.size;
 
-        if (favicon.size) {
-          canvas.width = favicon.size;
-          canvas.height = favicon.size;
-
-          resizerCanvas = await resizer.resize(img, canvas, {
-            unsharpRadius: 50,
-            alpha: true,
-          });
-        } else {
-          resizerCanvas = await resizer.resize(img, canvas, {
-            alpha: true,
-          });
-        }
+        const resizerCanvas = await resizer.resize(img, canvas, {
+          unsharpRadius: 50,
+          alpha: true,
+        });
 
         const blob = await resizer.toBlob(resizerCanvas, favicon.mime);
         ibs.push({ name: favicon.name, blob });
@@ -130,23 +124,7 @@ export async function generateFavicons(
 
   const archiver = new JSZip();
   files.forEach((file) => archiver.file(file.name, file));
+  archiver.file('icon.svg', image);
 
   return archiver.generateAsync({ type: 'blob', mimeType: 'application/zip' });
-
-  /*
-  const files = resized.map(
-    (imageBlob) => blobToFile(imageBlob.blob, new Date(), imageBlob.name),
-  );
-
-  /*
-  files.forEach((file: File) => {
-    archiver.file(file.name, file);
-  });
-
-  archiver.file('a', blobToFile(resized[0].blob, new Date(), resized[0].name));
-
-  const archive = await archiver.generateAsync({ type: 'blob' });
-
-  // return archive;
-  */
 }

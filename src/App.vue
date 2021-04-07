@@ -40,7 +40,7 @@
                 :key="platform.value"
                 :id="platform.value"
                 :value="platform.value"
-                :disabled="platform.value === 'legacy'"
+                :disabled="platform.value === 'modern'"
                 v-model="selectedPlatforms">
                 <template v-slot:icon>
                   <component
@@ -123,7 +123,7 @@ import AndroidIcon from './assets/icons/android.svg';
 import AppleIcon from './assets/icons/apple.svg';
 import LoadingIcon from './assets/icons/loading.svg';
 
-import { generateFavicons } from './utils';
+import { generateFavicons, getFilenameWithoutExtension } from './utils';
 
 export default defineComponent({
   components: {
@@ -143,7 +143,7 @@ export default defineComponent({
     const file: Ref<File | null> = ref(null);
     const imageBlob: Ref<string> = ref('');
 
-    const selectedPlatforms: Ref<string[]> = ref(['legacy']);
+    const selectedPlatforms: Ref<string[]> = ref(['modern']);
 
     const fileError: Ref<string> = ref('');
     const platformError: Ref<string> = ref('');
@@ -201,9 +201,8 @@ export default defineComponent({
         selectedPlatforms.value,
       );
 
-      isProcessing.value = false;
-
-      const filename = `${new Date().getTime()} - a.zip`;
+      // eslint-disable-next-line max-len
+      const filename = `${new Date().getTime()}-${getFilenameWithoutExtension(file.value.name)}.zip`;
 
       const dummyElem = document.createElement('a');
       dummyElem.style.display = 'none';
@@ -214,21 +213,25 @@ export default defineComponent({
       dummyElem.download = filename;
       dummyElem.click();
 
-      URL.revokeObjectURL(url);
+      setTimeout(() => {
+        URL.revokeObjectURL(url);
+      }, 200);
+
+      isProcessing.value = false;
     };
 
     const platforms = [
-      {
-        name: 'Legacy',
-        description: 'Supported by almost all browsers',
-        icon: 'GlobeIcon',
-        value: 'legacy',
-      },
       {
         name: 'Modern',
         description: 'Brings modern favicon features',
         icon: 'AtomIcon',
         value: 'modern',
+      },
+      {
+        name: 'Legacy',
+        description: 'Supported by classic to modern browsers',
+        icon: 'GlobeIcon',
+        value: 'legacy',
       },
       {
         name: 'Android',

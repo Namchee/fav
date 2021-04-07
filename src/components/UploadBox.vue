@@ -55,7 +55,7 @@
               or drag and drop
             </p>
             <p class="text-center italic text-sm text-gray-400">
-              Accepts .png, .jpeg, .ico, and .svg (max 192 KB)
+              Accepts SVG file (max 192 KB)
             </p>
           </template>
       </div>
@@ -65,7 +65,7 @@
         class="hidden"
         id="image-file"
         ref="fileInput"
-        accept="image/png, image/jpeg, image/vnd.microsoft.icon, image/svg+xml"
+        accept="image/svg+xml"
         @change="onFileChange"
       />
       <p v-if="error || validationError"
@@ -111,10 +111,6 @@ export default defineComponent({
 
     const isImageFile = (currentFile: File): boolean => {
       return [
-        'image/png',
-        'image/jpeg',
-        'image/vnd.microsoft.icon',
-        'image/x-icon',
         'image/svg+xml',
       ].includes(currentFile.type);
     };
@@ -149,7 +145,7 @@ export default defineComponent({
         } else {
           currentFile.value = null;
           validationError.value =
-            'Only .png, .jpeg, .svg, and .ico file are allowed';
+            'Only SVG file are allowed';
         }
       } else {
         emit('fileChange', null);

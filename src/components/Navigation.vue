@@ -1,6 +1,7 @@
 <template>
   <nav class="w-full max-w-4xl
-    p-6
+    px-6
+    py-8
     md:px-8
     lg:px-0
     mx-auto
