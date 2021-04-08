@@ -185,7 +185,20 @@
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api';
 
-export default defineComponent({});
+export default defineComponent({
+  head() {
+    return {
+      title: 'About Fav - Modern Favicon Generator',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Fav is a next-generation icon generator for 2021 websites.',
+        },
+      ],
+    };
+  },
+});
 </script>
 
 <style lang="postcss" scoped>

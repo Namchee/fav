@@ -1,6 +1,5 @@
 export default {
   target: 'static',
-  ssr: false,
   srcDir: 'src',
   head: {
     title: 'Fav - Modern Favicon Generator',
@@ -15,6 +14,10 @@ export default {
       { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
       { rel: 'manifest', href: '/manifest.webmanifest' },
     ],
+  },
+  loading: {
+    color: '#6366F1',
+    height: '5px',
   },
   css: [
     '~/assets/style.css',

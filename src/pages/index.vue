@@ -282,6 +282,19 @@ export default defineComponent({
       includeTemplate,
     };
   },
+
+  head() {
+    return {
+      title: 'Fav - Modern Favicon Generator',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Generate your favicon in 3 simple steps.',
+        },
+      ],
+    };
+  },
 });
 </script>
 

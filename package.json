@@ -4,8 +4,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "nuxt",
-    "build": "nuxt build",
-    "generate": "nuxt generate",
+    "build": "nuxt generate",
     "start": "nuxt start"
   },
   "dependencies": {
