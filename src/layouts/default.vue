@@ -1,7 +1,16 @@
 <template>
-  <div class="flex flex-col items-start">
+  <div
+    class="h-screen
+      flex flex-col items-start"
+  >
     <Navigation />
-    <main class="w-full flex-1">
+    <main
+      class="w-full
+        flex-1
+        px-6
+        md:px-8
+        lg:px-0"
+    >
       <nuxt />
     </main>
     <Footer />

@@ -137,7 +137,7 @@ export async function generateFavicons(
           canvas.height = favicon.size;
 
           const resizerCanvas = await resizer.resize(img, canvas, {
-            unsharpRadius: 75,
+            unsharpRadius: 50,
             alpha: true,
           });
 

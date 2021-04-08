@@ -11,12 +11,13 @@
         text-sm
       text-gray-700"
     >
-      <p>
+      <p class="text-center md:text-left">
         Inspired by
         <a
           class="link"
           href="https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs"
           target="_blank"
+          rel="noopener"
         >
           this blogpost
         </a>
@@ -32,7 +33,7 @@
 
       <p class="mt-4 md:mt-0">
         Made in 2021 by
-        <a class="link" href="https://github.com/Namchee" target="_blank">
+        <a class="link" href="https://github.com/Namchee" target="_blank" rel="noopener">
           Namchee
         </a>
       </p>
