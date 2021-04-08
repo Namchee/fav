@@ -17,7 +17,7 @@ Fav is a next-generation favicons generator to generate a ready-to-use and compa
 
 Fav doesn't store any kind of data, since all image processing are done directly on your browser.
 
-Generate your favicon now with Fav by visiting [this link](https://fav.vercel.app/).
+Generate your favicon now with Fav by visiting [this link](https://fav-namchee.vercel.app/).
 ## References
 
 This project is inspired by:
