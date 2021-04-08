@@ -7,6 +7,52 @@ export default {
       { charset: 'utf-8' },
       { 'http-equiv': 'X-UA-Compatible', 'content': 'IE=edge' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { name: 'description', content: 'Fav - Modern Favicon Generator' },
+      {
+        hid: 'og:image',
+        name: 'og:image',
+        content: '/og-banner.png',
+      },
+      {
+        hid: 'og:title',
+        name: 'og:title',
+        content: 'Fav - Modern Favicon Generator',
+      },
+      {
+        hid: 'og:url',
+        name: 'og:url',
+        content: 'https://fav-namchee.vercel.app',
+      },
+      {
+        hid: 'og:type',
+        name: 'og:type',
+        content: 'website',
+      },
+      {
+        hid: 'twitter:card',
+        name: 'twitter:card',
+        content: 'summary_large_image',
+      },
+      {
+        hid: 'twitter:site',
+        name: 'twitter:site',
+        content: '@lakban_hitam',
+      },
+      {
+        hid: 'twitter:title',
+        name: 'twitter:title',
+        content: 'Fav - Modern Favicon Generator',
+      },
+      {
+        hid: 'twitter:image',
+        name: 'twitter:image',
+        content: '/og-banner.png',
+      },
+      {
+        hid: 'twitter:url',
+        name: 'og:url',
+        content: 'https://fav-namchee.vercel.app',
+      },
     ],
     link: [
       { rel: 'icon', href: '/favicon.ico' },

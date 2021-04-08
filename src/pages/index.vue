@@ -290,7 +290,17 @@ export default defineComponent({
         {
           hid: 'description',
           name: 'description',
-          content: 'Generate your favicon in 3 simple steps.',
+          content: 'Generate your modern favicon set in 3 simple steps.',
+        },
+        {
+          hid: 'og:description',
+          name: 'og:description',
+          content: 'Generate your modern favicon set in 3 simple steps.',
+        },
+        {
+          hid: 'twitter:description',
+          name: 'twitter:description',
+          content: 'Generate your modern favicon set in 3 simple steps.',
         },
       ],
     };

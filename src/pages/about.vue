@@ -195,6 +195,16 @@ export default defineComponent({
           name: 'description',
           content: 'Fav is a next-generation icon generator for 2021 websites.',
         },
+        {
+          hid: 'og:description',
+          name: 'og:description',
+          content: 'Fav is a next-generation icon generator for 2021 websites.',
+        },
+        {
+          hid: 'twitter:description',
+          name: 'twitter:description',
+          content: 'Fav is a next-generation icon generator for 2021 websites.',
+        },
       ],
     };
   },
