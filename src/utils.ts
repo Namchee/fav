@@ -9,24 +9,6 @@ const manifest = `{
   ]
 }`;
 
-const template = `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sample Project</title>
-  <link rel="icon" href="/favicon.ico">
-  <link rel="icon" href="/icon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="manifest" href="/manifest.webmanifest">
-</head>
-<body>
-  
-</body>
-</html>
-`;
-
 interface Favicon {
   name: string;
   mime: string;
@@ -73,6 +55,13 @@ const platformIcons: Record<string, Favicon[]> = {
   ],
 };
 
+const seoMap: Record<string, string> = {
+  legacy: '<link rel="icon" href="/favicon.ico">',
+  modern: '<link rel="icon" href="/icon.svg" type="image/svg+xml">',
+  apple: '<link rel="apple-touch-icon" href="/apple-touch-icon.png">',
+  android: '<link rel="manifest" href="/manifest.webmanifest">',
+};
+
 function blobToFile(
   blob: Blob,
   lastModified: Date,
@@ -94,6 +83,33 @@ function fileToImage(src: File): Promise<HTMLImageElement> {
     img.onload = () => resolve(img);
     img.onerror = (err) => reject(err);
   });
+}
+
+function buildTemplate(platforms: string[]) {
+  const template = `<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Project</title>
+    <icon-tag>
+  </head>
+  <body>
+
+  </body>
+</html>`;
+
+  const iconTag = [];
+
+  for (const platform of Object.keys(seoMap)) {
+    if (platforms.includes(platform)) {
+      iconTag.push(seoMap[platform]);
+    }
+  }
+
+  // use space for consistency
+  return template.replace('<icon-tag>', iconTag.join('\n    '));
 }
 
 export function getFilenameWithoutExtension(str: string): string {
@@ -121,7 +137,7 @@ export async function generateFavicons(
           canvas.height = favicon.size;
 
           const resizerCanvas = await resizer.resize(img, canvas, {
-            unsharpRadius: 50,
+            unsharpRadius: 75,
             alpha: true,
           });
 
@@ -159,13 +175,13 @@ export async function generateFavicons(
   }
 
   if (image.type === 'image/svg+xml' && platforms.includes('modern')) {
-    const renamed = new File([image], 'icon.svg');
+    const renamed = new File([image], 'icon.svg', { type: 'image/svg+xml' });
 
     files.push(renamed);
   }
 
   if (includeTemplate) {
-    const blob = new Blob([template]);
+    const blob = new Blob([buildTemplate(platforms)]);
 
     files.push(
       blobToFile(blob, new Date(), 'index.html'),
