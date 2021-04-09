@@ -19,6 +19,7 @@
           href="https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs"
           target="_blank"
           rel="noopener"
+          aria-label="EvilMartians Writeup"
         >
           this extensive writeup
         </a>
@@ -27,6 +28,7 @@
           href="https://evilmartians.com/"
           target="_blank"
           rel="noopener"
+          aria-label="EvilMartians Website"
         >
           Evil Martians.
         </a>
@@ -95,6 +97,8 @@
             <a
               href="#caveats"
               class="link"
+              rel="noopener"
+              aria-label="Anchor"
             >
               an SVG file is recommended.
             </a>
@@ -173,6 +177,7 @@
           class="link"
           rel="noopener"
           target="_blank"
+          aria-label="Repository Link"
         >
           repository.
         </a>

@@ -18,6 +18,7 @@
           href="https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs"
           target="_blank"
           rel="noopener"
+          aria-label="EvilMartians Writeup"
         >
           this blogpost
         </a>
@@ -26,6 +27,7 @@
           class="link"
           href="https://evilmartians.com/"
           target="_blank"
+          aria-label="EvilMartians Website"
         >
           Evil Martians
         </a>

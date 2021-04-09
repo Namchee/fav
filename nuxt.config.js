@@ -2,6 +2,9 @@ export default {
   target: 'static',
   srcDir: 'src',
   head: {
+    htmlAttrs: {
+      lang: 'en',
+    },
     title: 'Fav - Modern Favicon Generator',
     meta: [
       { charset: 'utf-8' },
