@@ -9,7 +9,7 @@
       flex justify-between items-center"
   >
     <header>
-      <nuxt-link to="/">
+      <nuxt-link to="/" aria-label="Fav">
         <Logo class="w-16 h-auto" role="banner" />
       </nuxt-link>
     </header>

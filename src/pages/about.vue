@@ -84,6 +84,7 @@
         Just head to the <nuxt-link
           class="link"
           to="/"
+          aria-label="Fav Homepage"
         >
           homepage
         </nuxt-link> and follow the instructions there.
@@ -97,7 +98,6 @@
             <a
               href="#caveats"
               class="link"
-              rel="noopener"
               aria-label="Anchor"
             >
               an SVG file is recommended.

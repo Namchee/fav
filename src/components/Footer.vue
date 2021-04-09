@@ -27,6 +27,7 @@
           class="link"
           href="https://evilmartians.com/"
           target="_blank"
+          rel="noopener"
           aria-label="EvilMartians Website"
         >
           Evil Martians
