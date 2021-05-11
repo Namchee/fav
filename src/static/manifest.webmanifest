@@ -1,4 +1,12 @@
 {
+  "name": "Fav",
+  "short_name": "Fav",
+  "theme_color": "#6366F1",
+  "background_color": "#FFFFFF",
+  "display": "standalone",
+  "orientation": "natural",
+  "scope": "/",
+  "start_url": "/",
   "icons": [
     { "src": "/192.png", "type": "image/png", "sizes": "192x192" },
     { "src": "/512.png", "type": "image/png", "sizes": "512x512" }
