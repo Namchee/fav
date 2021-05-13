@@ -5405,6 +5405,11 @@ is-glob@^4.0.0, is-glob@^4.0.1, is-glob@~4.0.1:
   dependencies:
     is-extglob "^2.1.1"
 
+is-https@^2.0.0:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/is-https/-/is-https-2.0.2.tgz#7009d303c72580f15897d5c063d6b6bc1f838fef"
+  integrity sha512-UfUCKVQH/6PQRCh5Qk9vNu4feLZiFmV/gr8DjbtJD0IrCRIDTA6E+d/AVFGPulI5tqK5W45fYbn1Nir1O99rFw==
+
 is-negative-zero@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/is-negative-zero/-/is-negative-zero-2.0.1.tgz#3de746c18dda2319241a53675908d8f766f11c24"
@@ -8095,6 +8100,13 @@ readdirp@~3.5.0:
   integrity sha512-cMhu7c/8rdhkHXWsY+osBhfSy0JikwpHK/5+imo+LpeasTF8ouErHrlYkwT0++njiyuDvc7OFY5T3ukvZ8qmFQ==
   dependencies:
     picomatch "^2.2.1"
+
+redirect-ssl@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/redirect-ssl/-/redirect-ssl-2.0.1.tgz#73ff6ef803de70e12dc3c232f057d33e298c40d6"
+  integrity sha512-8Hq12jCQJFmPqMd2+lE/10Fz70g/XK/Ec/i4lPxjWMp6N8kIaoI1pigOfWQk4NtHYYD6NKkZMMSA2nGiV0WhxQ==
+  dependencies:
+    is-https "^2.0.0"
 
 reduce-css-calc@^2.1.8:
   version "2.1.8"

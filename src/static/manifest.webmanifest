@@ -9,7 +9,9 @@
   "scope": "/",
   "start_url": "/",
   "icons": [
-    { "src": "/192.png", "type": "image/png", "sizes": "192x192" },
-    { "src": "/512.png", "type": "image/png", "sizes": "512x512" }
+    { "src": "/192.png", "type": "image/png", "sizes": "192x192", "purpose": "any" },
+    { "src": "/512.png", "type": "image/png", "sizes": "512x512", "purpose": "any" },
+    { "src": "/192-mask.png", "type": "image/png", "sizes": "192x192", "purpose": "maskable" },
+    { "src": "/512-mask.png", "type": "image/png", "sizes": "512x512", "purpose": "maskable" }
   ]
 }

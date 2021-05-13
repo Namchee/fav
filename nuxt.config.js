@@ -56,6 +56,11 @@ export default {
         name: 'og:url',
         content: 'https://fav-namchee.vercel.app',
       },
+      {
+        hid: 'theme-color',
+        name: 'theme-color',
+        content: '#121212',
+      },
     ],
     link: [
       { rel: 'icon', href: '/favicon.ico' },
@@ -98,4 +103,5 @@ export default {
       source: '~/static/icon.svg',
     },
   },
+  serverMiddleware: ['redirect-ssl'],
 };

@@ -18,11 +18,11 @@ Fav is a next-generation favicons generator to generate a ready-to-use and compa
 Fav doesn't store any kind of data, since all image processing are done directly on your browser.
 
 Generate your favicon now with Fav by visiting [this link](https://fav-namchee.vercel.app/).
+
+> Note: You can install Fav by clicking the install button on the top right side of browser's address bar.
 ## References
 
-This project is inspired by:
-
-1. [How to Favicon in 2021:
+This project is inspired by [How to Favicon in 2021:
 Six files that fit most needs](https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs) by [Evil Martians](https://evilmartians.com/)
 
 ## License
