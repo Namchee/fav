@@ -15,12 +15,14 @@
     "imagetracerjs": "^1.2.6",
     "jszip": "^3.6.0",
     "nuxt": "^2.15.4",
-    "pica": "^6.1.1"
+    "pica": "^6.1.1",
+    "redirect-ssl": "^2.0.1"
   },
   "devDependencies": {
     "@nuxt/types": "^2.15.4",
     "@nuxt/typescript-build": "^2.1.0",
     "@nuxtjs/eslint-config-typescript": "^6.0.0",
+    "@nuxtjs/pwa": "^3.3.5",
     "@nuxtjs/svg": "^0.1.12",
     "@types/node": "^14.14.37",
     "@types/pica": "^5.1.2",

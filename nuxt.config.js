@@ -56,12 +56,18 @@ export default {
         name: 'og:url',
         content: 'https://fav-namchee.vercel.app',
       },
+      {
+        hid: 'theme-color',
+        name: 'theme-color',
+        content: '#121212',
+      },
     ],
     link: [
       { rel: 'icon', href: '/favicon.ico' },
       { rel: 'icon', href: '/icon.svg', type: 'image/svg+xml' },
       { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
       { rel: 'manifest', href: '/manifest.webmanifest' },
+      { rel: 'canonical', href: 'https://fav-namchee.vercel.app' },
     ],
   },
   loading: {
@@ -86,10 +92,17 @@ export default {
     '@nuxt/typescript-build',
     '@nuxtjs/composition-api',
     '@nuxtjs/tailwindcss',
+    '@nuxtjs/pwa',
   ],
   tailwindcss: {
     configPath: '../tailwind.config.js',
     cssPath: '~/assets/style.css',
     jit: true,
   },
+  pwa: {
+    icon: {
+      source: '~/static/icon.svg',
+    },
+  },
+  serverMiddleware: ['redirect-ssl'],
 };
