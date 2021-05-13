@@ -67,6 +67,7 @@ export default {
       { rel: 'icon', href: '/icon.svg', type: 'image/svg+xml' },
       { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
       { rel: 'manifest', href: '/manifest.webmanifest' },
+      { rel: 'canonical', href: 'https://fav-namchee.vercel.app' },
     ],
   },
   loading: {
