@@ -86,10 +86,16 @@ export default {
     '@nuxt/typescript-build',
     '@nuxtjs/composition-api',
     '@nuxtjs/tailwindcss',
+    '@nuxtjs/pwa',
   ],
   tailwindcss: {
     configPath: '../tailwind.config.js',
     cssPath: '~/assets/style.css',
     jit: true,
+  },
+  pwa: {
+    icon: {
+      source: '~/static/icon.svg',
+    },
   },
 };

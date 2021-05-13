@@ -1,7 +1,8 @@
 {
+  "lang": "en",
   "name": "Fav",
   "short_name": "Fav",
-  "theme_color": "#6366F1",
+  "theme_color": "#121212",
   "background_color": "#FFFFFF",
   "display": "standalone",
   "orientation": "natural",
