@@ -143,7 +143,9 @@ import AndroidIcon from '@/assets/icons/android.svg?inline';
 import AppleIcon from '@/assets/icons/apple.svg?inline';
 import LoadingIcon from '@/assets/icons/loading.svg?inline';
 
-import { generateFavicons, getFilenameWithoutExtension } from '@/utils';
+import { getFilenameWithoutExtension, createArchive } from '~/scripts/file';
+import { generateFavicons } from '~/scripts/resizer';
+import { IconKey } from '~/scripts/types';
 
 export default defineComponent({
   components: {
@@ -216,9 +218,14 @@ export default defineComponent({
 
       isProcessing.value = true;
 
-      const blobZip = await generateFavicons(
+      const imageBlobs = await generateFavicons(
         file.value,
-        selectedPlatforms.value,
+        selectedPlatforms.value as IconKey[],
+      );
+      const archive = await createArchive(
+        file.value,
+        selectedPlatforms.value as IconKey[],
+        imageBlobs,
         includeTemplate.value,
       );
 
@@ -228,7 +235,7 @@ export default defineComponent({
       const dummyElem = document.createElement('a');
       dummyElem.style.display = 'none';
 
-      const url = URL.createObjectURL(blobZip);
+      const url = URL.createObjectURL(archive);
 
       dummyElem.href = url;
       dummyElem.download = filename;
