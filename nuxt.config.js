@@ -104,5 +104,4 @@ export default {
       source: '~/static/icon.svg',
     },
   },
-  serverMiddleware: ['redirect-ssl'],
 };

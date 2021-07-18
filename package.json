@@ -15,8 +15,7 @@
     "imagetracerjs": "^1.2.6",
     "jszip": "^3.6.0",
     "nuxt": "^2.15.4",
-    "pica": "^6.1.1",
-    "redirect-ssl": "^2.0.1"
+    "pica": "^6.1.1"
   },
   "devDependencies": {
     "@nuxt/types": "^2.15.4",
