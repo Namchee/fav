@@ -1,4 +1,3 @@
-import * as Pica from 'pica';
 import * as ImageTracer from 'imagetracerjs';
 
 import { IconKey, ImageBlob, PLATFORM_ICONS } from './types';
@@ -13,32 +12,48 @@ function fileToImage(src: File): Promise<HTMLImageElement> {
   });
 }
 
+function getResizedImage(
+  image: HTMLImageElement,
+  width: number,
+): Promise<Blob> {
+  return new Promise((resolve, reject) => {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = width;
+    canvas.height = canvas.width * (image.height / image.width);
+
+    ctx?.drawImage(image, 0, 0, canvas.width, canvas.height);
+    canvas.toBlob((blob) => {
+      if (blob) {
+        resolve(blob);
+      }
+
+      reject(new Error('Blob is `null`'));
+    });
+  });
+}
+
 export async function generateFavicons(
-  image: File,
+  baseFile: File,
   platforms: IconKey[],
 ): Promise<ImageBlob[]> {
-  const resizer = new Pica();
+  // const resizer = new Pica();
   const ibs: ImageBlob[] = [];
 
-  const img = await fileToImage(image);
+  const img = await fileToImage(baseFile);
 
   for (const platform of platforms) {
     const favicons = PLATFORM_ICONS[platform];
 
     for (const favicon of favicons) {
       const canvas = document.createElement('canvas');
+
       if (favicon.size) {
-        canvas.width = favicon.size;
-        canvas.height = favicon.size;
+        const blob = await getResizedImage(img, favicon.size);
 
-        const resizerCanvas = await resizer.resize(img, canvas, {
-          unsharpRadius: 100,
-          alpha: true,
-        });
-
-        const blob = await resizer.toBlob(resizerCanvas, favicon.mime);
         ibs.push({ name: favicon.name, blob });
-      } else if (image.type !== 'image/svg+xml') { // it's an svg
+      } else if (baseFile.type !== 'image/svg+xml') { // it's an svg
         canvas.height = img.height;
         canvas.width = img.width;
 
