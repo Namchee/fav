@@ -47,10 +47,13 @@ export function createArchive(
   }
 
   if (includeTemplate) {
-    const template = new Blob([generateHTMLTemplate(platforms)]);
+    const hasSvg = imageBlobs.some(({ name }) => name.endsWith('svg'));
+
+    const template = generateHTMLTemplate(platforms, hasSvg);
+    const templateBlob = new Blob([template]);
 
     files.push(
-      blobToFile(template, new Date(), 'index.html'),
+      blobToFile(templateBlob, new Date(), 'index.html'),
     );
   }
 

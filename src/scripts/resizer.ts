@@ -24,7 +24,6 @@ function getResizedImage(
     canvas.width = imgWidth;
     canvas.height = imgWidth;
 
-
     ctx?.drawImage(
       image,
       canvas.width / 2 - imgWidth / 2,
