@@ -1,6 +1,4 @@
-import * as ImageTracer from 'imagetracerjs';
-
-import { IconKey, ImageBlob, PLATFORM_ICONS } from './types';
+import { Favicon, IconKey, ImageBlob, PLATFORM_ICONS } from './types';
 
 function fileToImage(src: File): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
@@ -14,16 +12,24 @@ function fileToImage(src: File): Promise<HTMLImageElement> {
 
 function getResizedImage(
   image: HTMLImageElement,
-  width: number,
+  width?: number,
 ): Promise<Blob> {
   return new Promise((resolve, reject) => {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
 
-    canvas.width = width;
-    canvas.height = canvas.width * (image.height / image.width);
+    const imgWidth = width || image.width;
 
-    ctx?.drawImage(image, 0, 0, canvas.width, canvas.height);
+    canvas.width = imgWidth;
+    canvas.height = imgWidth;
+
+    ctx?.drawImage(
+      image,
+      0,
+      0,
+      canvas.width,
+      canvas.width * (image.height / image.width),
+    );
     canvas.toBlob((blob) => {
       if (blob) {
         resolve(blob);
@@ -34,40 +40,36 @@ function getResizedImage(
   });
 }
 
-export async function generateFavicons(
+export async function createImageBlobs(
   baseFile: File,
   platforms: IconKey[],
 ): Promise<ImageBlob[]> {
-  // const resizer = new Pica();
-  const ibs: ImageBlob[] = [];
+  const ibs: Promise<ImageBlob>[] = [];
 
   const img = await fileToImage(baseFile);
 
+  const basePlatforms = JSON.parse(
+    JSON.stringify(PLATFORM_ICONS),
+  ) as Record<IconKey, Favicon[]>;
+
+  const isSvg = baseFile.type === 'image/svg+xml';
+
+  basePlatforms.modern.push({
+    name: `icon.${isSvg ? 'svg' : 'png'}`,
+    mime: `image/${isSvg ? 'svg+xml' : 'png'}`,
+  });
+
   for (const platform of platforms) {
-    const favicons = PLATFORM_ICONS[platform];
+    const favicons = basePlatforms[platform];
+    const promises: Promise<ImageBlob>[] = favicons.map((favicon) => {
+      return new Promise((resolve) => {
+        getResizedImage(img, favicon.size)
+          .then((blob) => resolve({ name: favicon.name, blob }));
+      });
+    });
 
-    for (const favicon of favicons) {
-      const canvas = document.createElement('canvas');
-
-      if (favicon.size) {
-        const blob = await getResizedImage(img, favicon.size);
-
-        ibs.push({ name: favicon.name, blob });
-      } else if (baseFile.type !== 'image/svg+xml') { // it's an svg
-        canvas.height = img.height;
-        canvas.width = img.width;
-
-        const ctx = canvas.getContext('2d');
-        ctx?.drawImage(img, 0, 0);
-
-        const imgData = ImageTracer.getImgdata(canvas);
-        const svgString = ImageTracer.imagedataToSVG(imgData);
-
-        const blob = new Blob([svgString], { type: favicon.mime });
-        ibs.push({ name: favicon.name, blob });
-      }
-    }
+    ibs.push(...promises);
   }
 
-  return ibs;
+  return Promise.all(ibs);
 }

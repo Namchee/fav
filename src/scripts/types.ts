@@ -19,12 +19,7 @@ export const PLATFORM_ICONS: Record<IconKey, Favicon[]> = {
       size: 32,
     },
   ],
-  modern: [
-    {
-      name: 'icon.svg',
-      mime: 'image/svg+xml',
-    },
-  ],
+  modern: [], // to be determined programmatically later
   android: [
     {
       name: '192.png',

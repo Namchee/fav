@@ -1,6 +1,6 @@
 import * as JSZip from 'jszip';
-import { generateHTMLTemplate } from './template';
 
+import { generateHTMLTemplate } from './template';
 import { IconKey, ImageBlob } from './types';
 
 const MANIFEST = `{
@@ -28,7 +28,6 @@ export function getFilenameWithoutExtension(str: string): string {
 }
 
 export function createArchive(
-  originalImage: File,
   platforms: IconKey[],
   imageBlobs: ImageBlob[],
   includeTemplate: boolean = false,
@@ -38,7 +37,6 @@ export function createArchive(
   });
 
   const hasAndroid = platforms.includes('android');
-  const hasModern = platforms.includes('modern');
 
   if (hasAndroid) {
     const manifestBlob = new Blob([MANIFEST]);
@@ -46,16 +44,6 @@ export function createArchive(
     files.push(
       blobToFile(manifestBlob, new Date(), 'manifest.webmanifest'),
     );
-  }
-
-  if (originalImage.type === 'image/svg+xml' && hasModern) {
-    const renamed = new File(
-      [originalImage],
-      'icon.svg',
-      { type: 'image/svg+xml' },
-    );
-
-    files.push(renamed);
   }
 
   if (includeTemplate) {

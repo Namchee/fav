@@ -146,7 +146,7 @@ export default defineComponent({
       if (fileInput.value && fileInput.value.files) {
         const file = fileInput.value.files[0];
 
-        if (doesFileFit(file)) {
+        if (!doesFileFit(file)) {
           validationError.value = 'Image size is too large (max 1 MB)';
           return;
         }
@@ -171,7 +171,7 @@ export default defineComponent({
 
       isDragging.value = false;
 
-      if (doesFileFit(file)) {
+      if (!doesFileFit(file)) {
         validationError.value = 'Image size is too large (max 1 MB)';
         return;
       }

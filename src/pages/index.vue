@@ -144,7 +144,7 @@ import AppleIcon from '@/assets/icons/apple.svg?inline';
 import LoadingIcon from '@/assets/icons/loading.svg?inline';
 
 import { getFilenameWithoutExtension, createArchive } from '~/scripts/file';
-import { generateFavicons } from '~/scripts/resizer';
+import { createImageBlobs } from '~/scripts/resizer';
 import { IconKey } from '~/scripts/types';
 
 export default defineComponent({
@@ -218,12 +218,11 @@ export default defineComponent({
 
       isProcessing.value = true;
 
-      const imageBlobs = await generateFavicons(
+      const imageBlobs = await createImageBlobs(
         file.value,
         selectedPlatforms.value as IconKey[],
       );
       const archive = await createArchive(
-        file.value,
         selectedPlatforms.value as IconKey[],
         imageBlobs,
         includeTemplate.value,
