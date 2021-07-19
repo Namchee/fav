@@ -16,7 +16,7 @@
       </div>
     </template>
     <template v-else>
-      <img :src="value" title="Favicon">
+      <img :src="value" title="Favicon" class="w-4/5 h-4/5 object-contain">
     </template>
   </div>
 </template>
@@ -39,6 +39,7 @@ export default defineComponent({
   aspect-ratio: 1;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.15);
   transition: box-shadow 150ms ease-out;
+  overflow: hidden;
 
   width: 100%;
   max-width: 20rem;
