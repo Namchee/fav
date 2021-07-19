@@ -176,12 +176,14 @@ export default defineComponent({
         return;
       }
 
+      validationError.value = '';
       currentFile.value = file;
     };
 
     watch(currentFile, (value) => {
       if (value) {
         if (isSupported(value)) {
+          validationError.value = '';
           emit('file-change', value);
         } else {
           currentFile.value = null;
