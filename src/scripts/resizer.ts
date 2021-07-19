@@ -18,11 +18,16 @@ function getResizedImage(
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
 
-    const imgWidth = width || image.width;
-    const imgHeight = imgWidth * (image.height / image.width);
+    let imgWidth = width || image.width;
+    let imgHeight = imgWidth * (image.height / image.width);
 
-    canvas.width = imgWidth;
-    canvas.height = imgWidth;
+    if (image.width < image.height) {
+      imgHeight = width || image.height;
+      imgWidth = imgHeight * (image.width / image.height);
+    }
+
+    canvas.width = width || Math.max(image.width, image.height);
+    canvas.height = canvas.width;
 
     ctx?.drawImage(
       image,
