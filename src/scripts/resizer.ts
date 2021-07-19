@@ -19,16 +19,18 @@ function getResizedImage(
     const ctx = canvas.getContext('2d');
 
     const imgWidth = width || image.width;
+    const imgHeight = imgWidth * (image.height / image.width);
 
     canvas.width = imgWidth;
     canvas.height = imgWidth;
 
+
     ctx?.drawImage(
       image,
-      0,
-      0,
-      canvas.width,
-      canvas.width * (image.height / image.width),
+      canvas.width / 2 - imgWidth / 2,
+      canvas.height / 2 - imgHeight / 2,
+      imgWidth,
+      imgHeight,
     );
     canvas.toBlob((blob) => {
       if (blob) {
@@ -54,10 +56,16 @@ export async function createImageBlobs(
 
   const isSvg = baseFile.type === 'image/svg+xml';
 
-  basePlatforms.modern.push({
+  const modernSet: Favicon = {
     name: `icon.${isSvg ? 'svg' : 'png'}`,
     mime: `image/${isSvg ? 'svg+xml' : 'png'}`,
-  });
+  };
+
+  if (!isSvg) {
+    modernSet.size = 32;
+  }
+
+  basePlatforms.modern.push(modernSet);
 
   for (const platform of platforms) {
     const favicons = basePlatforms[platform];
