@@ -63,7 +63,7 @@
               or drag and drop
             </p>
             <p class="text-center italic text-sm text-gray-400">
-              Accepts .png, .jpeg, .ico, and .svg file (max 192 KB)
+              Accepts .png, .jpeg, .ico, and .svg file (max 1 MB)
             </p>
           </template>
         </div>
@@ -138,23 +138,45 @@ export default defineComponent({
       currentFile.value = null;
     };
 
+    const doesFileFit = (file: File) => {
+      return file.size / 1024 / 1024 <= 1;
+    };
+
     const onFileChange = () => {
       if (fileInput.value && fileInput.value.files) {
-        currentFile.value = fileInput.value.files[0];
+        const file = fileInput.value.files[0];
+
+        if (doesFileFit(file)) {
+          validationError.value = 'Image size is too large (max 1 MB)';
+          return;
+        }
+
+        currentFile.value = file;
       }
     };
 
     const onFileDrop = (event: DragEvent) => {
       event.preventDefault();
 
-      if (event.dataTransfer?.items &&
-        event.dataTransfer.items[0].kind === 'file') {
-        currentFile.value = event.dataTransfer.items[0].getAsFile();
+      let file: File;
+
+      if (
+        event.dataTransfer?.items &&
+        event.dataTransfer.items[0].kind === 'file'
+      ) {
+        file = event.dataTransfer.items[0].getAsFile() as File;
       } else {
-        currentFile.value = event.dataTransfer?.files[0] as File;
+        file = event.dataTransfer?.files[0] as File;
       }
 
       isDragging.value = false;
+
+      if (doesFileFit(file)) {
+        validationError.value = 'Image size is too large (max 1 MB)';
+        return;
+      }
+
+      currentFile.value = file;
     };
 
     watch(currentFile, (value) => {
