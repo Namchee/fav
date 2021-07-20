@@ -240,6 +240,7 @@ export default defineComponent({
       const imageBlobs = await createImageBlobs(
         file.value,
         selectedPlatforms.value as IconKey[],
+        aspectRatio.value,
       );
       const archive = await createArchive(
         selectedPlatforms.value as IconKey[],

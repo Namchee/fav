@@ -13,17 +13,22 @@ function fileToImage(src: File): Promise<HTMLImageElement> {
 function getResizedImage(
   image: HTMLImageElement,
   width?: number,
+  aspectRatio?: boolean,
 ): Promise<Blob> {
   return new Promise((resolve, reject) => {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
 
     let imgWidth = width || image.width;
-    let imgHeight = imgWidth * (image.height / image.width);
+    let imgHeight = aspectRatio ?
+      imgWidth * (image.height / image.width) :
+      width || image.height;
 
     if (image.width < image.height) {
       imgHeight = width || image.height;
-      imgWidth = imgHeight * (image.width / image.height);
+      imgWidth = aspectRatio ?
+        imgHeight * (image.width / image.height) :
+        width || image.width;
     }
 
     canvas.width = width || Math.max(image.width, image.height);
@@ -49,6 +54,7 @@ function getResizedImage(
 export async function createImageBlobs(
   baseFile: File,
   platforms: IconKey[],
+  aspectRatio: boolean = true,
 ): Promise<ImageBlob[]> {
   const ibs: Promise<ImageBlob>[] = [];
 
@@ -75,7 +81,7 @@ export async function createImageBlobs(
     const favicons = basePlatforms[platform];
     const promises: Promise<ImageBlob>[] = favicons.map((favicon) => {
       return new Promise((resolve) => {
-        getResizedImage(img, favicon.size)
+        getResizedImage(img, favicon.size, aspectRatio)
           .then((blob) => resolve({ name: favicon.name, blob }));
       });
     });
