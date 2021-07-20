@@ -126,8 +126,7 @@
   &lt;link rel="icon" href="/icon.svg" type="image/svg+xml"&gt;
   &lt;link rel="apple-touch-icon" href="/apple-touch-icon.png"&gt;
   &lt;link rel="manifest" href="/manifest.webmanifest"&gt;
-&lt;!-- end: head tag --&gt;
-      </pre>
+&lt;!-- end: head tag --&gt;</pre>
       <!-- eslint-enable max-len -->
 
       <p>
@@ -152,11 +151,9 @@
           is 100% dependant on your PC specs. But in general, it should be fast.
         </li>
         <li>
-          Transforming a raster asset
-          (<code>.png</code>, <code>.jpeg</code>, and <code>.ico</code>) to
-          a vector asset (<code>.svg</code>) will generate a huge <code>
-            .svg
-          </code> file size and considerably slowing the generation process.
+          Fav doesn't support <a href="https://en.wikipedia.org/wiki/Image_tracing" target="_blank" class="link">
+            image tracing
+          </a> <span class="italic">yet</span>.
           Technically, transforming a raster to a vector is impossible.
           To solve this problem, either provide an <code>.svg</code>
           file as the base asset or uncheck the <strong>modern</strong>
