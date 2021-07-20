@@ -76,23 +76,41 @@
             Step 3: Generate!
           </p>
 
-          <p class="flex items-center mb-8">
-            <input
-              id="template"
-              v-model="includeTemplate"
-              type="checkbox"
-              class="rounded
-                w-4 h-4
-                cursor-pointer
-                text-indigo-700
-                focus:outline-none
-                focus:ring-2 focus:ring-indigo-500"
-            >
+          <div class="mb-8 space-y-2">
+            <p class="flex items-center">
+              <input
+                id="template"
+                v-model="includeTemplate"
+                type="checkbox"
+                class="rounded
+                  w-4 h-4
+                  cursor-pointer
+                  text-indigo-700
+                  focus:outline-none
+                  focus:ring-2 focus:ring-indigo-500"
+              >
+              <label for="template" class="cursor-pointer ml-3">
+                Include HTML template
+              </label>
+            </p>
 
-            <label for="template" class="cursor-pointer ml-3">
-              Include HTML template
-            </label>
-          </p>
+            <p class="flex items-center">
+              <input
+                id="aspect-ratio"
+                v-model="aspectRatio"
+                type="checkbox"
+                class="rounded
+                  w-4 h-4
+                  cursor-pointer
+                  text-indigo-700
+                  focus:outline-none
+                  focus:ring-2 focus:ring-indigo-500"
+              >
+              <label for="aspect-ratio" class="cursor-pointer ml-3">
+                Keep image aspect ratio
+              </label>
+            </p>
+          </div>
 
           <button
             class="text-white
@@ -172,6 +190,7 @@ export default defineComponent({
     const platformSelector: Ref<HTMLElement | null> = ref(null);
 
     const includeTemplate = ref(false);
+    const aspectRatio = ref(true);
 
     const isProcessing = ref(false);
     const generatorClass = computed(() => {
@@ -286,6 +305,7 @@ export default defineComponent({
       generatorClass,
       upload,
       includeTemplate,
+      aspectRatio,
     };
   },
 
