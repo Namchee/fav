@@ -1,20 +1,21 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
 
+/** @type {import("@types/tailwindcss/tailwind-config").TailwindConfig } */
 module.exports = {
-  purge: {
-    enabled: process.env.NODE_ENV === 'production',
-    content: [
-      './src/components/**/*.{vue,js,ts}',
-      './src/layouts/**/*.vue',
-      './src/pages/**/*.vue',
-      './src/plugins/**/*.{js,ts}',
-      './nuxt.config.{js,ts}',
-    ],
-  },
+  content: [
+    './src/components/**/*.{vue,js,ts}',
+    './src/layouts/**/*.vue',
+    './src/pages/**/*.vue',
+  ],
   darkMode: false, // or 'media' or 'class'
   theme: {
     fontFamily: {
       sans: ['Anderson Grotesk', defaultTheme.fontFamily.sans],
+    },
+    color: {
+      primary: {
+        DEFAULT: '#6366F1',
+      },
     },
   },
   variants: {

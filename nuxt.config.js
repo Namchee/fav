@@ -72,7 +72,7 @@ export default {
   },
   loading: {
     color: '#6366F1',
-    height: '5px',
+    height: '4px',
   },
   css: [
     '~/assets/style.css',
