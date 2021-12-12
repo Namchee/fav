@@ -10,11 +10,13 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     fontFamily: {
-      sans: ['Anderson Grotesk', defaultTheme.fontFamily.sans],
+      sans: ['Open Sauce', 'Anderson Grotesk', defaultTheme.fontFamily.sans],
     },
     color: {
       primary: {
-        DEFAULT: '#6366F1',
+        DEFAULT: '#6E56CF',
+        light: '#9E8CFC',
+        dark: '#5842C3',
       },
     },
   },
