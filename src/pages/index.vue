@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-5xl mx-auto py-6">
+  <div class="max-w-4xl mx-auto py-6">
     <div class="lg:leading-normal py-12">
       <h1
         class="font-semibold
@@ -149,7 +149,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, Ref, ref } from '@nuxtjs/composition-api';
+import { computed, defineComponent, Ref, ref } from '@vue/composition-api';
 
 import PreviewBox from '@/components/PreviewBox.vue';
 import UploadBox from '@/components/UploadBox.vue';

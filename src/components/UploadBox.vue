@@ -91,7 +91,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, Ref, watch } from '@nuxtjs/composition-api';
+import { defineComponent, ref, Ref, watch } from '@vue/composition-api';
 
 import UploadIcon from '@/assets/icons/upload.svg?inline';
 import FileIcon from '@/assets/icons/file.svg?inline';

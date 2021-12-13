@@ -1,4 +1,6 @@
-export default {
+import { defineNuxtConfig } from '@nuxt/bridge';
+
+export default defineNuxtConfig({
   target: 'static',
   srcDir: 'src',
   head: {
@@ -89,8 +91,6 @@ export default {
     '@nuxtjs/svg',
   ],
   buildModules: [
-    '@nuxt/typescript-build',
-    '@nuxtjs/composition-api',
     '@nuxtjs/tailwindcss',
     '@nuxtjs/pwa',
   ],
@@ -104,4 +104,4 @@ export default {
       source: '~/static/icon.svg',
     },
   },
-};
+});

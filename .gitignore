@@ -6,3 +6,4 @@ dist-ssr
 .nuxt
 *.log
 **/sw.js
+.output

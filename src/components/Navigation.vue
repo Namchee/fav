@@ -38,7 +38,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api';
+import { defineComponent } from '@vue/composition-api';
 
 import Logo from '@/assets/icons/logo.svg?inline';
 
