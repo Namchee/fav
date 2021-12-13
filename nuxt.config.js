@@ -91,7 +91,7 @@ export default defineNuxtConfig({
     '@nuxtjs/svg',
   ],
   buildModules: [
-    '@nuxtjs/tailwindcss',
+    'nuxt-windicss',
     '@nuxtjs/pwa',
   ],
   tailwindcss: {
