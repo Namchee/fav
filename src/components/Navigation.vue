@@ -9,9 +9,15 @@
       flex justify-between items-center"
   >
     <header>
-      <nuxt-link to="/" aria-label="Fav">
-        <Logo class="w-16 h-auto" role="banner" />
-      </nuxt-link>
+      <router-link
+        to="/"
+        aria-label="Fav"
+      >
+        <Logo
+          class="w-16 h-auto"
+          role="banner"
+        />
+      </router-link>
     </header>
 
     <div>
@@ -20,7 +26,7 @@
           v-for="link in links"
           :key="link.href"
         >
-          <nuxt-link
+          <router-link
             :to="link.href"
             class="text-lg
               text-gray-500
@@ -30,7 +36,7 @@
               hover:text-black"
           >
             {{ link.name }}
-          </nuxt-link>
+          </router-link>
         </li>
       </ul>
     </div>
@@ -38,9 +44,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent } from 'vue';
 
-import Logo from '@/assets/icons/logo.svg?inline';
+import Logo from '@/assets/icons/logo.svg?component';
 
 export default defineComponent({
   components: {
@@ -67,7 +73,7 @@ export default defineComponent({
 </script>
 
 <style lang="postcss" scoped>
-.nuxt-link-exact-active {
+.router-link-exact-active {
   @apply font-bold text-indigo-500;
 
   transition: font-weight 150ms linear;

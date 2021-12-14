@@ -3,7 +3,7 @@
     class="h-screen
       flex flex-col items-start"
   >
-    <Navigation />
+    <NavigationVue />
     <main
       class="w-full
         flex-1
@@ -11,22 +11,22 @@
         md:px-8
         lg:px-0"
     >
-      <nuxt />
+      <slot />
     </main>
-    <Footer />
+    <FooterVue />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-import Navigation from '@/components/Navigation.vue';
-import Footer from '@/components/Footer.vue';
+import NavigationVue from './Navigation.vue';
+import FooterVue from './Footer.vue';
 
 export default defineComponent({
   components: {
-    Navigation,
-    Footer,
+    NavigationVue,
+    FooterVue,
   },
 });
 </script>

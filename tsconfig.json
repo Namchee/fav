@@ -1,33 +1,27 @@
 {
-  "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
     "lib": [
       "DOM"
     ],
-    // this enables stricter inference for data properties on `this`
     "strict": true,
     "jsx": "preserve",
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
-      "~/*": [
-        "./src/*"
-      ],
       "@/*": [
-        "./src/*"
+        "src/*"
       ]
     },
     "types": [
-      "@types/node",
-      "@nuxt/types"
+      "@types/node"
     ]
   },
   "include": [
     "./src/**/*.ts",
     "./src/**/*.vue",
-    "./src/vue-shims.d.ts"
+    "src/shims.d.ts"
   ],
   "exclude": [
     "node_modules"

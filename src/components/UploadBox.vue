@@ -91,11 +91,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, Ref, watch } from '@vue/composition-api';
+import { defineComponent, ref, Ref, watch } from 'vue';
 
-import UploadIcon from '@/assets/icons/upload.svg?inline';
-import FileIcon from '@/assets/icons/file.svg?inline';
-import CloseIcon from '@/assets/icons/close.svg?inline';
+import UploadIcon from '@/assets/icons/upload.svg?component';
+import FileIcon from '@/assets/icons/file.svg?component';
+import CloseIcon from '@/assets/icons/close.svg?component';
 
 export default defineComponent({
   components: {

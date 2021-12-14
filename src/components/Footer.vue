@@ -36,7 +36,12 @@
 
       <p class="mt-4 md:mt-0">
         Made in 2021 by
-        <a class="link" href="https://github.com/Namchee" target="_blank" rel="noopener">
+        <a
+          class="link"
+          href="https://github.com/Namchee"
+          target="_blank"
+          rel="noreferrer noopener"
+        >
           Namchee
         </a>
       </p>
@@ -45,7 +50,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent } from 'vue';
 
 export default defineComponent({});
 </script>
