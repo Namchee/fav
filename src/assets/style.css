@@ -19,3 +19,19 @@ html, body {
   font-style: normal;
   font-display: swap;
 }
+
+#nprogress .bar {
+  background-color: #6E56CF;
+  height: 4px;
+
+  position: fixed;
+  z-index: 1024;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+}
+
+#nprogress .peg {
+  display: none;
+}

@@ -1399,6 +1399,11 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.37.tgz#a3dd8da4eb84a996c36e331df98d82abd76b516e"
   integrity sha512-XYmBiy+ohOR4Lh5jE379fV2IU+6Jn4g5qASinhitfyO71b/sCo6MKsMLF5tc7Zf2CE8hViVQyYSobJNke8OvUw==
 
+"@types/nprogress@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@types/nprogress/-/nprogress-0.2.0.tgz#86c593682d4199212a0509cc3c4d562bbbd6e45f"
+  integrity sha512-1cYJrqq9GezNFPsWTZpFut/d4CjpZqA0vhqDUPFWYKF1oIyBz5qnoYMzR+0C/T96t3ebLAC1SSnwrVOm5/j74A==
+
 "@types/pica@^5.1.2":
   version "5.1.2"
   resolved "https://registry.yarnpkg.com/@types/pica/-/pica-5.1.2.tgz#d96cf3efbb7d839109d5a43c0733886e70cdd9fd"
@@ -2755,6 +2760,11 @@ eslint@^8.4.1:
     strip-json-comments "^3.1.0"
     text-table "^0.2.0"
     v8-compile-cache "^2.0.3"
+
+esm-potrace-wasm@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/esm-potrace-wasm/-/esm-potrace-wasm-0.2.1.tgz#11320e506da12a401999279277d78ffb6cd01183"
+  integrity sha512-E2OMS6GReubnsqCtL/ja519ysfyZg7gUpRQbCjTsj2yx0hOZcR17wsLPhCzsMNK93qGgd0J5e1zL0ljE91mMng==
 
 espree@^9.0.0, espree@^9.2.0:
   version "9.2.0"
@@ -4232,6 +4242,11 @@ npm-run-path@^4.0.1:
   integrity sha512-S48WzZW777zhNIrn7gxOlISNAqi9ZC/uQFnRdbeIHhZhCA6UqpkOT8T1G7BvfdgP4Er8gF4sUbaS0i7QvIfCWw==
   dependencies:
     path-key "^3.0.0"
+
+nprogress@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/nprogress/-/nprogress-0.2.0.tgz#cb8f34c53213d895723fcbab907e9422adbcafb1"
+  integrity sha1-y480xTIT2JVyP8urkH6UIq28r7E=
 
 nth-check@^2.0.0:
   version "2.0.1"

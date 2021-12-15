@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
+import NProgress from 'nprogress';
+
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -7,17 +9,23 @@ const router = createRouter({
       path: '/',
       alias: '/home',
       component: () => import('./pages/index.vue'),
-      meta: {
-        title: 'Modern Favicon Generator — Fav',
-      },
     },
     {
       path: '/about',
       component: () => import('./pages/about.vue'),
-      meta: {
-      },
     },
   ],
+});
+
+router.beforeEach(() => {
+  NProgress.start();
+});
+
+router.onError(() => {
+  NProgress.done();
+});
+router.afterEach(() => {
+  NProgress.done();
 });
 
 export { router };
