@@ -208,15 +208,18 @@ export default defineComponent({
       meta: [
         {
           name: 'description',
-          content: 'Fav is a next-generation icon generator for 2021 websites.',
+          content:
+            'Fav is a next-generation favicon generator for modern websites.',
         },
         {
           name: 'og:description',
-          content: 'Fav is a next-generation icon generator for 2021 websites.',
+          content:
+            'Fav is a next-generation favicon generator for modern websites.',
         },
         {
           name: 'twitter:description',
-          content: 'Fav is a next-generation icon generator for 2021 websites.',
+          content:
+            'Fav is a next-generation favicon generator for modern websites.',
         },
       ],
     });

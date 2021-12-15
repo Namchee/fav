@@ -307,22 +307,25 @@ export default defineComponent({
     ];
 
     useHead({
-      title: 'Fav - Modern Favicon Generator',
+      title: 'Fav — Modern Favicon Generator',
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: 'Generate your modern favicon set in 3 simple steps.',
+          content:
+            'Generate your modern favicons set with just 3 simple steps.',
         },
         {
           hid: 'og:description',
           name: 'og:description',
-          content: 'Generate your modern favicon set in 3 simple steps.',
+          content:
+            'Generate your modern favicons set with just 3 simple steps.',
         },
         {
           hid: 'twitter:description',
           name: 'twitter:description',
-          content: 'Generate your modern favicon set in 3 simple steps.',
+          content:
+            'Generate your modern favicons set with just 3 simple steps.',
         },
       ],
     });

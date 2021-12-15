@@ -54,7 +54,7 @@ function getResizedImage(
 export async function createImageBlobs(
   baseFile: File,
   platforms: IconKey[],
-  aspectRatio: boolean = true,
+  aspectRatio = true,
 ): Promise<ImageBlob[]> {
   const ibs: Promise<ImageBlob>[] = [];
 
