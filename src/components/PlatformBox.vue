@@ -51,7 +51,6 @@ import { defineComponent, computed } from 'vue';
 export default defineComponent({
   model: {
     prop: 'platforms',
-    event: 'updatePlatforms',
   },
 
   props: {
@@ -77,6 +76,8 @@ export default defineComponent({
     },
   },
 
+  emits: ['update:platforms'],
+
   setup(props, { emit }) {
     const checked = computed(() => props.platforms.includes(props.value));
 
@@ -96,7 +97,7 @@ export default defineComponent({
         newVal.push(props.value);
       }
 
-      emit('updatePlatforms', newVal);
+      emit('update:platforms', newVal);
     };
 
     return {
