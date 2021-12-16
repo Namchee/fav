@@ -6,7 +6,7 @@
           class="font-semibold
             text-4xl
             text-gray-800
-            tracking-tight leading-tight
+            tracking-tighter leading-tight
             lg:text-5xl
             lg:leading-normal"
         >
@@ -16,7 +16,7 @@
         <h2
           class="text-lg text-content-light tracking-tight lg:text-2xl"
         >
-          Generate compact favicon set for your 2021 websites.
+          Generate compact favicon set for your next generation websites.
         </h2>
       </div>
 
@@ -123,29 +123,21 @@
               </p>
             </div>
 
-            <button
-              class="text-white
-                rounded-md
-                px-4 py-2
-                text-lg
-                tracking-wide
-                transition-colors
-                focus:outline-none focus:ring-2 focus:ring-indigo-300"
-              :class="generatorClass"
-              :disabled="isProcessing"
-              :aria-disabled="isProcessing"
+            <Button
+              theme="primary"
+              class="text-lg
+                w-32 h-12
+                tracking-wide"
+              :loading="isProcessing"
               @click="generateIcons"
             >
               <template v-if="isProcessing">
-                <div class="flex items-center">
-                  <LoadingIcon class="w-5 h-5 animate-spin" />
-                  <span class="ml-3">Processing</span>
-                </div>
+                Processing
               </template>
               <template v-else>
                 Generate
               </template>
-            </button>
+            </Button>
           </div>
         </div>
 
@@ -158,7 +150,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, Ref, ref } from 'vue';
+import { defineComponent, Ref, ref } from 'vue';
 
 import PreviewBox from '@/components/PreviewBox.vue';
 import UploadBox from '@/components/UploadBox.vue';
@@ -176,6 +168,8 @@ import { IconKey } from '@/scripts/types';
 import PageLayout from '@/components/PageLayout.vue';
 import { useHead } from '@vueuse/head';
 
+import Button from '@/components/Button.vue';
+
 export default defineComponent({
   components: {
     PreviewBox,
@@ -187,6 +181,7 @@ export default defineComponent({
     AppleIcon,
     LoadingIcon,
     PageLayout,
+    Button,
   },
 
   setup() {
@@ -205,14 +200,6 @@ export default defineComponent({
     const aspectRatio = ref(true);
 
     const isProcessing = ref(false);
-    const generatorClass = computed(() => {
-      return {
-        'hover:bg-indigo-800': !isProcessing.value,
-        'bg-indigo-700': !isProcessing.value,
-        'bg-indigo-500': isProcessing.value,
-        'cursor-not-allowed': isProcessing.value,
-      };
-    });
 
     const handleFileUpload = (val: File | null) => {
       file.value = val;
@@ -339,7 +326,6 @@ export default defineComponent({
       fileError,
       platformError,
       isProcessing,
-      generatorClass,
       upload,
       includeTemplate,
       aspectRatio,

@@ -19,14 +19,15 @@ export default defineConfig({
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#5373E7',
-          light: '#849DFF',
-          dark: '#3E63DD',
+          DEFAULT: '#3E63DD',
+          light: '#5878E1',
+          dark: '#3A5CCC',
         },
         content: {
           DEFAULT: '#161618',
           light: '#908E96',
           shade: '#BAB8BE',
+          white: '#FDFCFD',
         },
       },
     },
