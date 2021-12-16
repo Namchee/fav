@@ -55,14 +55,18 @@
             </p>
           </template>
           <template v-else>
-            <UploadIcon class="w-12 lg:w-16 h-auto text-gray-400" />
-            <p class="leading-normal text-gray-400 mt-6 lg:mt-2 text-lg">
+            <UploadIcon
+              class="w-12 lg:w-16 h-auto
+              text-content-shade
+              opacity-75"
+            />
+            <p class="leading-normal text-content-shade mt-6 lg:mt-2 text-lg">
               <span class="text-indigo-400 font-bold">
                 Upload a file
               </span>
               or drag and drop
             </p>
-            <p class="text-center italic text-sm text-gray-400">
+            <p class="text-center italic text-sm text-content-shade">
               Accepts .png, .jpeg, .ico, and .svg file (max 1 MB)
             </p>
           </template>

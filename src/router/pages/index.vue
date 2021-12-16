@@ -14,7 +14,7 @@
         </h1>
 
         <h2
-          class="text-lg text-gray-500 tracking-tight lg:text-2xl"
+          class="text-lg text-content-light tracking-tight lg:text-2xl"
         >
           Generate compact favicon set for your 2021 websites.
         </h2>

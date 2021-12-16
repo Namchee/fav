@@ -3,7 +3,7 @@ import { defineConfig } from 'windicss/helpers';
 export default defineConfig({
   extract: {
     include: ['**/*.{vue,css}'],
-    exclude: ['node_modules', '.git', '.nuxt'],
+    exclude: ['node_modules', '.git'],
   },
   darkMode: false, // or 'media' or 'class'
   theme: {
@@ -17,11 +17,16 @@ export default defineConfig({
       ],
     },
     extend: {
-      color: {
+      colors: {
         primary: {
           DEFAULT: '#5373E7',
           light: '#849DFF',
           dark: '#3E63DD',
+        },
+        content: {
+          DEFAULT: '#161618',
+          light: '#908E96',
+          shade: '#BAB8BE',
         },
       },
     },
