@@ -3,7 +3,9 @@
     <template v-if="currentFile">
       <div
         class="flex justify-between
-        rounded-md p-3 pl-6 border border-gray-200"
+          rounded-md
+          p-3 pl-6
+          border border-gray-200"
       >
         <div class="text-gray-500 flex justify-center">
           <FileIcon class="w-5 h-auto mr-3" />
@@ -38,19 +40,15 @@
         @dragover.prevent
         @drop="onFileDrop($event)"
       >
-        <div
-          class="border-2 border-gray-200 border-dashed
-            grid place-items-center
-            rounded-md p-8
-            transition-colors
-            hover:bg-gray-50
-            hover:border-gray-300
-            h-full"
-          :class="{ 'bg-gray-50': isDragging, 'border-gray-300': isDragging }"
-        >
+        <div :class="dropBoxClass">
           <template v-if="isDragging">
-            <FileIcon class="w-12 lg:w-16 h-auto text-gray-400" />
-            <p class="leading-normal text-gray-400 text-lg font-bold">
+            <FileIcon class="w-12 lg:w-16 h-auto text-content-shade" />
+            <p
+              class="leading-normal
+              text-content-shade
+              text-lg
+              font-bold"
+            >
               Drop your image now
             </p>
           </template>
@@ -61,13 +59,13 @@
               opacity-75"
             />
             <p class="leading-normal text-content-shade mt-6 lg:mt-2 text-lg">
-              <span class="text-indigo-400 font-bold">
+              <span class="text-primary-light text-opacity-80 font-bold">
                 Upload a file
               </span>
               or drag and drop
             </p>
             <p class="text-center italic text-sm text-content-shade">
-              Accepts .png, .jpeg, .ico, and .svg file (max 1 MB)
+              Accepts .png, .jpeg, .ico, and .svg file (max 2 MB)
             </p>
           </template>
         </div>
@@ -95,7 +93,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, Ref, watch } from 'vue';
+import { computed, defineComponent, ref, Ref, watch } from 'vue';
 
 import UploadIcon from '@/assets/icons/upload.svg?component';
 import FileIcon from '@/assets/icons/file.svg?component';
@@ -127,6 +125,24 @@ export default defineComponent({
     const validationError: Ref<string> = ref('');
 
     const isDragging = ref(false);
+
+    const dropBoxClass = computed(() => {
+      const dragClass = isDragging.value ? `bg-content-shade
+        bg-opacity-10
+        border-content-shade
+        border-opacity-60` : '';
+
+      return `border-2 border-content-shade border-opacity-50 border-dashed
+        grid place-items-center
+        rounded-md p-8
+        transition-colors
+        hover:(bg-content-shade
+          bg-opacity-10
+          border-content-shade
+          border-opacity-60)
+        h-full
+        ${dragClass}`;
+    });
 
     const isSupported = (currentFile: File): boolean => {
       return [
@@ -207,6 +223,7 @@ export default defineComponent({
       isDragging,
       onFileDrop,
       validationError,
+      dropBoxClass,
     };
   },
 });

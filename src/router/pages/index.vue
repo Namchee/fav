@@ -5,37 +5,43 @@
         <h1
           class="font-semibold
             text-4xl
-            text-gray-800
+            text-content
             tracking-tighter leading-tight
             lg:text-5xl
             lg:leading-normal"
         >
-          Modern favicons for modern websites.
+          Embrace favicons the modern way
         </h1>
 
         <h2
-          class="text-lg text-content-light tracking-tight lg:text-2xl"
+          class="text-lg
+            text-content-light
+            tracking-tight
+            lg:text-2xl"
         >
-          Generate compact favicon set for your next generation websites.
+          Generate compact favicon set for your next websites,
+          within few clicks
         </h2>
       </div>
 
       <div class="app py-8">
-        <div class="space-y-10">
-          <div ref="upload">
-            <p class="form__header">
-              Step 1: Upload an image
+        <div class="space-y-8">
+          <section ref="upload">
+            <p
+              class="text-content-light leading-loose mb-2 text-lg"
+            >
+              Step 1: Upload your base favicon
             </p>
 
             <UploadBox
               :error="fileError"
               @file-change="handleFileUpload"
             />
-          </div>
+          </section>
 
-          <div ref="platformSelector">
-            <p class="form__header">
-              Step 2: Choose your favicons flavor
+          <section ref="platformSelector">
+            <p class="text-content-light leading-loose mb-2 text-lg">
+              Step 2: Pick your favicon flavors
             </p>
 
             <div class="space-y-2">
@@ -72,15 +78,18 @@
             >
               {{ platformError }}
             </p>
-          </div>
+          </section>
 
-          <div>
-            <p class="form__header">
+          <section>
+            <p class="text-content-light leading-loose mb-2 text-lg">
               Step 3: Generate!
             </p>
 
-            <div class="mb-8 space-y-2">
-              <p class="flex items-center">
+            <div class="space-y-2">
+              <label
+                for="template"
+                class="flex items-center space-x-2 cursor-pointer inline"
+              >
                 <input
                   id="template"
                   v-model="includeTemplate"
@@ -88,57 +97,45 @@
                   class="rounded
                     w-4 h-4
                     cursor-pointer
-                    text-indigo-700
-                    focus:outline-none
-                    focus:ring-2
-                    focus:ring-indigo-500"
+                    text-primary
+                    focus:(outline-none ring-2 ring-primary ring-opacity-50)"
                 >
-                <label
-                  for="template"
-                  class="cursor-pointer ml-3"
-                >
-                  Include HTML template
-                </label>
-              </p>
+                <p>Include HTML template</p>
+              </label>
 
-              <p class="flex items-center">
+              <label
+                for="aspect-ratio"
+                class="flex items-center space-x-2 cursor-pointer"
+              >
                 <input
                   id="aspect-ratio"
                   v-model="aspectRatio"
                   type="checkbox"
                   class="rounded
                     w-4 h-4
-                    cursor-pointer
-                    text-indigo-700
-                    focus:outline-none
-                    focus:ring-2
-                    focus:ring-indigo-500"
+                    text-primary
+                    focus:(outline-none ring-2 ring-primary ring-opacity-50)"
                 >
-                <label
-                  for="aspect-ratio"
-                  class="cursor-pointer ml-3"
-                >
-                  Keep image aspect ratio
-                </label>
-              </p>
+                <p>Keep image aspect ratio</p>
+              </label>
             </div>
+          </section>
 
-            <Button
-              theme="primary"
-              class="text-lg
-                w-32 h-12
-                tracking-wide"
-              :loading="isProcessing"
-              @click="generateIcons"
-            >
-              <template v-if="isProcessing">
-                Processing
-              </template>
-              <template v-else>
-                Generate
-              </template>
-            </Button>
-          </div>
+          <Button
+            theme="primary"
+            class="text-lg
+              w-32 h-12
+              tracking-wide"
+            :loading="isProcessing"
+            @click="generateIcons"
+          >
+            <template v-if="isProcessing">
+              Processing
+            </template>
+            <template v-else>
+              Generate
+            </template>
+          </Button>
         </div>
 
         <div>
@@ -335,10 +332,6 @@ export default defineComponent({
 </script>
 
 <style lang="postcss" scoped>
-.form__header {
-  @apply text-gray-500 text-lg leading-loose mb-2;
-}
-
 @screen md {
   .app {
     display: grid;
