@@ -212,9 +212,17 @@ export default defineComponent({
             'Fav is a next-generation favicon generator for modern websites.',
         },
         {
+          name: 'og:title',
+          content: 'About Fav - Modern Favicon Generator',
+        },
+        {
           name: 'og:description',
           content:
             'Fav is a next-generation favicon generator for modern websites.',
+        },
+        {
+          name: 'og:url',
+          content: 'https://fav.namchee.dev/about',
         },
         {
           name: 'twitter:description',

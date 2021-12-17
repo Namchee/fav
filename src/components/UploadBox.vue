@@ -1,99 +1,101 @@
 <template>
-  <div>
-    <template v-if="currentFile">
-      <div
-        class="flex justify-between
-          rounded-md
-          p-3 pl-6
-          border border-gray-200"
-      >
-        <div class="text-gray-500 flex justify-center">
-          <FileIcon class="w-5 h-auto mr-3" />
-          <p
-            class="font-extrabold tracking-tight
-              overflow-hidden
-              overflow-ellipsis
-              leading-loose
-              file__name"
-          >
-            {{ currentFile.name }}
-          </p>
-        </div>
-
-        <button
-          class="p-2 rounded-full transition-colors hover:bg-gray-100"
-          @click="deleteFile"
+  <template v-if="currentFile">
+    <div
+      class="flex justify-between
+        rounded-md
+        p-3 pl-6
+        border border-gray-200"
+    >
+      <div class="text-gray-500 flex justify-center">
+        <FileIcon class="w-5 h-auto mr-3" />
+        <p
+          class="font-bold
+            tracking-tight
+            overflow-hidden overflow-ellipsis leading-loose
+            file__name"
         >
-          <CloseIcon class="w-4 h-auto text-gray-600" />
-        </button>
+          {{ currentFile.name }}
+        </p>
       </div>
-    </template>
-    <template v-else>
-      <label
-        for="image-file"
-        class="cursor-pointer block h-48
-          focus:outline-none
-          focus:ring-1 focus:ring-gray-300"
-        tabindex="0"
-        @dragenter="isDragging = true"
-        @dragleave="isDragging = false"
-        @dragover.prevent
-        @drop="onFileDrop($event)"
+
+      <button
+        class="p-2
+          rounded-full
+          transition-colors hover:bg-gray-100"
+        @click="deleteFile"
       >
-        <div :class="dropBoxClass">
-          <template v-if="isDragging">
-            <FileIcon class="w-12 lg:w-16 h-auto text-content-shade" />
-            <p
-              class="leading-normal
-              text-content-shade
-              text-lg
-              font-bold"
-            >
-              Drop your image now
-            </p>
-          </template>
-          <template v-else>
-            <UploadIcon
-              class="w-12 lg:w-16 h-auto
+        <CloseIcon class="w-4 h-auto text-gray-600" />
+      </button>
+    </div>
+  </template>
+  <template v-else>
+    <label
+      for="image-file"
+      class="cursor-pointer
+        block
+        h-48
+        focus:outline-none focus:ring-1 focus:ring-gray-300"
+      tabindex="0"
+      @dragenter="isDragging = true"
+      @dragleave="isDragging = false"
+      @dragover.prevent
+      @drop="onFileDrop($event)"
+    >
+      <div :class="dropBoxClass">
+        <template v-if="isDragging">
+          <FileIcon class="w-12 lg:w-16 h-auto text-content-shade" />
+          <p
+            class="leading-normal
+            text-content-shade
+            text-lg
+            font-bold"
+          >
+            Drop your image now
+          </p>
+        </template>
+        <template v-else>
+          <UploadIcon
+            class="w-12 lg:w-16 h-auto
               text-content-shade
               opacity-75"
-            />
-            <p class="leading-normal text-content-shade mt-6 lg:mt-2 text-lg">
-              <span class="text-primary-light text-opacity-80 font-bold">
-                Upload a file
-              </span>
-              or drag and drop
-            </p>
-            <p class="text-center italic text-sm text-content-shade">
-              Accepts .png, .jpeg, .ico, and .svg file (max 2 MB)
-            </p>
-          </template>
-        </div>
-      </label>
-      <input
-        id="image-file"
-        ref="fileInput"
-        type="file"
-        class="hidden"
-        accept="image/png,
-          image/jpeg,
-          image/x-icon,
-          image/vnd-microsoft-icon,
-          image/svg+xml"
-        @change="onFileChange"
-      >
-      <p
-        v-if="error || validationError"
-        class="font-bold text-red-700 italic mt-2"
-      >
-        {{ error || validationError }}
-      </p>
-    </template>
-  </div>
+          />
+          <p class="leading-normal text-content-shade mt-6 lg:mt-2 text-lg">
+            <span
+              class="text-primary-light
+                text-opacity-80
+                font-bold"
+            >
+              Upload a file
+            </span>
+            or drag and drop
+          </p>
+          <p
+            class="text-center italic text-sm text-content-shade"
+          >Accepts .png, .jpeg, .ico, and .svg file (max 4 MB)</p>
+        </template>
+      </div>
+    </label>
+    <input
+      id="image-file"
+      ref="fileInput"
+      type="file"
+      class="hidden"
+      :accept="ACCEPTED_FILES"
+      @change="onFileChange"
+    >
+    <p
+      v-if="error || validationError"
+      class="font-bold text-red-700 italic mt-2"
+    >
+      {{ error || validationError }}
+    </p>
+  </template>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, ref, Ref, watch } from 'vue';
+
+import { ACCEPTED_FILES, FILE_SIZE } from '@/constant/file';
 
 import UploadIcon from '@/assets/icons/upload.svg?component';
 import FileIcon from '@/assets/icons/file.svg?component';
@@ -158,15 +160,13 @@ export default defineComponent({
       currentFile.value = null;
     };
 
-    const doesFileFit = (file: File) => {
-      return file.size / 1024 / 1024 <= 1;
-    };
+    const isFit = ({ size }: File) => size <= FILE_SIZE;
 
     const onFileChange = () => {
       if (fileInput.value && fileInput.value.files) {
         const file = fileInput.value.files[0];
 
-        if (!doesFileFit(file)) {
+        if (!isFit(file)) {
           validationError.value = 'Image size is too large (max 1 MB)';
           return;
         }
@@ -191,7 +191,7 @@ export default defineComponent({
 
       isDragging.value = false;
 
-      if (!doesFileFit(file)) {
+      if (!isFit(file)) {
         validationError.value = 'Image size is too large (max 1 MB)';
         return;
       }
@@ -224,6 +224,7 @@ export default defineComponent({
       onFileDrop,
       validationError,
       dropBoxClass,
+      ACCEPTED_FILES,
     };
   },
 });

@@ -294,22 +294,27 @@ export default defineComponent({
       title: 'Fav — Modern Favicon Generator',
       meta: [
         {
-          hid: 'description',
           name: 'description',
           content:
-            'Generate your modern favicons set with just 3 simple steps.',
+            'Generate compact favicon set for your websites within few clicks.',
         },
         {
-          hid: 'og:description',
+          name: 'og:title',
+          content: 'Fav — Modern Favicon Generator',
+        },
+        {
           name: 'og:description',
           content:
-            'Generate your modern favicons set with just 3 simple steps.',
+            'Generate compact favicon set for your websites within few clicks.',
         },
         {
-          hid: 'twitter:description',
+          name: 'og:url',
+          content: 'https://fav.namchee.dev/',
+        },
+        {
           name: 'twitter:description',
           content:
-            'Generate your modern favicons set with just 3 simple steps.',
+            'Generate compact favicon set for your websites within few clicks.',
         },
       ],
     });
