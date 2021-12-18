@@ -29,6 +29,7 @@ export default defineConfig({
           shade: '#BAB8BE',
           white: '#FDFCFD',
         },
+        danger: '#E54D2E',
       },
     },
   },

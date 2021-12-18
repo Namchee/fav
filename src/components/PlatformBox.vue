@@ -1,48 +1,44 @@
 <template>
-  <div>
-    <label
-      tabindex="0"
-      :for="id"
-      class="flex items-center
-        rounded-xl
-        py-4 px-6
-        cursor-pointer
-        transition-colors
-        hover:bg-gray-50 focus:bg-gray-50
-        focus:outline-none
-        focus:ring-1 focus:ring-gray-200"
-      :class="{
-        'bg-gray-100': checked,
-        'hover:bg-gray-100': checked,
-        'focus:bg-gray-100': checked
-      }"
+  <label
+    tabindex="0"
+    :for="value"
+    class="flex items-center
+      rounded-xl
+      py-4 px-6
+      cursor-pointer
+      transition-colors
+      hover:(bg-content-shade bg-opacity-10)
+      focus:(bg-content-shade bg-opacity-15
+        outline-none
+        ring-2 ring-opacity-30 ring-content-shade)"
+    :class="{
+      'bg-content-shade bg-opacity-15': checked,
+      'hover:(bg-content-shade bg-opacity-15)': checked,
+      'focus:(bg-content-shade bg-opacity-15)': checked
+    }"
+  >
+    <input
+      :id="value"
+      ref="checkbox"
+      tabindex="-1"
+      type="checkbox"
+      class="rounded
+        w-4 h-4
+        focus:(outline-none ring-2 ring-primary ring-opacity-50)"
+      :class="checkboxClass"
+      :value="value"
+      :checked="checked"
+      :disabled="disabled"
+      @change="handleChecked"
     >
-      <input
-        :id="id"
-        ref="checkbox"
-        tabindex="-1"
-        type="checkbox"
-        class="rounded
-          w-4 h-4
-          cursor-pointer
-          focus:outline-none
-          focus:ring-2 focus:ring-indigo-500"
-        :class="checkboxClass"
-        :value="value"
-        :checked="checked"
-        :disabled="disabled"
-        @change="handleChecked"
-      >
-
-      <div class="ml-4 flex items-center">
-        <slot name="icon" />
-        <div class="ml-3">
-          <slot name="title" />
-          <slot name="description" />
-        </div>
+    <div class="ml-4 flex items-center">
+      <slot name="icon" />
+      <div class="ml-3">
+        <slot name="title" />
+        <slot name="description" />
       </div>
-    </label>
-  </div>
+    </div>
+  </label>
 </template>
 
 <script lang="ts">
@@ -54,11 +50,6 @@ export default defineComponent({
   },
 
   props: {
-    id: {
-      type: String,
-      required: true,
-    },
-
     platforms: {
       type: Array,
       required: true,
@@ -83,8 +74,8 @@ export default defineComponent({
 
     const checkboxClass = computed(() => {
       return {
-        'text-indigo-700': !props.disabled,
-        'text-indigo-400': props.disabled,
+        'text-primary': !props.disabled,
+        'text-primary-light text-opacity-70': props.disabled,
       };
     });
 

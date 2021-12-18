@@ -52,6 +52,7 @@ describe('<Button>', () => {
     });
 
     expect(wrapper.text()).not.toBe('Button');
+    expect(wrapper.find('svg').exists()).toBe(true);
     expect(wrapper.attributes('aria-label')).toBe('Test');
     expect(wrapper.attributes()).toHaveProperty('disabled');
     expect(wrapper.classes()).toContain('bg-primary-light');

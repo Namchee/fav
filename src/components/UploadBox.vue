@@ -4,15 +4,15 @@
       class="flex justify-between
         rounded-md
         p-3 pl-6
-        border border-gray-200"
+        border border-content-shade border-opacity-40"
     >
       <div class="text-gray-500 flex justify-center">
-        <FileIcon class="w-5 h-auto mr-3" />
+        <ImageIcon class="w-5 h-auto mr-3" />
         <p
           class="font-bold
             tracking-tight
-            overflow-hidden overflow-ellipsis leading-loose
-            file__name"
+            leading-loose
+            truncate"
         >
           {{ currentFile.name }}
         </p>
@@ -33,7 +33,7 @@
       for="image-file"
       class="cursor-pointer
         block
-        h-48
+        h-56
         focus:outline-none focus:ring-1 focus:ring-gray-300"
       tabindex="0"
       @dragenter="isDragging = true"
@@ -43,7 +43,11 @@
     >
       <div :class="dropBoxClass">
         <template v-if="isDragging">
-          <FileIcon class="w-12 lg:w-16 h-auto text-content-shade" />
+          <FileIcon
+            class="w-12 lg:w-16 h-auto
+            text-content-shade
+            opacity-75"
+          />
           <p
             class="leading-normal
             text-content-shade
@@ -55,11 +59,11 @@
         </template>
         <template v-else>
           <UploadIcon
-            class="w-12 lg:w-16 h-auto
+            class="w-12 lg:w-18 h-auto
               text-content-shade
               opacity-75"
           />
-          <p class="leading-normal text-content-shade mt-6 lg:mt-2 text-lg">
+          <p class="text-center text-content-shade mt-6 lg:mt-4 text-lg">
             <span
               class="text-primary-light
                 text-opacity-80
@@ -68,10 +72,10 @@
               Upload a file
             </span>
             or drag and drop
+            <span class="block text-sm text-content-shade italic">
+              Accepts .png, .jpeg, .ico, and .svg file (max 4 MB)
+            </span>
           </p>
-          <p
-            class="text-center italic text-sm text-content-shade"
-          >Accepts .png, .jpeg, .ico, and .svg file (max 4 MB)</p>
         </template>
       </div>
     </label>
@@ -84,10 +88,10 @@
       @change="onFileChange"
     >
     <p
-      v-if="error || validationError"
-      class="font-bold text-red-700 italic mt-2"
+      v-show="error"
+      class="font-bold text-danger italic mt-2"
     >
-      {{ error || validationError }}
+      {{ error }}
     </p>
   </template>
 </template>
@@ -98,12 +102,14 @@ import { computed, defineComponent, ref, Ref, watch } from 'vue';
 import { ACCEPTED_FILES, FILE_SIZE } from '@/constant/file';
 
 import UploadIcon from '@/assets/icons/upload.svg?component';
+import ImageIcon from '@/assets/icons/image.svg?component';
 import FileIcon from '@/assets/icons/file.svg?component';
 import CloseIcon from '@/assets/icons/close.svg?component';
 
 export default defineComponent({
   components: {
     UploadIcon,
+    ImageIcon,
     FileIcon,
     CloseIcon,
   },
@@ -156,9 +162,7 @@ export default defineComponent({
       ].includes(currentFile.type);
     };
 
-    const deleteFile = () => {
-      currentFile.value = null;
-    };
+    const deleteFile = () => currentFile.value = null;
 
     const isFit = ({ size }: File) => size <= FILE_SIZE;
 
@@ -167,7 +171,7 @@ export default defineComponent({
         const file = fileInput.value.files[0];
 
         if (!isFit(file)) {
-          validationError.value = 'Image size is too large (max 1 MB)';
+          validationError.value = 'Image size is too large (max 4 MB)';
           return;
         }
 
@@ -229,11 +233,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style lang="postcss" scoped>
-.file__name {
-  width: 12rem;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-</style>

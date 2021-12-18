@@ -34,7 +34,7 @@
             </p>
 
             <UploadBox
-              :error="fileError"
+              v-model:error="fileError"
               @file-change="handleFileUpload"
             />
           </section>
@@ -47,7 +47,6 @@
             <div class="space-y-2">
               <PlatformBox
                 v-for="platform in platforms"
-                :id="platform.value"
                 :key="platform.value"
                 v-model:platforms="selectedPlatforms"
                 :value="platform.value"
