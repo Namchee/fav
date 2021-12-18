@@ -7,3 +7,4 @@ dist-ssr
 *.log
 **/sw.js
 .output
+coverage
