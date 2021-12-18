@@ -1,20 +1,20 @@
 <template>
-  <template v-if="currentFile">
+  <template v-if="fileName">
     <div
       class="flex justify-between
         rounded-md
         p-3 pl-6
         border border-content-shade border-opacity-40"
     >
-      <div class="text-gray-500 flex justify-center">
-        <ImageIcon class="w-5 h-auto mr-3" />
+      <div class="text-content-light flex justify-center space-x-2">
+        <ImageIcon class="w-5 h-auto" />
         <p
           class="font-bold
             tracking-tight
             leading-loose
             truncate"
         >
-          {{ currentFile.name }}
+          {{ fileName }}
         </p>
       </div>
 
@@ -93,16 +93,16 @@
       @change="onFileChange"
     >
     <p
-      v-show="error"
+      v-show="fileError"
       class="font-bold text-danger italic mt-2"
     >
-      {{ error }}
+      {{ fileError }}
     </p>
   </template>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, Ref, watch } from 'vue';
+import { computed, defineComponent, ref } from 'vue';
 
 import { ACCEPTED_FILES, FILE_SIZE } from '@/constant/file';
 
@@ -120,7 +120,7 @@ export default defineComponent({
   },
 
   props: {
-    error: {
+    fileError: {
       type: String,
       required: false,
       default: '',
@@ -133,9 +133,7 @@ export default defineComponent({
   ],
 
   setup(_, { emit }) {
-    const currentFile: Ref<File | null> = ref(null);
-    const fileInput: Ref<HTMLInputElement | null> = ref(null);
-
+    const fileName = ref('');
     const isDragging = ref(false);
 
     const dropBoxClass = computed(() => {
@@ -165,64 +163,63 @@ export default defineComponent({
         'image/svg+xml',
       ].includes(currentFile.type);
     };
-
-    const deleteFile = () => currentFile.value = null;
-
     const isFit = ({ size }: File) => size <= FILE_SIZE;
 
-    const onFileChange = () => {
-      if (fileInput.value && fileInput.value.files) {
-        const file = fileInput.value.files[0];
+    const updateFile = (file: File) => {
+      fileName.value = file.name;
+      emit('file-change', file);
+    };
+    const deleteFile = () => {
+      fileName.value = '';
+      emit('file-change', null);
+    };
 
-        if (!isFit(file)) {
-          emit('update:file-error', 'Image size is too large (max 10 MB)');
-          return;
-        }
+    const onFileChange = (event: Event) => {
+      const target = event.target as HTMLInputElement;
+      const file = target.files?.item(0);
 
-        currentFile.value = file;
+      if (!file) {
+        deleteFile();
+        return;
       }
+
+      if (!isFit(file) || !isSupported(file)) {
+        emit('update:file-error', !isFit(file) ?
+          'Icon size is too large (max 10 MB)' :
+          'Unsupported file type',
+        );
+        deleteFile();
+        return;
+      }
+
+      updateFile(file);
     };
 
     const onFileDrop = (event: DragEvent) => {
       event.preventDefault();
-
-      let file: File;
-
-      if (
-        event.dataTransfer?.items &&
-        event.dataTransfer.items[0].kind === 'file'
-      ) {
-        file = event.dataTransfer.items[0].getAsFile() as File;
-      } else {
-        file = event.dataTransfer?.files[0] as File;
-      }
-
       isDragging.value = false;
 
-      if (!isFit(file)) {
-        emit('update:file-error', 'Image size is too large (max 10 MB)');
+      const file = event.dataTransfer?.files[0];
+
+      if (!file) {
+        deleteFile();
         return;
       }
 
-      currentFile.value = file;
+      if (!isFit(file) || !isSupported(file)) {
+        emit('update:file-error', !isFit(file) ?
+          'Icon size is too large (max 10 MB)' :
+          'Unsupported file type',
+        );
+        deleteFile();
+        return;
+      }
+
+      updateFile(file);
     };
 
-    watch(currentFile, (value) => {
-      if (value) {
-        if (isSupported(value)) {
-          emit('file-change', value);
-        } else {
-          currentFile.value = null;
-          emit('update:file-error', 'Image size is too large (max 10 MB)');
-        }
-      } else {
-        emit('file-change', null);
-      }
-    });
-
     return {
-      currentFile,
-      fileInput,
+      fileName,
       onFileChange,
       deleteFile,
       isDragging,

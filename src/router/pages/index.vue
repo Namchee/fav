@@ -146,7 +146,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, Ref, ref } from 'vue';
+import { computed, defineComponent, Ref, ref } from 'vue';
 
 import PreviewBox from '@/components/PreviewBox.vue';
 import UploadBox from '@/components/UploadBox.vue';
@@ -182,8 +182,6 @@ export default defineComponent({
 
   setup() {
     const file: Ref<File | null> = ref(null);
-    const imageBlob: Ref<string> = ref('');
-
     const selectedPlatforms: Ref<string[]> = ref(['legacy']);
 
     const fileError: Ref<string> = ref('');
@@ -197,15 +195,11 @@ export default defineComponent({
 
     const isProcessing = ref(false);
 
-    const handleFileUpload = (val: File | null) => {
-      file.value = val;
+    const imageBlob = computed(() => {
+      return file.value ? URL.createObjectURL(file.value) : '';
+    });
 
-      if (!val) {
-        imageBlob.value = '';
-      } else {
-        imageBlob.value = URL.createObjectURL(val);
-      }
-    };
+    const handleFileUpload = (val: File | null) => file.value = val;
 
     const generateIcons = async () => {
       if (isProcessing.value) {
