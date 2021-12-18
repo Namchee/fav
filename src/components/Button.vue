@@ -4,6 +4,7 @@
     :aria-disabled="disabled || loading"
     :aria-label="label"
     :class="className"
+    :type="(type as any)"
   >
     <template v-if="loading">
       <LoadingIcon
@@ -45,8 +46,7 @@ const disabledThemes: Record<ThemeKey, string> = {
     space-x-2
     text-content-white
     bg-primary-light
-    rounded-md
-    cursor-not-allowed`,
+    rounded-md`,
 };
 
 export default defineComponent({

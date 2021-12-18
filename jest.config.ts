@@ -11,7 +11,8 @@ const config: Config.InitialOptions = {
     '.*\\.(vue)$': '@vue/vue3-jest',
   },
   moduleNameMapper: {
-    '.+\\.(svg)(\\?component)?$': '<rootDir>/src/components/tests/iconMock.vue',
+    '.+\\.(svg)(\\?component)?$':
+      '<rootDir>/src/components/tests/Icon.mock.vue',
     '^@/(.*)': '<rootDir>/src/$1',
     '^(\\.{1,2}/.*)\\.js$': '$1',
   },
