@@ -1,7 +1,7 @@
 <template>
   <nav
     class="w-full
-      max-w-4xl
+      max-w-5xl
       px-6 py-8
       md:px-8 md:py-12
       lg:px-0

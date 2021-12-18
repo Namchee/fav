@@ -1,6 +1,6 @@
 <template>
   <PageLayout>
-    <div class="max-w-4xl mx-auto py-6">
+    <div class="max-w-5xl mx-auto py-6">
       <div class="lg:leading-normal py-12">
         <h1
           class="font-semibold
@@ -34,7 +34,7 @@
             </p>
 
             <UploadBox
-              v-model:error="fileError"
+              v-model:file-error="fileError"
               @file-change="handleFileUpload"
             />
           </section>

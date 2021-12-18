@@ -34,7 +34,7 @@
       class="cursor-pointer
         block
         h-56
-        focus:outline-none focus:ring-1 focus:ring-gray-300"
+        focus:(outline-none ring-2 ring-opacity-50 ring-content-shade)"
       tabindex="0"
       @dragenter="isDragging = true"
       @dragleave="isDragging = false"
@@ -63,7 +63,12 @@
               text-content-shade
               opacity-75"
           />
-          <p class="text-center text-content-shade mt-6 lg:mt-4 text-lg">
+          <p
+            class="text-center
+            text-content-shade
+            mt-6 lg:mt-4
+            text-lg leading-relaxed"
+          >
             <span
               class="text-primary-light
                 text-opacity-80
@@ -73,7 +78,7 @@
             </span>
             or drag and drop
             <span class="block text-sm text-content-shade italic">
-              Accepts .png, .jpeg, .ico, and .svg file (max 4 MB)
+              PNG, JPEG, ICO, WEBP, BMP, and SVG file up to 10 MB
             </span>
           </p>
         </template>
@@ -124,13 +129,12 @@ export default defineComponent({
 
   emits: [
     'file-change',
+    'update:file-error',
   ],
 
   setup(_, { emit }) {
     const currentFile: Ref<File | null> = ref(null);
     const fileInput: Ref<HTMLInputElement | null> = ref(null);
-
-    const validationError: Ref<string> = ref('');
 
     const isDragging = ref(false);
 
@@ -171,7 +175,7 @@ export default defineComponent({
         const file = fileInput.value.files[0];
 
         if (!isFit(file)) {
-          validationError.value = 'Image size is too large (max 4 MB)';
+          emit('update:file-error', 'Image size is too large (max 10 MB)');
           return;
         }
 
@@ -196,23 +200,20 @@ export default defineComponent({
       isDragging.value = false;
 
       if (!isFit(file)) {
-        validationError.value = 'Image size is too large (max 1 MB)';
+        emit('update:file-error', 'Image size is too large (max 10 MB)');
         return;
       }
 
-      validationError.value = '';
       currentFile.value = file;
     };
 
     watch(currentFile, (value) => {
       if (value) {
         if (isSupported(value)) {
-          validationError.value = '';
           emit('file-change', value);
         } else {
           currentFile.value = null;
-          validationError.value =
-            'Only .png, .jpeg, .ico, and .svg files are allowed';
+          emit('update:file-error', 'Image size is too large (max 10 MB)');
         }
       } else {
         emit('file-change', null);
@@ -226,7 +227,6 @@ export default defineComponent({
       deleteFile,
       isDragging,
       onFileDrop,
-      validationError,
       dropBoxClass,
       ACCEPTED_FILES,
     };
