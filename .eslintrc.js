@@ -39,5 +39,14 @@ module.exports = {
     'require-jsdoc': 'off',
     'vue/no-v-model-argument': 'off',
     'vue/multi-word-component-names': 'off',
+    'spaced-comment': [
+      'error',
+      'always',
+      {
+        markers: [
+          '/',
+        ],
+      },
+    ],
   },
 };

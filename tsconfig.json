@@ -9,6 +9,8 @@
     "jsx": "preserve",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "allowJs": true,
     "baseUrl": ".",
     "paths": {
       "@/*": [
@@ -16,13 +18,14 @@
       ]
     },
     "types": [
-      "@types/node"
+      "@types/node",
+      "@types/jest"
     ]
   },
   "include": [
     "./src/**/*.ts",
     "./src/**/*.vue",
-    "src/shims.d.ts"
+    "types.d.ts"
   ],
   "exclude": [
     "node_modules"

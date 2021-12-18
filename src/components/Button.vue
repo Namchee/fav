@@ -4,7 +4,6 @@
     :aria-disabled="disabled || loading"
     :aria-label="label"
     :class="className"
-    :type="(type as any)"
   >
     <template v-if="loading">
       <LoadingIcon
