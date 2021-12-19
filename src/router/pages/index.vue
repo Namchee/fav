@@ -44,7 +44,7 @@
               Step 2: Pick your favicon flavors
             </p>
 
-            <div class="grid md:grid-cols-2 md:auto-rows-fr gap-2">
+            <div class="grid lg:grid-cols-2 md:auto-rows-fr gap-2">
               <PlatformBox
                 v-for="platform in platforms"
                 :key="platform.value"

@@ -5,11 +5,11 @@
   >
     <NavigationVue />
     <main
-      class="w-full
+      class="max-w-5xl mx-auto
+        w-full
         flex-1
         px-6
-        md:px-8
-        lg:px-0"
+        md:px-8"
     >
       <slot />
     </main>

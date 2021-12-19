@@ -3,6 +3,7 @@
     class="w-full
       max-w-5xl
       px-6
+      lg:px-8
       h-24
       mx-auto
       flex justify-between items-center"

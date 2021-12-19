@@ -4,7 +4,7 @@
       flex flex-col items-center
       md:(flex-row justify-between)
       border-t border-content-shade border-opacity-25
-      p-8 lg:px-2
+      p-8
       text-sm
       text-content-light"
   >
