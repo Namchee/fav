@@ -1,7 +1,7 @@
-import * as JSZip from 'jszip';
+import JSZip from 'jszip';
 
 import { generateHTMLTemplate } from './template';
-import { IconKey, ImageBlob } from './types';
+import { IconKey, ImageBlob } from '../types';
 
 const MANIFEST = `{
   "icons": [
@@ -15,22 +15,13 @@ function blobToFile(
   lastModified: Date,
   name: string,
 ): File {
-  const obj: any = blob;
-
-  obj.lastModified = lastModified;
-  obj.name = name;
-
-  return obj as File;
-}
-
-export function getFilenameWithoutExtension(str: string): string {
-  return str.slice(0, str.lastIndexOf('.'));
+  return new File([blob], name, { lastModified: lastModified.getTime() });
 }
 
 export function createArchive(
   platforms: IconKey[],
   imageBlobs: ImageBlob[],
-  includeTemplate: boolean = false,
+  includeTemplate = false,
 ): Promise<Blob> {
   const files = imageBlobs.map(({ name, blob }: ImageBlob) => {
     return blobToFile(blob, new Date(), name);

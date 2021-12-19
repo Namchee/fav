@@ -1,4 +1,4 @@
-import { createApp } from 'vue/dist/vue.esm-bundler';
+import { createApp } from 'vue';
 
 import { createHead } from '@vueuse/head';
 import { router } from '@/router/routes';

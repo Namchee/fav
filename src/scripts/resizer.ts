@@ -1,4 +1,4 @@
-import { Favicon, IconKey, ImageBlob, PLATFORM_ICONS } from './types';
+import { Favicon, IconKey, ImageBlob, PLATFORM_ICONS } from '../types';
 
 function fileToImage(src: File): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {

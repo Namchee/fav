@@ -133,18 +133,23 @@
 <script lang="ts">
 import { computed, defineComponent, Ref, ref } from 'vue';
 
+import { useHead } from '@vueuse/head';
+
+import PageLayout from '@/components/PageLayout.vue';
+
+import Button from '@/components/Button.vue';
 import PreviewBox from '@/components/PreviewBox.vue';
 import UploadBox from '@/components/UploadBox.vue';
 import PlatformBox from '@/components/PlatformBox.vue';
 
-import { getFilenameWithoutExtension, createArchive } from '@/scripts/file';
+import { createArchive } from '@/scripts/file';
 import { createImageBlobs } from '@/scripts/resizer';
-import { IconKey } from '@/scripts/types';
-import PageLayout from '@/components/PageLayout.vue';
-import { useHead } from '@vueuse/head';
 
-import Button from '@/components/Button.vue';
+import { getFilenameWithoutExtension } from '@/utils';
+
 import { PLATFORM_LIST } from '@/constant/platform';
+
+import type { IconKey } from '@/types';
 
 export default defineComponent({
   components: {
