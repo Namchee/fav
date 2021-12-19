@@ -16,7 +16,11 @@
       </div>
     </template>
     <template v-else>
-      <img :src="value" title="Favicon" class="w-4/5 h-4/5 object-contain">
+      <img
+        :src="value"
+        title="Favicon"
+        class="w-4/5 h-4/5 object-contain"
+      >
     </template>
   </div>
 </template>

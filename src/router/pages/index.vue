@@ -44,31 +44,16 @@
               Step 2: Pick your favicon flavors
             </p>
 
-            <div class="space-y-2">
+            <div class="grid grid-cols-2 auto-rows-fr gap-2">
               <PlatformBox
                 v-for="platform in platforms"
                 :key="platform.value"
                 v-model:platforms="selectedPlatforms"
                 :value="platform.value"
                 :disabled="platform.value === 'legacy'"
-              >
-                <template #icon>
-                  <component
-                    :is="platform.icon"
-                    class="w-8 h-8 stroke-current"
-                  />
-                </template>
-                <template #title>
-                  <p class="font-bold text-lg">
-                    {{ platform.name }}
-                  </p>
-                </template>
-                <template #description>
-                  <p class="italic text-sm">
-                    {{ platform.description }}
-                  </p>
-                </template>
-              </PlatformBox>
+                :title="platform.name"
+                :description="platform.description"
+              />
             </div>
 
             <p
@@ -152,12 +137,6 @@ import PreviewBox from '@/components/PreviewBox.vue';
 import UploadBox from '@/components/UploadBox.vue';
 import PlatformBox from '@/components/PlatformBox.vue';
 
-import GlobeIcon from '@/assets/icons/globe.svg?component';
-import AtomIcon from '@/assets/icons/atom.svg?component';
-import AndroidIcon from '@/assets/icons/android.svg?component';
-import AppleIcon from '@/assets/icons/apple.svg?component';
-import LoadingIcon from '@/assets/icons/loading.svg?component';
-
 import { getFilenameWithoutExtension, createArchive } from '@/scripts/file';
 import { createImageBlobs } from '@/scripts/resizer';
 import { IconKey } from '@/scripts/types';
@@ -165,17 +144,13 @@ import PageLayout from '@/components/PageLayout.vue';
 import { useHead } from '@vueuse/head';
 
 import Button from '@/components/Button.vue';
+import { PLATFORM_LIST } from '@/constant/platform';
 
 export default defineComponent({
   components: {
     PreviewBox,
     UploadBox,
     PlatformBox,
-    GlobeIcon,
-    AtomIcon,
-    AndroidIcon,
-    AppleIcon,
-    LoadingIcon,
     PageLayout,
     Button,
   },
@@ -256,33 +231,6 @@ export default defineComponent({
       isProcessing.value = false;
     };
 
-    const platforms = [
-      {
-        name: 'Legacy',
-        description: 'Supported by classic to modern browsers',
-        icon: 'GlobeIcon',
-        value: 'legacy',
-      },
-      {
-        name: 'Modern',
-        description: 'Brings modern favicon features',
-        icon: 'AtomIcon',
-        value: 'modern',
-      },
-      {
-        name: 'Android',
-        description: 'Bring your favicons to Android devices',
-        icon: 'AndroidIcon',
-        value: 'android',
-      },
-      {
-        name: 'Apple',
-        description: 'Bring your favicons to Apple devices',
-        icon: 'AppleIcon',
-        value: 'apple',
-      },
-    ];
-
     useHead({
       title: 'Fav — Modern Favicon Generator',
       meta: [
@@ -317,7 +265,7 @@ export default defineComponent({
       generateIcons,
       imageBlob,
       selectedPlatforms,
-      platforms,
+      platforms: PLATFORM_LIST,
       fileError,
       platformError,
       isProcessing,
