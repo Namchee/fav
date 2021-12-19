@@ -34,12 +34,15 @@
       class="cursor-pointer
         block
         h-56
-        focus:(outline-none ring-2 ring-opacity-50 ring-content-shade)"
+        outline-none
+        group"
       tabindex="0"
       @dragenter="isDragging = true"
       @dragleave="isDragging = false"
       @dragover.prevent
       @drop="onFileDrop($event)"
+      @keypress.enter="handleKeyboardAccess"
+      @keypress.space="handleKeyboardAccess"
     >
       <div :class="dropBoxClass">
         <template v-if="isDragging">
@@ -133,6 +136,7 @@ export default defineComponent({
   ],
 
   setup(_, { emit }) {
+    const fileInput = ref<HTMLInputElement | null>(null);
     const fileName = ref('');
     const isDragging = ref(false);
 
@@ -145,23 +149,20 @@ export default defineComponent({
       return `border-2 border-content-shade border-opacity-50 border-dashed
         grid place-items-center
         rounded-md p-8
-        transition-colors
+        transition-all
         hover:(bg-content-shade
           bg-opacity-10
           border-content-shade
           border-opacity-60)
+        group-focus:(
+          ring-3 ring-opacity-30 ring-content-shade
+          bg-content-shade bg-opacity-10)
         h-full
         ${dragClass}`;
     });
 
     const isSupported = (currentFile: File): boolean => {
-      return [
-        'image/png',
-        'image/jpeg',
-        'image/x-icon',
-        'image/vnd-microsoft-icon',
-        'image/svg+xml',
-      ].includes(currentFile.type);
+      return ACCEPTED_FILES.split(', ').includes(currentFile.type);
     };
     const isFit = ({ size }: File) => size <= FILE_SIZE;
 
@@ -218,14 +219,20 @@ export default defineComponent({
       updateFile(file);
     };
 
+    const handleKeyboardAccess = () => {
+      fileInput.value?.click();
+    };
+
     return {
       fileName,
+      fileInput,
       onFileChange,
       deleteFile,
       isDragging,
       onFileDrop,
       dropBoxClass,
       ACCEPTED_FILES,
+      handleKeyboardAccess,
     };
   },
 });
