@@ -2,8 +2,7 @@
   <label
     :tabindex="disabled ? -1 : 0"
     :for="value"
-    class="
-      rounded-xl
+    class="rounded-xl
       px-6 py-4
       cursor-pointer
       transition-all
