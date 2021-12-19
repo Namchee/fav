@@ -27,7 +27,7 @@
         ref="checkbox"
         tabindex="-1"
         type="checkbox"
-        class="rounded-full w-5 h-5"
+        class="rounded-full w-5 h-5 pointer-events-none"
         :class="checkboxClass"
         :value="value"
         :checked="checked"

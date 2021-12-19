@@ -1,10 +1,9 @@
 <template>
-  <nav
+  <div
     class="w-full
       max-w-5xl
-      px-6 py-8
-      md:px-8 md:py-12
-      lg:px-0
+      px-6
+      h-24
       mx-auto
       flex justify-between items-center"
   >
@@ -14,13 +13,13 @@
         aria-label="Fav"
       >
         <Logo
-          class="w-16 h-auto"
+          class="w-12 h-auto"
           role="banner"
         />
       </router-link>
     </header>
 
-    <div>
+    <nav>
       <ul class="flex items-center">
         <li
           v-for="link in links"
@@ -39,8 +38,8 @@
           </router-link>
         </li>
       </ul>
-    </div>
-  </nav>
+    </nav>
+  </div>
 </template>
 
 <script lang="ts">

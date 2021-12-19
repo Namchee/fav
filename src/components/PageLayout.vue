@@ -1,6 +1,6 @@
 <template>
   <div
-    class="h-screen
+    class="min-h-screen
       flex flex-col items-start"
   >
     <NavigationVue />
