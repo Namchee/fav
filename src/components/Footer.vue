@@ -23,7 +23,7 @@
           text-primary
           transition-colors
           hover:text-primary-dark
-          focus:(outline-none text-primary-dark)
+          focus:(text-primary-dark)
           active:text-primary-dark"
         href="https://evilmartians.com/"
         target="_blank"
@@ -39,7 +39,7 @@
           text-primary
           transition-colors
           hover:text-primary-dark
-          focus:(outline-none text-primary-dark)
+          focus:(text-primary-dark)
           active:text-primary-dark"
         href="https://github.com/Namchee"
         target="_blank"
