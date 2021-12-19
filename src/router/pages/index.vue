@@ -285,10 +285,4 @@ export default defineComponent({
     column-gap: 4rem;
   }
 }
-
-@screen lg {
-  .app {
-    column-gap: 8rem;
-  }
-}
 </style>

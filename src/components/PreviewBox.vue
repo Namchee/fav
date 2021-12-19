@@ -49,7 +49,6 @@ export default defineComponent({
   max-width: 20rem;
   height: auto;
   margin-left: auto;
-  margin-right: auto;
   display: grid;
   place-items: center;
   position: sticky;
