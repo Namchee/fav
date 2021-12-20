@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@vueuse/head": "^0.7.4",
-    "endent": "^2.1.0",
     "esm-potrace-wasm": "^0.2.1",
     "jszip": "^3.6.0",
     "nprogress": "^0.2.0",

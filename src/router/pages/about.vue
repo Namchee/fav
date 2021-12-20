@@ -127,14 +127,14 @@
           For example:
         </p>
 
-        <pre class="bg-gray-800 text-white overflow-x-auto">
+        <pre class="overflow-x-auto">
 &lt;!-- start: head tag --&gt;
-  &lt;link rel="icon" href="/favicon.ico"&gt;
+  &lt;link rel="icon" href="/favicon.ico" size="any"&gt;
   &lt;link rel="icon" href="/icon.svg" type="image/svg+xml"&gt;
   &lt;link rel="apple-touch-icon" href="/apple-touch-icon.png"&gt;
   &lt;link rel="manifest" href="/manifest.webmanifest"&gt;
-&lt;!-- end: head tag --&gt;
-        </pre>
+&lt;!-- end: head tag --&gt;</pre>
+
         <p>
           If you're still confused about which line(s) should you include,
           you can check the <strong>include HTML template</strong> checkbox

@@ -5,9 +5,9 @@ export function generateHTMLTemplate(
   isSvg = true,
 ): string {
   const TAG_MAP: Record<IconKey, string> = {
-    legacy: '<link rel="icon" href="/favicon.ico">',
+    legacy: '<link rel="icon" href="/favicon.ico" size="any">',
     modern: isSvg ?
-      '<link rel="icon" href="/icon.svg" type="image/svg+xml" size="any">' :
+      '<link rel="icon" href="/icon.svg" type="image/svg+xml">' :
       '<link rel="icon" href="/icon.png" type="image/png" sizes="32x32">',
     apple: '<link rel="apple-touch-icon" href="/apple-touch-icon.png">',
     android: '<link rel="manifest" href="/manifest.webmanifest">',
