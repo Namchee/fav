@@ -5,11 +5,12 @@
         prose prose-lg lg:prose-xl
         py-16"
     >
-      <AboutHeader
+      <img
+        src="/about.svg"
         alt="Fav — Modern Favicon Generator"
         title="Fav — Modern Favicon Generator"
-        class="mx-auto w-36 md:w-48 h-auto leading-relaxed"
-      />
+        class="mx-auto w-36 md:w-48 h-auto"
+      >
 
       <section class="text-content text-opacity-70">
         <h2 class="font-bold text-content tracking-tight">
@@ -188,12 +189,10 @@ import { defineComponent } from 'vue';
 import { useHead } from '@vueuse/head';
 
 import PageLayout from '@/components/PageLayout.vue';
-import AboutHeader from '@/assets/icons/about.svg?component';
 
 export default defineComponent({
   components: {
     PageLayout,
-    AboutHeader,
   },
 
   setup() {
