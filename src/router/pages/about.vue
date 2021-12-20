@@ -130,7 +130,7 @@
 
         <pre class="overflow-x-auto">
 &lt;!-- start: head tag --&gt;
-  &lt;link rel="icon" href="/favicon.ico" size="any"&gt;
+  &lt;link rel="icon" href="/favicon.ico" sizes="any"&gt;
   &lt;link rel="icon" href="/icon.svg" type="image/svg+xml"&gt;
   &lt;link rel="apple-touch-icon" href="/apple-touch-icon.png"&gt;
   &lt;link rel="manifest" href="/manifest.webmanifest"&gt;
