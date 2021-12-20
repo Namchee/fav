@@ -1,4 +1,4 @@
-# Fav
+<h1 align="center">Fav</h1>
 
 <p align="center">
   <img src="./docs/banner.png" title="Fav - Modern Favicon Generator" alt="Fav - Modern Icon Generator">
@@ -13,11 +13,11 @@
   </a>
 </p>
 
-Fav is a next-generation favicons generator to generate a ready-to-use and compact favicon set for your 2021 websites.
+Fav is a next-generation favicons generator to generate a ready-to-use and compact favicon set for your modeern websites.
 
 Fav doesn't store any kind of data, since all image processing are done directly on your browser.
 
-Generate your favicon now with Fav by visiting [this link](https://fav-namchee.vercel.app/).
+Generate your favicons now with Fav by visiting [this link](https://fav.namchee.dev/).
 
 > Note: You can install Fav by clicking the install button on the top right side of browser's address bar.
 ## References

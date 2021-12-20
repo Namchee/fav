@@ -46,7 +46,7 @@ export default defineComponent({
   overflow: hidden;
 
   width: 100%;
-  max-width: 20rem;
+  max-width: 22.5rem;
   height: auto;
   margin-left: auto;
   display: grid;
