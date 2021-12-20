@@ -17,6 +17,15 @@ export default defineConfig({
       ],
     },
     extend: {
+      typography: {
+        DEFAULT: {
+          css: {
+            a: {
+              textDecoration: 'none',
+            },
+          },
+        },
+      },
       colors: {
         primary: {
           DEFAULT: '#3E63DD',

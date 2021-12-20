@@ -4,7 +4,7 @@
       class="flex justify-between
         rounded-md
         p-3 pl-6
-        border border-content-shade border-opacity-40"
+        border border-content-light border-opacity-50"
     >
       <div class="text-content-light flex justify-center space-x-2">
         <ImageIcon class="w-5 h-auto" />
@@ -24,7 +24,7 @@
           transition-colors hover:bg-gray-100"
         @click="deleteFile"
       >
-        <CloseIcon class="w-4 h-auto text-gray-600" />
+        <CloseIcon class="w-4 h-4 text-content-light" />
       </button>
     </div>
   </template>
@@ -48,12 +48,13 @@
         <template v-if="isDragging">
           <FileIcon
             class="w-12 lg:w-16 h-auto
-            text-content-shade
+            text-content-light
             opacity-75"
           />
           <p
             class="leading-normal
-            text-content-shade
+            text-content-light
+            text-opacity-70
             text-lg
             font-bold"
           >
@@ -64,11 +65,12 @@
           <UploadIcon
             class="w-12 lg:w-18 h-auto
               text-content-shade
-              opacity-75"
+              opacity-80"
           />
           <p
             class="text-center
-            text-content-shade
+            text-content-light
+            text-opacity-75
             mt-6 lg:mt-4
             text-lg leading-relaxed"
           >
@@ -80,7 +82,10 @@
               Upload a file
             </span>
             or drag and drop
-            <span class="block text-sm text-content-shade italic">
+            <span
+              class="block text-sm text-content-light
+                text-opacity-75 italic"
+            >
               PNG, JPEG, ICO, WEBP, BMP, and SVG file up to 10 MB
             </span>
           </p>
@@ -144,7 +149,7 @@ export default defineComponent({
       const dragClass = isDragging.value ? `bg-content-shade
         bg-opacity-10
         border-content-shade
-        border-opacity-60` : '';
+        border-opacity-75` : '';
 
       return `border-2 border-content-shade border-opacity-50 border-dashed
         grid place-items-center

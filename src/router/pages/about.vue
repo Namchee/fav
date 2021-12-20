@@ -1,18 +1,24 @@
 <template>
   <PageLayout>
-    <article class="w-full max-w-2xl mx-auto prose-lg lg:prose-xl py-8">
-      <h1 class="font-bold tracking-tight">
-        About Fav
-      </h1>
+    <article
+      class="w-full mx-auto
+        prose prose-lg lg:prose-xl
+        py-16"
+    >
+      <AboutHeader
+        alt="Fav — Modern Favicon Generator"
+        title="Fav — Modern Favicon Generator"
+        class="mx-auto w-36 md:w-48 h-auto leading-relaxed"
+      />
 
-      <section class="text-gray-500">
-        <h2 class="font-bold text-gray-700">
+      <section class="text-content text-opacity-70">
+        <h2 class="font-bold text-content tracking-tight">
           What is Fav?
         </h2>
 
         <p>
-          Fav is a next-generation icon generator for 2021 websites.
-          Fav allows you to generate favicon sets for modern browsers
+          Fav is a next-generation icon generator for modern websites.
+          Fav allows you to generate compact favicon set for modern browsers
           from a single source file, eliminating you from a hassle of
           manually generating multitudes different format of the said icon.
           Fav is directly inspired by <a
@@ -22,8 +28,7 @@
             rel="noopener"
             aria-label="EvilMartians Writeup"
           >
-            this extensive writeup
-          </a>
+            this extensive writeup</a>
           written by <a
             class="link"
             href="https://evilmartians.com/"
@@ -31,15 +36,14 @@
             rel="noopener"
             aria-label="EvilMartians Website"
           >
-            Evil Martians.
-          </a>
+            Evil Martians</a>.
         </p>
 
         <p>
           Fav executes all the required processing steps directly
-          on your browser without any need to communicate with a backend server.
-          This means that fav <strong>
-            does not store any form of user-related data.
+          on your browser without any need to communicate with
+          any backend server. Therefore, fav <strong>
+            does not store any form of your personal data and usage.
           </strong>
         </p>
 
@@ -48,9 +52,9 @@
         </p>
       </section>
 
-      <section class="text-gray-500">
-        <h2 class="font-bold text-gray-700">
-          Why another generator?
+      <section class="text-content text-opacity-70">
+        <h2 class="font-bold text-content tracking-tight">
+          But, why another generator?
         </h2>
 
         <p>
@@ -76,9 +80,9 @@
         </p>
       </section>
 
-      <section class="text-gray-500">
-        <h2 class="font-bold text-gray-700">
-          How to use Fav?
+      <section class="text-content text-opacity-70">
+        <h2 class="font-bold text-content tracking-tight">
+          Great! How do I use it then?
         </h2>
 
         <p>
@@ -87,36 +91,37 @@
             to="/"
             aria-label="Fav Homepage"
           >
-            homepage
-          </router-link> and follow the instructions there.
+            homepage</router-link> and follow the instructions there.
           TL;DR, you'll have to perform the following steps:
 
           <ol class="list">
             <li>
-              Upload an image as a favicon base. Allowed formats are
+              Upload an image as the base favicon. You can upload either
               <code>.png</code>, <code>.jpeg</code>, <code>.ico</code>,
-              and <code>.svg</code>. However,
-              <a
-                href="#caveats"
-                class="link"
-                aria-label="Anchor"
-              >
-                an SVG file is recommended.
-              </a>
+              <code>.bmp</code>, <code>.webp</code>, or even <code>.svg</code>
+              for the best result.
             </li>
             <li>
-              Select your target platforms. Fav will only transform your asset
-              to be compatible with the selected platforms.
+              Select favicon features support that you need.
+              Fav will only generate favicon set that supports all
+              of the selected features, without redundancy.
             </li>
             <li>
-              Generate your favicon set.
+              Generate your favicon set by clicking the <code>Generate</code>
+              button.
             </li>
           </ol>
         </p>
 
         <p>
-          After the favicon set is generated, extract the contents into the
-          <strong>public directory</strong> of
+          After your favicon set has been generated, your browser will initiate
+          an <code>.zip</code> archive download.
+          Don't worry, it's just Fav-generated favicons, totally safe!
+        </p>
+
+        <p>
+          After the download process had finished, extract all contents of the
+          archive into the <strong>public directory</strong> of
           your website and include the icons in your HTML entry point.
           For example:
         </p>
@@ -136,11 +141,8 @@
         </p>
       </section>
 
-      <section
-        id="caveats"
-        class="text-gray-500"
-      >
-        <h2 class="font-bold text-gray-700">
+      <section class="text-content text-opacity-70">
+        <h2 class="font-bold text-content tracking-tight">
           Caveats
         </h2>
 
@@ -151,33 +153,20 @@
         <ol class="list">
           <li>
             Since all process is done on your browser, the processing speed
-            is 100% dependant on your PC specs. But in general, it
+            is 100% dependant on your hardware specification. But in general, it
             should be fast.
-          </li>
-          <li>
-            Fav doesn't support
-            <a
-              href="https://en.wikipedia.org/wiki/Image_tracing"
-              target="_blank"
-              class="link"
-            >
-              image tracing
-            </a> <span class="italic">yet</span>.
-            Technically, transforming a raster to a vector is impossible.
-            To solve this problem, either provide an <code>.svg</code>
-            file as the base asset or uncheck the <strong>modern</strong>
-            platform.
           </li>
         </ol>
       </section>
 
-      <section class="text-gray-500">
-        <h2 class="font-bold text-gray-700">
+      <section class="text-content text-opacity-70">
+        <h2 class="font-bold text-content tracking-tight">
           Contribution
         </h2>
 
         <p>
-          You can help improving Fav by visiting the
+          Found a bug? Have some cool ideas?
+          You can help improving Fav by visiting our
           <a
             href="https://github.com/Namchee/fav"
             class="link"
@@ -185,8 +174,7 @@
             target="_blank"
             aria-label="Repository Link"
           >
-            repository.
-          </a>
+            GitHub repository</a>.
           Any kind of contribution is welcome!
         </p>
       </section>
@@ -196,11 +184,17 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import PageLayout from '@/components/PageLayout.vue';
+
 import { useHead } from '@vueuse/head';
 
+import PageLayout from '@/components/PageLayout.vue';
+import AboutHeader from '@/assets/icons/about.svg?component';
+
 export default defineComponent({
-  components: { PageLayout },
+  components: {
+    PageLayout,
+    AboutHeader,
+  },
 
   setup() {
     useHead({

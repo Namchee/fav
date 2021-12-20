@@ -114,9 +114,9 @@ export default defineComponent({
 
     const descriptionClass = computed(() => {
       return {
-        'text-content-shade': !checked.value,
+        'text-content-light': !checked.value,
         'text-primary-light': checked.value,
-        'text-opacity-75': checked.value,
+        'text-opacity-70': checked.value,
       };
     });
 
