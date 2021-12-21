@@ -45,8 +45,6 @@ export default defineComponent({
   transition: box-shadow 150ms ease-out;
   overflow: hidden;
 
-  width: 100%;
-  max-width: 22.5rem;
   height: auto;
   margin-left: auto;
   display: grid;
@@ -56,6 +54,6 @@ export default defineComponent({
 }
 
 .preview__box:hover {
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.225);
 }
 </style>

@@ -24,7 +24,7 @@
         </h2>
       </div>
 
-      <div class="app py-8">
+      <div class="grid md:grid-cols-[6fr,4fr] gap-8 md:gap-12 py-8">
         <div class="space-y-8">
           <section ref="upload">
             <p

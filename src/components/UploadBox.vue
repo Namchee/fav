@@ -3,15 +3,17 @@
     <div
       class="flex justify-between
         rounded-md
+        min-w-0
         p-3 pl-6
         border border-content-light border-opacity-50"
     >
-      <div class="text-content-light flex justify-center space-x-2">
+      <div class="text-content-light flex justify-center space-x-2 min-w-0">
         <ImageIcon class="w-5 h-auto" />
         <p
           class="font-bold
             tracking-tight
             leading-loose
+            min-w-0 max-w-screen
             truncate"
         >
           {{ fileName }}
