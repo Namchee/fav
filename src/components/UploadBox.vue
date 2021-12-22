@@ -102,12 +102,6 @@
       :accept="ACCEPTED_FILES"
       @change="onFileChange"
     >
-    <p
-      v-show="fileError"
-      class="font-bold text-danger italic mt-2"
-    >
-      {{ fileError }}
-    </p>
   </template>
 </template>
 
@@ -129,17 +123,9 @@ export default defineComponent({
     CloseIcon,
   },
 
-  props: {
-    fileError: {
-      type: String,
-      required: false,
-      default: '',
-    },
-  },
-
   emits: [
     'file-change',
-    'update:file-error',
+    'error',
   ],
 
   setup(_, { emit }) {
@@ -192,9 +178,9 @@ export default defineComponent({
       }
 
       if (!isFit(file) || !isSupported(file)) {
-        emit('update:file-error', !isFit(file) ?
+        emit('error', !isFit(file) ?
           'Base icon size cannot exceed 10 MB' :
-          'Unsupported file type',
+          'Unsupported icon file type',
         );
         deleteFile();
         return;
@@ -215,9 +201,9 @@ export default defineComponent({
       }
 
       if (!isFit(file) || !isSupported(file)) {
-        emit('update:file-error', !isFit(file) ?
+        emit('error', !isFit(file) ?
           'Icon size is too large (max 10 MB)' :
-          'Unsupported file type',
+          'Unsupported icon file type',
         );
         deleteFile();
         return;

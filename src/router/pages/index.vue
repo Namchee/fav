@@ -34,9 +34,16 @@
             </p>
 
             <UploadBox
-              v-model:file-error="error.file"
+              @error="handleFileError"
               @file-change="handleFileUpload"
             />
+
+            <p
+              v-if="error.file"
+              class="text-danger mt-2"
+            >
+              {{ error.file }}
+            </p>
           </section>
 
           <section ref="platformSelector">
@@ -58,7 +65,7 @@
 
             <p
               v-if="error.platform"
-              class="font-bold text-red-700 italic mt-2"
+              class="text-danger mt-2"
             >
               {{ error.platform }}
             </p>
@@ -110,20 +117,15 @@
             class="text-lg
               w-32 h-12
               tracking-wide"
-            :loading="isProcessing"
+            :loading="loading"
             @click="generateIcons"
           >
-            <template v-if="isProcessing">
-              Processing
-            </template>
-            <template v-else>
-              Generate
-            </template>
+            Generate
           </Button>
         </div>
 
         <div>
-          <preview-box :value="imageBlob" />
+          <preview-box :value="preview" />
         </div>
       </div>
     </div>
@@ -176,12 +178,16 @@ export default defineComponent({
     const upload: Ref<HTMLElement | null> = ref(null);
     const platforms: Ref<HTMLElement | null> = ref(null);
 
-    const isProcessing = ref(false);
+    const loading = ref(false);
 
-    const imageBlob = computed(() => {
+    const preview = computed(() => {
       return form.file ? URL.createObjectURL(form.file) : '';
     });
 
+    const handleFileError = (val: string) => {
+      error.file = val;
+      form.file = null;
+    };
     const handleFileUpload = (val: File | null) => form.file = val;
 
     /* Validator functions */
@@ -204,7 +210,7 @@ export default defineComponent({
     };
 
     const generateIcons = async () => {
-      if (isProcessing.value) {
+      if (loading.value) {
         return;
       }
 
@@ -221,7 +227,7 @@ export default defineComponent({
         return;
       }
 
-      isProcessing.value = true;
+      loading.value = true;
 
       const imageBlobs = await createImageBlobs(
         form.file as File,
@@ -236,7 +242,7 @@ export default defineComponent({
 
       triggerDownload(archive, (form.file as File).name);
 
-      isProcessing.value = false;
+      loading.value = false;
     };
 
     useHead({
@@ -271,11 +277,12 @@ export default defineComponent({
     return {
       form,
       error,
+      handleFileError,
       handleFileUpload,
       generateIcons,
-      imageBlob,
+      preview,
       platforms: PLATFORM_LIST,
-      isProcessing,
+      loading,
       upload,
     };
   },
