@@ -1,3 +1,5 @@
+import { URL_EXPIRE } from '@/constant/file';
+
 function getFilename(str: string): string {
   const dot = str.lastIndexOf('.');
 
@@ -18,5 +20,5 @@ export function triggerDownload(archive: Blob | File, filename: string): void {
 
   setTimeout(() => {
     URL.revokeObjectURL(url);
-  }, 200);
+  }, URL_EXPIRE);
 }
