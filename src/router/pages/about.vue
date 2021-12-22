@@ -88,7 +88,8 @@
         </h2>
 
         <p>
-          Just head to the <router-link
+          Just head to the
+          <router-link
             class="link"
             to="/"
             aria-label="Fav Homepage"

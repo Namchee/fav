@@ -34,7 +34,7 @@
             </p>
 
             <UploadBox
-              v-model:file-error="fileError"
+              v-model:file-error="error.file"
               @file-change="handleFileUpload"
             />
           </section>
@@ -48,7 +48,7 @@
               <PlatformBox
                 v-for="platform in platforms"
                 :key="platform.value"
-                v-model:platforms="selectedPlatforms"
+                v-model:platforms="form.platforms"
                 :value="platform.value"
                 :disabled="platform.value === 'legacy'"
                 :title="platform.name"
@@ -57,10 +57,10 @@
             </div>
 
             <p
-              v-if="platformError"
+              v-if="error.platform"
               class="font-bold text-red-700 italic mt-2"
             >
-              {{ platformError }}
+              {{ error.platform }}
             </p>
           </section>
 
@@ -76,7 +76,7 @@
               >
                 <input
                   id="template"
-                  v-model="includeTemplate"
+                  v-model="form.template"
                   type="checkbox"
                   class="rounded
                     w-4 h-4
@@ -93,7 +93,7 @@
               >
                 <input
                   id="aspect-ratio"
-                  v-model="aspectRatio"
+                  v-model="form.aspectRatio"
                   type="checkbox"
                   class="rounded
                     w-4 h-4
@@ -131,7 +131,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, Ref, ref } from 'vue';
+import { computed, defineComponent, reactive, Ref, ref } from 'vue';
 
 import { useHead } from '@vueuse/head';
 
@@ -145,11 +145,11 @@ import PlatformBox from '@/components/PlatformBox.vue';
 import { createArchive } from '@/scripts/file';
 import { createImageBlobs } from '@/scripts/resizer';
 
-import { getFilenameWithoutExtension } from '@/utils';
+import { triggerDownload } from '@/utils';
 
 import { PLATFORM_LIST } from '@/constant/platform';
 
-import type { IconKey } from '@/types';
+import type { FormValue } from '@/types';
 
 export default defineComponent({
   components: {
@@ -161,77 +161,80 @@ export default defineComponent({
   },
 
   setup() {
-    const file: Ref<File | null> = ref(null);
-    const selectedPlatforms: Ref<string[]> = ref(['legacy']);
+    const form = reactive<FormValue>({
+      file: null,
+      platforms: ['legacy'],
+      template: false,
+      aspectRatio: true,
+    });
 
-    const fileError: Ref<string> = ref('');
-    const platformError: Ref<string> = ref('');
+    const error = reactive<Record<string, string> >({
+      file: '',
+      platforms: '',
+    });
 
     const upload: Ref<HTMLElement | null> = ref(null);
-    const platformSelector: Ref<HTMLElement | null> = ref(null);
-
-    const includeTemplate = ref(false);
-    const aspectRatio = ref(true);
+    const platforms: Ref<HTMLElement | null> = ref(null);
 
     const isProcessing = ref(false);
 
     const imageBlob = computed(() => {
-      return file.value ? URL.createObjectURL(file.value) : '';
+      return form.file ? URL.createObjectURL(form.file) : '';
     });
 
-    const handleFileUpload = (val: File | null) => file.value = val;
+    const handleFileUpload = (val: File | null) => form.file = val;
+
+    /* Validator functions */
+    const validateFile = () => {
+      if (!form.file) {
+        error.file = 'Please upload a valid base icon';
+      }
+    };
+
+    const validatePlatform = () => {
+      if (!form.platforms || !form.platforms.length) {
+        error.platforms = 'Please select at least one of the favicon features';
+      }
+
+      const platforms = PLATFORM_LIST.map((p) => p.value);
+
+      if (form.platforms.some((p) => !platforms.includes(p))) {
+        error.platforms = 'Favicon features cannot be filled with other values';
+      }
+    };
 
     const generateIcons = async () => {
       if (isProcessing.value) {
         return;
       }
 
-      if (!file.value) {
-        fileError.value = 'This field is required';
+      validateFile();
+      validatePlatform();
+
+      if (error.file) {
+        upload.value?.scrollIntoView();
+        return;
       }
 
-      if (!selectedPlatforms.value.length) {
-        platformError.value = 'These fields are required';
-      }
-
-      if (!file.value || !selectedPlatforms.value.length) {
-        if (upload.value) {
-          upload.value.scrollIntoView();
-        } else if (platformSelector.value) {
-          platformSelector.value.scrollIntoView();
-        }
-
+      if (error.platforms) {
+        platforms.value?.scrollIntoView();
         return;
       }
 
       isProcessing.value = true;
 
       const imageBlobs = await createImageBlobs(
-        file.value,
-        selectedPlatforms.value as IconKey[],
-        aspectRatio.value,
+        form.file as File,
+        form.platforms,
+        form.aspectRatio,
       );
       const archive = await createArchive(
-        selectedPlatforms.value as IconKey[],
+        form.platforms,
         imageBlobs,
-        includeTemplate.value,
+        form.template,
       );
 
-      // eslint-disable-next-line max-len
-      const filename = `${new Date().getTime()}-${getFilenameWithoutExtension(file.value.name)}.zip`;
-
-      const dummyElem = document.createElement('a');
-      dummyElem.style.display = 'none';
-
-      const url = URL.createObjectURL(archive);
-
-      dummyElem.href = url;
-      dummyElem.download = filename;
-      dummyElem.click();
-
-      setTimeout(() => {
-        URL.revokeObjectURL(url);
-      }, 200);
+      triggerDownload(archive, (form.file as File).name);
 
       isProcessing.value = false;
     };
@@ -266,28 +269,15 @@ export default defineComponent({
     });
 
     return {
+      form,
+      error,
       handleFileUpload,
       generateIcons,
       imageBlob,
-      selectedPlatforms,
       platforms: PLATFORM_LIST,
-      fileError,
-      platformError,
       isProcessing,
       upload,
-      includeTemplate,
-      aspectRatio,
     };
   },
 });
 </script>
-
-<style lang="postcss" scoped>
-@screen md {
-  .app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 4rem;
-  }
-}
-</style>

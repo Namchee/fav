@@ -11,32 +11,9 @@ export interface ImageBlob {
   blob: Blob;
 }
 
-export const PLATFORM_ICONS: Record<IconKey, Favicon[]> = {
-  legacy: [
-    {
-      name: 'favicon.ico',
-      mime: 'image/x-icon',
-      size: 32,
-    },
-  ],
-  modern: [],
-  android: [
-    {
-      name: '192.png',
-      mime: 'image/png',
-      size: 192,
-    },
-    {
-      name: '512.png',
-      mime: 'image/png',
-      size: 512,
-    },
-  ],
-  apple: [
-    {
-      name: 'apple-touch-icon.png',
-      mime: 'image/png',
-      size: 180,
-    },
-  ],
-};
+export interface FormValue {
+  file: File | null;
+  platforms: IconKey[];
+  template: boolean;
+  aspectRatio: boolean;
+}

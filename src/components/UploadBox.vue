@@ -193,7 +193,7 @@ export default defineComponent({
 
       if (!isFit(file) || !isSupported(file)) {
         emit('update:file-error', !isFit(file) ?
-          'Icon size is too large (max 10 MB)' :
+          'Base icon size cannot exceed 10 MB' :
           'Unsupported file type',
         );
         deleteFile();
