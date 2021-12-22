@@ -5,25 +5,25 @@
         rounded-md
         min-w-0
         p-3 pl-6
-        border border-content-light border-opacity-50"
+        border border-content-light border-opacity-50
+        text-content-light space-x-3"
     >
-      <div class="text-content-light flex justify-center space-x-2 min-w-0">
-        <ImageIcon class="w-5 h-auto" />
-        <p
-          class="font-bold
-            tracking-tight
-            leading-loose
-            min-w-0 max-w-screen
-            truncate"
-        >
-          {{ fileName }}
-        </p>
-      </div>
-
+      <ImageIcon class="w-5 h-auto" />
+      <p
+        class="font-bold
+          tracking-tight
+          leading-loose
+          flex-1
+          truncate"
+      >
+        {{ fileName }}
+      </p>
       <button
         class="p-2
           rounded-full
           transition-colors hover:bg-gray-100"
+        aria-label="Remove File"
+
         @click="deleteFile"
       >
         <CloseIcon class="w-4 h-4 text-content-light" />
@@ -65,7 +65,7 @@
         </template>
         <template v-else>
           <UploadIcon
-            class="w-12 lg:w-18 h-auto
+            class="w-16 lg:w-18 h-auto
               text-content-shade
               opacity-80"
           />
@@ -74,7 +74,7 @@
             text-content-light
             text-opacity-75
             mt-6 lg:mt-4
-            text-lg leading-relaxed"
+            md:text-lg leading-relaxed"
           >
             <span
               class="text-primary-light

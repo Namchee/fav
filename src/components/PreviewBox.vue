@@ -44,6 +44,7 @@ export default defineComponent({
   box-shadow: 0 0 2.5px rgba(0, 0, 0, 0.2);
   transition: box-shadow 150ms ease-out;
   overflow: hidden;
+  max-width: 360px;
 
   height: auto;
   margin-left: auto;

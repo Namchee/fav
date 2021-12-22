@@ -1,12 +1,12 @@
 <template>
   <div
     class="min-h-screen
-      flex flex-col items-start"
+      flex flex-col items-start
+      antialiased"
   >
     <NavigationVue />
     <main
-      class="max-w-5xl mx-auto
-        w-full
+      class="w-full max-w-5xl mx-auto
         flex-1
         px-6
         md:px-8"

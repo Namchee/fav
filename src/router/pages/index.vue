@@ -1,6 +1,6 @@
 <template>
   <PageLayout>
-    <div class="max-w-5xl mx-auto py-6">
+    <div class="py-6">
       <div class="lg:leading-normal py-12">
         <h1
           class="font-semibold
@@ -24,7 +24,7 @@
         </h2>
       </div>
 
-      <div class="grid md:grid-cols-[6fr,4fr] gap-8 md:gap-12 py-8">
+      <div class="grid md:grid-cols-2 gap-8 md:gap-16 py-8">
         <div class="space-y-8">
           <section ref="upload">
             <p
@@ -69,10 +69,10 @@
               Step 3: Generate!
             </p>
 
-            <div class="space-y-2">
+            <div class="inline-flex flex-col space-y-2">
               <label
                 for="template"
-                class="flex items-center space-x-2 cursor-pointer inline"
+                class="flex items-center space-x-2 cursor-pointer"
               >
                 <input
                   id="template"
