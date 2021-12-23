@@ -1,4 +1,5 @@
 import Optimizer from './worker?worker';
+import rasterCompressor from 'browser-image-compression';
 
 import type { IconKey, ImageProcessor } from '@/types';
 
@@ -20,21 +21,32 @@ const processor: Record<IconKey, ImageProcessor> = {
   },
   android: async (file: File, ratio?: boolean) => {
     const img = await fileToImage(file);
-    const small = await getResizedImage(img, 192, ratio);
-    const big = await getResizedImage(img, 512, ratio);
 
     const mime = { type: 'image/png' };
+    const sizes = [192, 512];
 
-    return [
-      new File([small], '192.png', mime),
-      new File([big], '512.png', mime),
-    ];
+    const results = sizes.map(async (s) => {
+      const resized = await getResizedImage(img, s, ratio);
+      const resizedFile = new File([resized], `${s}.png`, mime);
+
+      return compressPng(resizedFile);
+    });
+
+    return Promise.all(results);
   },
   apple: async (file: File, ratio?: boolean) => {
     const img = await fileToImage(file);
     const blob = await getResizedImage(img, 180, ratio);
 
-    return [new File([blob], 'apple-touch-icon.png', { type: 'image/png' })];
+    const result = new File(
+      [blob],
+      'apple-touch-icon.png',
+      { type: 'image/png' },
+    );
+
+    const compressed = await compressPng(result);
+
+    return [compressed];
   },
 };
 
@@ -82,6 +94,13 @@ async function getVector(file: File): Promise<Blob> {
   });
 }
 
+function compressPng(file: File): Promise<File> {
+  return rasterCompressor(file, {
+    maxSizeMB: 0.5,
+    useWebWorker: true,
+  });
+}
+
 function fileToImage(src: File): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
     const img = new Image();
@@ -98,7 +117,7 @@ function getResizedImage(
   aspectRatio?: boolean,
 ): Promise<Blob> {
   const canvas = document.createElement('canvas');
-  const ctx = canvas.getContext('2d');
+  const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
   let imgWidth = width || image.width;
   let imgHeight = aspectRatio ?
@@ -115,7 +134,7 @@ function getResizedImage(
   canvas.width = width || Math.max(image.width, image.height);
   canvas.height = canvas.width;
 
-  ctx?.drawImage(
+  ctx.drawImage(
     image,
     canvas.width / 2 - imgWidth / 2,
     canvas.height / 2 - imgHeight / 2,
