@@ -77,7 +77,6 @@ async function getVector(file: File): Promise<Blob> {
     });
 
     optz.onmessage = (event) => {
-      console.log(event.data.result);
       resolve(new Blob([event.data.result], { type: 'image/svg+xml' }));
     };
   });
