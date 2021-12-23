@@ -23,7 +23,7 @@
           from a single source file, eliminating you from a hassle of
           manually generating multitudes different format of the said icon.
           Fav is directly inspired by <a
-            class="link"
+            class="transition-colors text-primary hover:text-primary-dark"
             href="https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs"
             target="_blank"
             rel="noopener"
@@ -31,7 +31,7 @@
           >
             this extensive writeup</a>
           written by <a
-            class="link"
+            class="transition-colors text-primary hover:text-primary-dark"
             href="https://evilmartians.com/"
             target="_blank"
             rel="noopener"
@@ -90,7 +90,7 @@
         <p>
           Just head to the
           <router-link
-            class="link"
+            class="transition-colors text-primary hover:text-primary-dark"
             to="/"
             aria-label="Fav Homepage"
           >
@@ -159,6 +159,11 @@
             is 100% dependant on your hardware specification. But in general, it
             should be fast.
           </li>
+          <li>
+            It is recommended to use an <code>.svg</code> file as the base icon
+            as converting raster images to vector images is much slower and does
+            not output optimal result compared to vector image as a base icon.
+          </li>
         </ol>
       </section>
 
@@ -172,7 +177,7 @@
           You can help improving Fav by visiting our
           <a
             href="https://github.com/Namchee/fav"
-            class="link"
+            class="transition-colors text-primary hover:text-primary-dark"
             rel="noopener"
             target="_blank"
             aria-label="Repository Link"
@@ -229,24 +234,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style lang="postcss" scoped>
-.link {
-  @apply transition-colors text-indigo-500 hover:text-indigo-700;
-}
-
-.list {
-  list-style: none;
-  counter-reset: list-number;
-
-  & > li {
-    position: relative;
-    counter-increment: list-number;
-
-    &::before {
-      position: absolute;
-      content: counter(list-number) ". ";
-    }
-  }
-}
-</style>

@@ -21,6 +21,7 @@ export default defineConfig({
         DEFAULT: {
           css: {
             a: {
+              color: '#5878E1',
               textDecoration: 'none',
             },
           },
