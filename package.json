@@ -10,9 +10,10 @@
   },
   "dependencies": {
     "@vueuse/head": "^0.7.4",
-    "esm-potrace-wasm": "^0.2.1",
+    "imagetracerjs": "^1.2.6",
     "jszip": "^3.6.0",
     "nprogress": "^0.2.0",
+    "svgo": "^2.8.0",
     "vue": "^3.2.26",
     "vue-router": "^4.0.12"
   },
@@ -21,6 +22,7 @@
     "@types/jest": "^27.0.3",
     "@types/node": "^14.14.37",
     "@types/nprogress": "^0.2.0",
+    "@types/svgo": "^2.6.0",
     "@typescript-eslint/eslint-plugin": "^5.7.0",
     "@typescript-eslint/parser": "^5.7.0",
     "@vitejs/plugin-vue": "^2.0.0",

@@ -1,7 +1,8 @@
 import JSZip from 'jszip';
 
-import { generateHTMLTemplate } from './template';
-import { IconKey, ImageBlob } from '../types';
+import { generateHTMLTemplate } from '@/scripts/template';
+
+import type { IconKey } from '@/types';
 
 const MANIFEST = `{
   "icons": [
@@ -12,39 +13,36 @@ const MANIFEST = `{
 
 function blobToFile(
   blob: Blob,
-  lastModified: Date,
   name: string,
+  mime: string,
 ): File {
-  return new File([blob], name, { lastModified: lastModified.getTime() });
+  return new File([blob], name, { type: mime });
 }
 
 export function createArchive(
   platforms: IconKey[],
-  imageBlobs: ImageBlob[],
+  imageFiles: File[],
   includeTemplate = false,
 ): Promise<Blob> {
-  const files = imageBlobs.map(({ name, blob }: ImageBlob) => {
-    return blobToFile(blob, new Date(), name);
-  });
+  const files = imageFiles;
 
   const hasAndroid = platforms.includes('android');
 
   if (hasAndroid) {
-    const manifestBlob = new Blob([MANIFEST]);
-
     files.push(
-      blobToFile(manifestBlob, new Date(), 'manifest.webmanifest'),
+      blobToFile(
+        new Blob([MANIFEST]),
+        'manifest.webmanifest',
+        'application/manifest+json',
+      ),
     );
   }
 
   if (includeTemplate) {
-    const hasSvg = imageBlobs.some(({ name }) => name.endsWith('svg'));
-
-    const template = generateHTMLTemplate(platforms, hasSvg);
-    const templateBlob = new Blob([template]);
+    const template = generateHTMLTemplate(platforms);
 
     files.push(
-      blobToFile(templateBlob, new Date(), 'index.html'),
+      blobToFile(new Blob([template]), 'index.html', 'text/html'),
     );
   }
 

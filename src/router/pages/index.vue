@@ -144,8 +144,8 @@ import PreviewBox from '@/components/PreviewBox.vue';
 import UploadBox from '@/components/UploadBox.vue';
 import PlatformBox from '@/components/PlatformBox.vue';
 
-import { createArchive } from '@/scripts/file';
-import { createImageBlobs } from '@/scripts/resizer';
+import { createArchive } from '@/scripts/archive';
+import { createImageFiles } from '@/scripts/image';
 
 import { triggerDownload } from '@/utils';
 
@@ -229,7 +229,7 @@ export default defineComponent({
 
       loading.value = true;
 
-      const imageBlobs = await createImageBlobs(
+      const imageBlobs = await createImageFiles(
         form.file as File,
         form.platforms,
         form.aspectRatio,
