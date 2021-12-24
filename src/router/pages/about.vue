@@ -24,18 +24,28 @@
           manually generating multitudes of different icon format for
           the same icon.
           Fav is directly inspired by <a
-            class="transition-colors text-primary hover:text-primary-dark"
+            class="font-bold
+            text-primary
+            transition-colors
+            hover:text-primary-dark
+            focus:(text-primary-dark)
+            active:text-primary-dark"
             href="https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs"
             target="_blank"
-            rel="noopener"
+            rel="noreferrer noopener"
             aria-label="EvilMartians Writeup"
           >
             this extensive writeup</a>
           written by <a
-            class="transition-colors text-primary hover:text-primary-dark"
+            class="font-bold
+            text-primary
+            transition-colors
+            hover:text-primary-dark
+            focus:(text-primary-dark)
+            active:text-primary-dark"
             href="https://evilmartians.com/"
             target="_blank"
-            rel="noopener"
+            rel="noreferrer noopener"
             aria-label="EvilMartians Website"
           >
             Evil Martians</a>.
@@ -91,7 +101,13 @@
         <p>
           Just head to the
           <router-link
-            class="transition-colors text-primary hover:text-primary-dark"
+            class="font-bold
+            text-primary
+            transition-colors
+            hover:text-primary-dark
+            focus:(text-primary-dark)
+            active:text-primary-dark"
+            href="https://evilmartians.com/"
             to="/"
             aria-label="Fav Homepage"
           >
@@ -179,13 +195,40 @@
           You can help improving Fav by visiting our
           <a
             href="https://github.com/Namchee/fav"
-            class="transition-colors text-primary hover:text-primary-dark"
-            rel="noopener"
+            class="font-bold
+          text-primary
+          transition-colors
+          hover:text-primary-dark
+          focus:(text-primary-dark)
+          active:text-primary-dark"
+            rel="noreferrer noopener"
             target="_blank"
             aria-label="Repository Link"
           >
             GitHub repository</a>.
           Any kind of contribution is welcome!
+        </p>
+      </section>
+
+      <section class="text-content text-opacity-70">
+        <h2 class="font-bold text-content tracking-tight">
+          Disclaimer
+        </h2>
+
+        <p>
+          This project is not affilated with <a
+            class="font-bold
+            text-primary
+            transition-colors
+            hover:text-primary-dark
+            focus:(text-primary-dark)
+            active:text-primary-dark"
+            href="https://evilmartians.com/"
+            target="_blank"
+            rel="noreferrer noopener"
+            aria-label="EvilMartians Website"
+          >Evil Martians</a> at all. Do not expect support
+          from them.
         </p>
       </section>
     </article>

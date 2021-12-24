@@ -11,10 +11,15 @@
     <p class="text-center md:text-left">
       Inspired by
       <a
-        class="link"
+        class="font-bold
+          text-primary
+          transition-colors
+          hover:text-primary-dark
+          focus:(text-primary-dark)
+          active:text-primary-dark"
         href="https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs"
         target="_blank"
-        rel="noopener"
+        rel="noreferrer noopener"
         aria-label="EvilMartians Writeup"
       >this blogpost</a>
       written by
@@ -27,7 +32,7 @@
           active:text-primary-dark"
         href="https://evilmartians.com/"
         target="_blank"
-        rel="noopener"
+        rel="noreferrer noopener"
         aria-label="EvilMartians Website"
       >Evil Martians</a>
     </p>
