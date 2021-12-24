@@ -38,4 +38,9 @@
 
 <script setup lang="ts">
 import Logo from '@/assets/icons/logo.svg?component';
+import { useHead } from '@vueuse/head';
+
+useHead({
+  title: 'Page Not Found — Fav',
+});
 </script>

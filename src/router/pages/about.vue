@@ -251,7 +251,7 @@ export default defineComponent({
 
   setup() {
     useHead({
-      title: 'About Fav - Modern Favicon Generator',
+      title: 'About Fav — Modern Favicon Generator',
       meta: [
         {
           name: 'description',
@@ -260,7 +260,7 @@ export default defineComponent({
         },
         {
           name: 'og:title',
-          content: 'About Fav - Modern Favicon Generator',
+          content: 'About Fav — Modern Favicon Generator',
         },
         {
           name: 'og:description',
