@@ -6,6 +6,7 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
+    "lint": "eslint ./src/**/*",
     "test:unit": "jest"
   },
   "dependencies": {

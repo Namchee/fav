@@ -4,6 +4,9 @@ import NProgress from 'nprogress';
 
 const router = createRouter({
   history: createWebHistory(),
+  scrollBehavior: () => {
+    return { top: 0 };
+  },
   routes: [
     {
       path: '/',

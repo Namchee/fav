@@ -99,8 +99,7 @@
         </h2>
 
         <p>
-          Just head to the
-          <router-link
+          Just head to the <router-link
             class="font-bold
             text-primary
             transition-colors
@@ -111,7 +110,8 @@
             to="/"
             aria-label="Fav Homepage"
           >
-            homepage</router-link> and follow the instructions there.
+            <span>homepage</span>
+          </router-link> and follow the instructions there.
           TL;DR, you'll have to perform the following steps:
 
           <ol class="list">
