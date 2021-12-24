@@ -1,65 +1,59 @@
 <template>
-  <div>
-    <label
-      tabindex="0"
-      :for="id"
-      class="flex items-center
-        rounded-xl
-        py-4 px-6
-        cursor-pointer
-        transition-colors
-        hover:bg-gray-50 focus:bg-gray-50
-        focus:outline-none
-        focus:ring-1 focus:ring-gray-200"
-      :class="{
-        'bg-gray-100': checked,
-        'hover:bg-gray-100': checked,
-        'focus:bg-gray-100': checked
-      }"
-    >
+  <label
+    :tabindex="disabled ? -1 : 0"
+    :for="value"
+    class="rounded-xl
+      px-6 py-4
+      cursor-pointer
+      transition-all
+      bg-opacity-10
+      hover:bg-opacity-10
+      focus:(outline-none bg-opacity-10 ring-3 focus:ring-opacity-30)"
+    :class="labelClass"
+  >
+    <div class="flex justify-between items-center">
+      <p
+        class="font-bold
+        text-content
+        text-2xl
+        tracking-tight
+        leading-relaxed"
+        :class="titleClass"
+      >
+        {{ title }}
+      </p>
       <input
-        :id="id"
+        :id="value"
         ref="checkbox"
         tabindex="-1"
         type="checkbox"
-        class="rounded
-          w-4 h-4
-          cursor-pointer
-          focus:outline-none
-          focus:ring-2 focus:ring-indigo-500"
+        class="rounded-full w-5 h-5 pointer-events-none"
         :class="checkboxClass"
         :value="value"
         :checked="checked"
         :disabled="disabled"
         @change="handleChecked"
       >
+    </div>
 
-      <div class="ml-4 flex items-center">
-        <slot name="icon" />
-        <div class="ml-3">
-          <slot name="title" />
-          <slot name="description" />
-        </div>
-      </div>
-    </label>
-  </div>
+    <p
+      class="mt-1"
+      :class="descriptionClass"
+    >
+      {{ description }}
+    </p>
+  </label>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from '@nuxtjs/composition-api';
+import { defineComponent, computed } from 'vue';
 
 export default defineComponent({
   model: {
     prop: 'platforms',
-    event: 'updatePlatforms',
   },
 
   props: {
-    id: {
-      type: String,
-      required: true,
-    },
-
     platforms: {
       type: Array,
       required: true,
@@ -75,15 +69,54 @@ export default defineComponent({
       required: false,
       default: false,
     },
+
+    title: {
+      type: String,
+      required: true,
+    },
+
+    description: {
+      type: String,
+      required: true,
+    },
   },
+
+  emits: ['update:platforms'],
 
   setup(props, { emit }) {
     const checked = computed(() => props.platforms.includes(props.value));
 
     const checkboxClass = computed(() => {
       return {
-        'text-indigo-700': !props.disabled,
-        'text-indigo-400': props.disabled,
+        'text-primary': !props.disabled,
+        'text-primary-light text-opacity-60': props.disabled,
+        'hidden': !checked.value,
+      };
+    });
+
+    const labelClass = computed(() => {
+      return {
+        'bg-primary-light': checked.value,
+        'hover:bg-primary-light': checked.value,
+        'focus:bg-primary-light': checked.value,
+        'focus:ring-primary': checked.value,
+        'hover:bg-content-shade': !checked.value,
+        'focus:bg-content-shade': !checked.value,
+        'focus:ring-content-shade': !checked.value,
+      };
+    });
+
+    const titleClass = computed(() => {
+      return {
+        'text-primary-dark': checked.value,
+      };
+    });
+
+    const descriptionClass = computed(() => {
+      return {
+        'text-content-light': !checked.value,
+        'text-primary-light': checked.value,
+        'text-opacity-70': checked.value,
       };
     });
 
@@ -96,12 +129,15 @@ export default defineComponent({
         newVal.push(props.value);
       }
 
-      emit('updatePlatforms', newVal);
+      emit('update:platforms', newVal.sort());
     };
 
     return {
       checked,
       checkboxClass,
+      labelClass,
+      titleClass,
+      descriptionClass,
       handleChecked,
     };
   },

@@ -1,26 +1,32 @@
 <template>
-  <nav
+  <div
     class="w-full
-      max-w-4xl
-      px-6 py-8
-      md:px-8 md:py-12
-      lg:px-0
+      max-w-5xl
+      px-6
+      lg:px-8
+      h-28
       mx-auto
       flex justify-between items-center"
   >
     <header>
-      <nuxt-link to="/" aria-label="Fav">
-        <Logo class="w-16 h-auto" role="banner" />
-      </nuxt-link>
+      <router-link
+        to="/"
+        aria-label="Fav"
+      >
+        <Logo
+          class="w-12 h-auto"
+          role="banner"
+        />
+      </router-link>
     </header>
 
-    <div>
+    <nav>
       <ul class="flex items-center">
         <li
           v-for="link in links"
           :key="link.href"
         >
-          <nuxt-link
+          <router-link
             :to="link.href"
             class="text-lg
               text-gray-500
@@ -30,17 +36,17 @@
               hover:text-black"
           >
             {{ link.name }}
-          </nuxt-link>
+          </router-link>
         </li>
       </ul>
-    </div>
-  </nav>
+    </nav>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api';
+import { defineComponent } from 'vue';
 
-import Logo from '@/assets/icons/logo.svg?inline';
+import Logo from '@/assets/icons/logo.svg?component';
 
 export default defineComponent({
   components: {
@@ -67,7 +73,7 @@ export default defineComponent({
 </script>
 
 <style lang="postcss" scoped>
-.nuxt-link-exact-active {
+.router-link-exact-active {
   @apply font-bold text-indigo-500;
 
   transition: font-weight 150ms linear;

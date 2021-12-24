@@ -1,217 +1,232 @@
 <template>
-  <div>
-    <template v-if="currentFile">
-      <div
-        class="flex justify-between
-        rounded-md p-3 pl-6 border border-gray-200"
-      >
-        <div class="text-gray-500 flex justify-center">
-          <FileIcon class="w-5 h-auto mr-3" />
-          <p
-            class="font-extrabold tracking-tight
-              overflow-hidden
-              overflow-ellipsis
-              leading-loose
-              file__name"
-          >
-            {{ currentFile.name }}
-          </p>
-        </div>
-
-        <button
-          class="p-2 rounded-full transition-colors hover:bg-gray-100"
-          @click="deleteFile"
-        >
-          <CloseIcon class="w-4 h-auto text-gray-600" />
-        </button>
-      </div>
-    </template>
-    <template v-else>
-      <label
-        for="image-file"
-        class="cursor-pointer block h-48
-          focus:outline-none
-          focus:ring-1 focus:ring-gray-300"
-        tabindex="0"
-        @dragenter="isDragging = true"
-        @dragleave="isDragging = false"
-        @dragover.prevent
-        @drop="onFileDrop($event)"
-      >
-        <div
-          class="border-2 border-gray-200 border-dashed
-            grid place-items-center
-            rounded-md p-8
-            transition-colors
-            hover:bg-gray-50
-            hover:border-gray-300
-            h-full"
-          :class="{ 'bg-gray-50': isDragging, 'border-gray-300': isDragging }"
-        >
-          <template v-if="isDragging">
-            <FileIcon class="w-12 lg:w-16 h-auto text-gray-400" />
-            <p class="leading-normal text-gray-400 text-lg font-bold">
-              Drop your image now
-            </p>
-          </template>
-          <template v-else>
-            <UploadIcon class="w-12 lg:w-16 h-auto text-gray-400" />
-            <p class="leading-normal text-gray-400 mt-6 lg:mt-2 text-lg">
-              <span class="text-indigo-400 font-bold">
-                Upload a file
-              </span>
-              or drag and drop
-            </p>
-            <p class="text-center italic text-sm text-gray-400">
-              Accepts .png, .jpeg, .ico, and .svg file (max 1 MB)
-            </p>
-          </template>
-        </div>
-      </label>
-      <input
-        id="image-file"
-        ref="fileInput"
-        type="file"
-        class="hidden"
-        accept="image/png,
-          image/jpeg,
-          image/x-icon,
-          image/vnd-microsoft-icon,
-          image/svg+xml"
-        @change="onFileChange"
-      >
+  <template v-if="fileName">
+    <div
+      class="flex justify-between
+        rounded-md
+        min-w-0
+        p-3 pl-6
+        border border-content-light border-opacity-50
+        text-content-light space-x-3"
+    >
+      <ImageIcon class="w-5 h-auto" />
       <p
-        v-if="error || validationError"
-        class="font-bold text-red-700 italic mt-2"
+        class="font-bold
+          tracking-tight
+          leading-loose
+          flex-1
+          truncate"
       >
-        {{ error || validationError }}
+        {{ fileName }}
       </p>
-    </template>
-  </div>
+      <button
+        class="p-2
+          rounded-full
+          transition-colors hover:bg-gray-100"
+        aria-label="Remove File"
+
+        @click="deleteFile"
+      >
+        <CloseIcon class="w-4 h-4 text-content-light" />
+      </button>
+    </div>
+  </template>
+  <template v-else>
+    <label
+      for="image-file"
+      class="cursor-pointer
+        block
+        h-56
+        outline-none
+        group"
+      tabindex="0"
+      @dragenter="isDragging = true"
+      @dragleave="isDragging = false"
+      @dragover.prevent
+      @drop="onFileDrop($event)"
+      @keypress.enter="handleKeyboardAccess"
+      @keypress.space="handleKeyboardAccess"
+    >
+      <div :class="dropBoxClass">
+        <template v-if="isDragging">
+          <FileIcon
+            class="w-12 lg:w-16 h-auto
+            text-content-light
+            opacity-75"
+          />
+          <p
+            class="leading-normal
+            text-content-light
+            text-opacity-70
+            text-lg
+            font-bold"
+          >
+            Drop your image now
+          </p>
+        </template>
+        <template v-else>
+          <UploadIcon
+            class="w-16 lg:w-18 h-auto
+              text-content-shade
+              opacity-80"
+          />
+          <p
+            class="text-center
+            text-content-light
+            text-opacity-75
+            mt-6 lg:mt-4
+            md:text-lg leading-relaxed"
+          >
+            <span
+              class="text-primary-light
+                text-opacity-80
+                font-bold"
+            >
+              Upload a file
+            </span>
+            or drag and drop
+            <span
+              class="block text-sm text-content-light
+                text-opacity-75 italic"
+            >
+              PNG, JPEG, ICO, WEBP, BMP, and SVG file up to 10 MB
+            </span>
+          </p>
+        </template>
+      </div>
+    </label>
+    <input
+      id="image-file"
+      ref="fileInput"
+      type="file"
+      class="hidden"
+      :accept="ACCEPTED_FILES"
+      @change="onFileChange"
+    >
+  </template>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, Ref, watch } from '@nuxtjs/composition-api';
+import { computed, defineComponent, ref } from 'vue';
 
-import UploadIcon from '@/assets/icons/upload.svg?inline';
-import FileIcon from '@/assets/icons/file.svg?inline';
-import CloseIcon from '@/assets/icons/close.svg?inline';
+import { ACCEPTED_FILES, FILE_SIZE } from '@/constant/file';
+
+import UploadIcon from '@/assets/icons/upload.svg?component';
+import ImageIcon from '@/assets/icons/image.svg?component';
+import FileIcon from '@/assets/icons/file.svg?component';
+import CloseIcon from '@/assets/icons/close.svg?component';
 
 export default defineComponent({
   components: {
     UploadIcon,
+    ImageIcon,
     FileIcon,
     CloseIcon,
   },
 
-  props: {
-    error: {
-      type: String,
-      required: false,
-      default: '',
-    },
-  },
-
   emits: [
     'file-change',
+    'error',
   ],
 
   setup(_, { emit }) {
-    const currentFile: Ref<File | null> = ref(null);
-    const fileInput: Ref<HTMLInputElement | null> = ref(null);
-
-    const validationError: Ref<string> = ref('');
-
+    const fileInput = ref<HTMLInputElement | null>(null);
+    const fileName = ref('');
     const isDragging = ref(false);
 
+    const dropBoxClass = computed(() => {
+      const dragClass = isDragging.value ? `bg-content-shade
+        bg-opacity-10
+        border-content-shade
+        border-opacity-75` : '';
+
+      return `border-2 border-content-shade border-opacity-50 border-dashed
+        grid place-items-center
+        rounded-md p-8
+        transition-all
+        hover:(bg-content-shade
+          bg-opacity-10
+          border-content-shade
+          border-opacity-60)
+        group-focus:(
+          ring-3 ring-opacity-30 ring-content-shade
+          bg-content-shade bg-opacity-10)
+        h-full
+        ${dragClass}`;
+    });
+
     const isSupported = (currentFile: File): boolean => {
-      return [
-        'image/png',
-        'image/jpeg',
-        'image/x-icon',
-        'image/vnd-microsoft-icon',
-        'image/svg+xml',
-      ].includes(currentFile.type);
+      return ACCEPTED_FILES.split(', ').includes(currentFile.type);
     };
+    const isFit = ({ size }: File) => size <= FILE_SIZE;
 
+    const updateFile = (file: File) => {
+      fileName.value = file.name;
+      emit('file-change', file);
+    };
     const deleteFile = () => {
-      currentFile.value = null;
+      fileName.value = '';
+      emit('file-change', null);
     };
 
-    const doesFileFit = (file: File) => {
-      return file.size / 1024 / 1024 <= 1;
-    };
+    const onFileChange = (event: Event) => {
+      const target = event.target as HTMLInputElement;
+      const file = target.files?.item(0);
 
-    const onFileChange = () => {
-      if (fileInput.value && fileInput.value.files) {
-        const file = fileInput.value.files[0];
-
-        if (!doesFileFit(file)) {
-          validationError.value = 'Image size is too large (max 1 MB)';
-          return;
-        }
-
-        currentFile.value = file;
+      if (!file) {
+        deleteFile();
+        return;
       }
+
+      if (!isFit(file) || !isSupported(file)) {
+        emit('error', !isFit(file) ?
+          'Base icon size cannot exceed 10 MB' :
+          'Unsupported icon file type',
+        );
+        deleteFile();
+        return;
+      }
+
+      updateFile(file);
     };
 
     const onFileDrop = (event: DragEvent) => {
       event.preventDefault();
-
-      let file: File;
-
-      if (
-        event.dataTransfer?.items &&
-        event.dataTransfer.items[0].kind === 'file'
-      ) {
-        file = event.dataTransfer.items[0].getAsFile() as File;
-      } else {
-        file = event.dataTransfer?.files[0] as File;
-      }
-
       isDragging.value = false;
 
-      if (!doesFileFit(file)) {
-        validationError.value = 'Image size is too large (max 1 MB)';
+      const file = event.dataTransfer?.files[0];
+
+      if (!file) {
+        deleteFile();
         return;
       }
 
-      validationError.value = '';
-      currentFile.value = file;
+      if (!isFit(file) || !isSupported(file)) {
+        emit('error', !isFit(file) ?
+          'Icon size is too large (max 10 MB)' :
+          'Unsupported icon file type',
+        );
+        deleteFile();
+        return;
+      }
+
+      updateFile(file);
     };
 
-    watch(currentFile, (value) => {
-      if (value) {
-        if (isSupported(value)) {
-          validationError.value = '';
-          emit('file-change', value);
-        } else {
-          currentFile.value = null;
-          validationError.value =
-            'Only .png, .jpeg, .ico, and .svg files are allowed';
-        }
-      } else {
-        emit('file-change', null);
-      }
-    });
+    const handleKeyboardAccess = () => {
+      fileInput.value?.click();
+    };
 
     return {
-      currentFile,
+      fileName,
       fileInput,
       onFileChange,
       deleteFile,
       isDragging,
       onFileDrop,
-      validationError,
+      dropBoxClass,
+      ACCEPTED_FILES,
+      handleKeyboardAccess,
     };
   },
 });
 </script>
-
-<style lang="postcss" scoped>
-.file__name {
-  width: 12rem;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-</style>

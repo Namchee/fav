@@ -4,7 +4,7 @@
       <div
         class="w-full h-full
           flex flex-col justify-center
-          p-12 text-center text-gray-300"
+          p-12 text-center text-content-shade"
       >
         <p class="text-4xl leading-loose mb-2">
           ¯\_(ツ)_/¯
@@ -16,13 +16,17 @@
       </div>
     </template>
     <template v-else>
-      <img :src="value" title="Favicon" class="w-4/5 h-4/5 object-contain">
+      <img
+        :src="value"
+        title="Favicon"
+        class="w-4/5 h-4/5 object-contain"
+      >
     </template>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   props: {
@@ -37,15 +41,13 @@ export default defineComponent({
 <style lang="postcss" scoped>
 .preview__box {
   aspect-ratio: 1;
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 2.5px rgba(0, 0, 0, 0.2);
   transition: box-shadow 150ms ease-out;
   overflow: hidden;
+  max-width: 360px;
 
-  width: 100%;
-  max-width: 20rem;
   height: auto;
   margin-left: auto;
-  margin-right: auto;
   display: grid;
   place-items: center;
   position: sticky;
@@ -53,6 +55,6 @@ export default defineComponent({
 }
 
 .preview__box:hover {
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.225);
 }
 </style>

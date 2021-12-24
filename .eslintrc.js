@@ -1,23 +1,25 @@
 module.exports = {
-  'env': {
-    'browser': true,
-    'es2021': true,
-    'node': true,
+  env: {
+    browser: true,
+    es2021: true,
+    node: true,
   },
-  'extends': [
-    'plugin:vue/essential',
-    '@nuxtjs/eslint-config-typescript',
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
     'google',
+    'plugin:vue/vue3-recommended',
   ],
-  'parserOptions': {
-    'ecmaVersion': 12,
-    'parser': '@typescript-eslint/parser',
-    'sourceType': 'module',
+  parser: 'vue-eslint-parser',
+  parserOptions: {
+    ecmaVersion: 2021,
+    parser: '@typescript-eslint/parser',
+    sourceType: 'module',
   },
-  'plugins': [
+  plugins: [
     '@typescript-eslint',
   ],
-  'rules': {
+  rules: {
     'semi': [
       'error',
       'always',
@@ -36,5 +38,15 @@ module.exports = {
     ],
     'require-jsdoc': 'off',
     'vue/no-v-model-argument': 'off',
+    'vue/multi-word-component-names': 'off',
+    'spaced-comment': [
+      'error',
+      'always',
+      {
+        markers: [
+          '/',
+        ],
+      },
+    ],
   },
 };

@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api';
+import { defineComponent } from 'vue';
 
 import Navigation from '@/components/Navigation.vue';
 import Footer from '@/components/Footer.vue';

@@ -1,64 +1,189 @@
-import * as JSZip from 'jszip';
+import Tracer from './tracer?worker';
+import rasterCompressor from 'browser-image-compression';
 
-import { generateHTMLTemplate } from './template';
-import { IconKey, ImageBlob } from './types';
+import { generateHTMLTemplate } from '@/scripts/template';
+import { blobToFile, fileToImage } from '@/utils';
 
-const MANIFEST = `{
-  "icons": [
-    { "src": "/192.png", "type": "image/png", "sizes": "192x192" },
-    { "src": "/512.png", "type": "image/png", "sizes": "512x512" }
-  ]
-}`;
+import { MANIFEST } from '@/constant/file';
 
-function blobToFile(
-  blob: Blob,
-  lastModified: Date,
-  name: string,
-): File {
-  const obj: any = blob;
+import type { GeneratorConfig, IconKey, ImageProcessor } from '@/types';
 
-  obj.lastModified = lastModified;
-  obj.name = name;
+const processor: Record<IconKey, ImageProcessor> = {
+  legacy: async (file: File, ratio?: boolean) => {
+    const img = await fileToImage(file);
+    const blob = await getResizedImage(img, 32, ratio);
 
-  return obj as File;
-}
+    return [new File([blob], 'favicon.ico', { type: 'image/x-icon' })];
+  },
+  modern: async (file: File) => {
+    const isSvg = file.type === 'image/svg+xml';
+    const name = 'icon.svg';
+    const mime = { type: 'image/svg+xml' };
 
-export function getFilenameWithoutExtension(str: string): string {
-  return str.slice(0, str.lastIndexOf('.'));
-}
+    return isSvg ?
+      [new File([file], name, mime)] :
+      [new File([await getVector(file)], name, mime)];
+  },
+  android: async (file: File, ratio?: boolean) => {
+    const img = await fileToImage(file);
 
-export function createArchive(
-  platforms: IconKey[],
-  imageBlobs: ImageBlob[],
-  includeTemplate: boolean = false,
-): Promise<Blob> {
-  const files = imageBlobs.map(({ name, blob }: ImageBlob) => {
-    return blobToFile(blob, new Date(), name);
+    const mime = { type: 'image/png' };
+    const sizes = [192, 512];
+
+    const results = sizes.map(async (s) => {
+      const resized = await getResizedImage(img, s, ratio);
+      const resizedFile = new File([resized], `${s}.png`, mime);
+
+      return compressPng(resizedFile);
+    });
+
+    return Promise.all(results);
+  },
+  apple: async (file: File, ratio?: boolean) => {
+    const img = await fileToImage(file);
+    const blob = await getResizedImage(img, 180, ratio);
+
+    const result = new File(
+      [blob],
+      'apple-touch-icon.png',
+      { type: 'image/png' },
+    );
+
+    const compressed = await compressPng(result);
+
+    return [compressed];
+  },
+};
+
+function getBlob(canvas: HTMLCanvasElement): Promise<Blob> {
+  return new Promise((resolve, reject) => {
+    canvas.toBlob((blob) => {
+      if (blob) {
+        resolve(blob);
+      }
+
+      reject(new Error('Blob is `null`'));
+    });
   });
+}
 
-  const hasAndroid = platforms.includes('android');
+async function getVector(file: File): Promise<Blob> {
+  const img = await fileToImage(file);
 
-  if (hasAndroid) {
-    const manifestBlob = new Blob([MANIFEST]);
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
-    files.push(
-      blobToFile(manifestBlob, new Date(), 'manifest.webmanifest'),
-    );
+  canvas.width = img.width;
+  canvas.height = img.height;
+
+  ctx.drawImage(
+    img,
+    canvas.width / 2 - img.width / 2,
+    canvas.height / 2 - img.height / 2,
+    img.width,
+    img.height,
+  );
+
+  const imgData = ctx.getImageData(0, 0, img.width, img.height);
+
+  const optz = new Tracer();
+
+  return new Promise((resolve) => {
+    optz.postMessage({
+      img: imgData,
+    });
+
+    optz.onmessage = (event) => {
+      resolve(new Blob([event.data.result], { type: 'image/svg+xml' }));
+    };
+  });
+}
+
+function compressPng(file: File): Promise<File> {
+  return rasterCompressor(file, {
+    maxSizeMB: 0.5,
+    useWebWorker: true,
+  });
+}
+
+function getResizedImage(
+  image: HTMLImageElement,
+  width?: number,
+  aspectRatio?: boolean,
+): Promise<Blob> {
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
+
+  let imgWidth = width || image.width;
+  let imgHeight = aspectRatio ?
+    imgWidth * (image.height / image.width) :
+    width || image.height;
+
+  if (image.width < image.height) {
+    imgHeight = width || image.height;
+    imgWidth = aspectRatio ?
+      imgHeight * (image.width / image.height) :
+      width || image.width;
   }
 
-  if (includeTemplate) {
-    const hasSvg = imageBlobs.some(({ name }) => name.endsWith('svg'));
+  canvas.width = width || Math.max(image.width, image.height);
+  canvas.height = canvas.width;
 
-    const template = generateHTMLTemplate(platforms, hasSvg);
-    const templateBlob = new Blob([template]);
+  ctx.drawImage(
+    image,
+    canvas.width / 2 - imgWidth / 2,
+    canvas.height / 2 - imgHeight / 2,
+    imgWidth,
+    imgHeight,
+  );
 
-    files.push(
-      blobToFile(templateBlob, new Date(), 'index.html'),
-    );
+  return getBlob(canvas);
+}
+
+async function createIcons(
+  base: File,
+  platforms: IconKey[],
+  ratio = true,
+): Promise<File[]> {
+  const promises: Promise<File[]>[] = [];
+
+  for (const platform of platforms) {
+    promises.push(processor[platform](base, ratio));
   }
 
-  const archiver = new JSZip();
-  files.forEach((file) => archiver.file(file.name, file));
+  const files = await Promise.all(promises);
 
-  return archiver.generateAsync({ type: 'blob', mimeType: 'application/zip' });
+  return files.flat(1);
+}
+
+function createManifest(): File {
+  return blobToFile(
+    new Blob([MANIFEST]),
+    'manifest.webmanifest',
+    'application/manifest+json',
+  );
+}
+
+function createTemplate(platforms: IconKey[]): File {
+  const template = generateHTMLTemplate(platforms);
+
+  return blobToFile(new Blob([template]), 'index.html', 'text/html');
+}
+
+export async function createFiles(
+  base: File,
+  platforms: IconKey[],
+  config?: GeneratorConfig,
+): Promise<File[]> {
+  const files = await createIcons(base, platforms, config?.ratio);
+
+  if (platforms.includes('android')) {
+    files.push(createManifest());
+  }
+
+  if (config?.template) {
+    files.push(createTemplate(platforms));
+  }
+
+  return files;
 }

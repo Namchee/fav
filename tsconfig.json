@@ -1,33 +1,34 @@
-// tsconfig.json
 {
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
     "lib": [
-      "DOM"
+      "DOM",
+      "ES2019.Array"
     ],
-    // this enables stricter inference for data properties on `this`
     "strict": true,
     "jsx": "preserve",
     "moduleResolution": "node",
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "allowJs": true,
     "baseUrl": ".",
     "paths": {
-      "~/*": [
-        "./src/*"
-      ],
       "@/*": [
-        "./src/*"
+        "src/*"
       ]
     },
     "types": [
       "@types/node",
-      "@nuxt/types"
+      "@types/jest",
+      "vite-plugin-pwa"
     ]
   },
   "include": [
-    "./src/**/*.ts",
-    "./src/**/*.vue",
-    "./src/vue-shims.d.ts"
+    "./**/*.ts",
+    "./**/*.vue",
+    "types.d.ts"
   ],
   "exclude": [
     "node_modules"
