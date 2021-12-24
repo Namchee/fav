@@ -14,6 +14,14 @@ const router = createRouter({
       path: '/about',
       component: () => import('./pages/about.vue'),
     },
+    {
+      path: '/404',
+      component: () => import('./pages/404.vue'),
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      redirect: '/404',
+    },
   ],
 });
 

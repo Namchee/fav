@@ -15,5 +15,5 @@ describe('<UploadBox>', () => {
     expect(label.find('svg').exists()).toBe(true);
   });
 
-  // TODO: add more test if the mocking is sane
+  // TODO: add more test if it's possible to mock FileTransfer API
 });
