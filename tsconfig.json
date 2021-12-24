@@ -9,6 +9,7 @@
     "strict": true,
     "jsx": "preserve",
     "moduleResolution": "node",
+    "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "allowJs": true,
@@ -20,12 +21,13 @@
     },
     "types": [
       "@types/node",
-      "@types/jest"
+      "@types/jest",
+      "vite-plugin-pwa"
     ]
   },
   "include": [
-    "./src/**/*.ts",
-    "./src/**/*.vue",
+    "./**/*.ts",
+    "./**/*.vue",
     "types.d.ts"
   ],
   "exclude": [

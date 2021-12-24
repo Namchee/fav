@@ -15,7 +15,53 @@ export default defineConfig({
     vue(),
     windi(),
     svg(),
-    pwa(),
+    pwa({
+      includeAssets: [
+        'icon.svg',
+        'favicon.ico',
+        'robots.txt',
+        'apple-touch-icon.png',
+      ],
+      manifest: {
+        lang: 'en',
+        name: 'Fav',
+        short_name: 'Fav',
+        description:
+          'Generate compact favicon set for your websites within few clicks',
+        theme_color: '#3E63DD',
+        background_color: '#FFFFFF',
+        display: 'standalone',
+        orientation: 'natural',
+        scope: '/',
+        start_url: '/',
+        icons: [
+          {
+            src: '/192.png',
+            type: 'image/png',
+            sizes: '192x192',
+            purpose: 'any',
+          },
+          {
+            src: '/512.png',
+            type: 'image/png',
+            sizes: '512x512',
+            purpose: 'any',
+          },
+          {
+            src: '/192-mask.png',
+            type: 'image/png',
+            sizes: '192x192',
+            purpose: 'maskable',
+          },
+          {
+            src: '/512-mask.png',
+            type: 'image/png',
+            sizes: '512x512',
+            purpose: 'maskable',
+          },
+        ],
+      },
+    }),
   ],
   resolve: {
     alias: {

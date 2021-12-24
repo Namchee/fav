@@ -6,7 +6,7 @@
         py-16"
     >
       <img
-        src="/about.svg"
+        src="https://res.cloudinary.com/namchee/image/upload/v1640331616/fav/about_av8pqu.svg"
         alt="Fav — Modern Favicon Generator"
         title="Fav — Modern Favicon Generator"
         class="mx-auto w-36 md:w-48 h-auto"
