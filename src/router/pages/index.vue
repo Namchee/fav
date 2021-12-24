@@ -100,7 +100,7 @@
               >
                 <input
                   id="aspect-ratio"
-                  v-model="form.aspectRatio"
+                  v-model="form.ratio"
                   type="checkbox"
                   class="rounded
                     w-4 h-4
@@ -144,10 +144,8 @@ import PreviewBox from '@/components/PreviewBox.vue';
 import UploadBox from '@/components/UploadBox.vue';
 import PlatformBox from '@/components/PlatformBox.vue';
 
-import { createArchive } from '@/scripts/archive';
-import { createImageFiles } from '@/scripts/image';
-
-import { triggerDownload } from '@/utils';
+import { createArchive, triggerDownload } from '@/scripts/archive';
+import { createFiles } from '@/scripts/file';
 
 import { PLATFORM_LIST } from '@/constant/platform';
 
@@ -167,7 +165,7 @@ export default defineComponent({
       file: null,
       platforms: ['legacy'],
       template: false,
-      aspectRatio: true,
+      ratio: true,
     });
 
     const error = reactive<Record<string, string> >({
@@ -229,16 +227,12 @@ export default defineComponent({
 
       loading.value = true;
 
-      const imageBlobs = await createImageFiles(
+      const files = await createFiles(
         form.file as File,
         form.platforms,
-        form.aspectRatio,
+        { template: form.template, ratio: form.ratio },
       );
-      const archive = await createArchive(
-        form.platforms,
-        imageBlobs,
-        form.template,
-      );
+      const archive = await createArchive(files);
 
       triggerDownload(archive, (form.file as File).name);
 

@@ -10,7 +10,12 @@ export interface FormValue {
   file: File | null;
   platforms: IconKey[];
   template: boolean;
-  aspectRatio: boolean;
+  ratio: boolean;
+}
+
+export interface GeneratorConfig {
+  ratio?: boolean;
+  template?: boolean;
 }
 
 export type ImageProcessor = (file: File, ratio?: boolean) => Promise<File[]>;

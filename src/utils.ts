@@ -1,24 +1,24 @@
-import { URL_EXPIRE } from '@/constant/file';
-
-function getFilename(str: string): string {
+export function getFilename(str: string): string {
   const dot = str.lastIndexOf('.');
 
   return dot === -1 ? str : str.slice(0, dot);
 }
 
-export function triggerDownload(archive: Blob | File, filename: string): void {
-  const name = `${new Date().getTime()}-${getFilename(filename)}.zip`;
+export function blobToFile(
+  blob: Blob,
+  name: string,
+  mime: string,
+): File {
+  return new File([blob], name, { type: mime });
+}
 
-  const link = document.createElement('a');
-  link.style.display = 'none';
-  link.download = name;
+export function fileToImage(src: File): Promise<HTMLImageElement> {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
 
-  const url = URL.createObjectURL(archive);
+    img.onload = () => resolve(img);
+    img.onerror = (err) => reject(err);
 
-  link.href = url;
-  link.click();
-
-  setTimeout(() => {
-    URL.revokeObjectURL(url);
-  }, URL_EXPIRE);
+    img.src = URL.createObjectURL(src);
+  });
 }

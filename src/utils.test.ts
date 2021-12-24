@@ -1,43 +1,45 @@
-import { URL_EXPIRE } from './constant/file';
-import { triggerDownload } from './utils';
+import { blobToFile, fileToImage, getFilename } from './utils';
 
-describe('triggerDownload', () => {
-  jest.useFakeTimers();
+jest.useRealTimers();
 
-  it('should trigger an archive download', () => {
-    const link = {
-      style: {
-        display: '',
-      },
-      href: '',
-      download: '',
-      click: jest.fn(),
-    };
-
-    const creator = jest.fn(() => 'bar');
-    const revoker = jest.fn(() => '');
-
-    global.URL.createObjectURL = creator;
-    global.URL.revokeObjectURL = revoker;
-
-    jest.spyOn(document, 'createElement')
-      .mockImplementation(() => link as unknown as HTMLElement);
-    jest.spyOn(global, 'setTimeout');
-
+describe('blobToFile', () => {
+  it('should convert blob to file', () => {
     const blob = new Blob(['']);
+    const file = blobToFile(blob, 'foo.zip', 'application/zip');
 
-    triggerDownload(blob, 'foo');
-    expect(link.style.display).toBe('none');
-    expect(link.href).toBe('bar');
-    expect(link.download)
-      .toMatch(/\d+-foo.zip/);
-    expect(link.click).toHaveBeenCalledTimes(1);
-    expect(setTimeout).toHaveBeenCalledTimes(1);
-    expect(setTimeout).toHaveBeenCalledWith(expect.any(Function), URL_EXPIRE);
+    expect(file.name).toBe('foo.zip');
+    expect(file.type).toBe('application/zip');
+  });
+});
 
-    jest.runOnlyPendingTimers();
+describe('fileToImage', () => {
+  it('should create an image element', () => {
+    const file = new File(['data:image/png;base64, foobar'], 'foo.jpg');
 
-    expect(revoker).toHaveBeenCalledTimes(1);
-    expect(revoker).toHaveBeenCalledWith('bar');
+    const creator = jest.fn(() => 'data:image/png;base64, foobar');
+    global.URL.createObjectURL = creator;
+
+    fileToImage(file).then((image) => {
+      expect(image).toBeInstanceOf(HTMLImageElement);
+      expect(creator).toHaveBeenCalledTimes(1);
+      expect(creator).toHaveBeenCalledWith('data:image/png;base64, foobar');
+      expect(image.src).toBe('data:image/png;base64, foobar');
+    });
+  });
+});
+
+describe('getFilename', () => {
+  it('should get filename without extension', () => {
+    const file = 'foo.zip';
+    const name = getFilename(file);
+
+    expect(name).toBe('foo');
+  });
+
+  it('should ignore extensionless filename', () => {
+    const file = 'foo';
+    const name = getFilename(file);
+
+    expect(name).toBe('foo');
   });
 });

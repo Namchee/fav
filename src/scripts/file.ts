@@ -1,7 +1,12 @@
 import Optimizer from './worker?worker';
 import rasterCompressor from 'browser-image-compression';
 
-import type { IconKey, ImageProcessor } from '@/types';
+import { generateHTMLTemplate } from '@/scripts/template';
+import { blobToFile, fileToImage } from '@/utils';
+
+import { MANIFEST } from '@/constant/file';
+
+import type { GeneratorConfig, IconKey, ImageProcessor } from '@/types';
 
 const processor: Record<IconKey, ImageProcessor> = {
   legacy: async (file: File, ratio?: boolean) => {
@@ -101,16 +106,6 @@ function compressPng(file: File): Promise<File> {
   });
 }
 
-function fileToImage(src: File): Promise<HTMLImageElement> {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    img.src = URL.createObjectURL(src);
-
-    img.onload = () => resolve(img);
-    img.onerror = (err) => reject(err);
-  });
-}
-
 function getResizedImage(
   image: HTMLImageElement,
   width?: number,
@@ -145,18 +140,50 @@ function getResizedImage(
   return getBlob(canvas);
 }
 
-export async function createImageFiles(
-  file: File,
+async function createIcons(
+  base: File,
   platforms: IconKey[],
-  aspectRatio = true,
+  ratio = true,
 ): Promise<File[]> {
   const promises: Promise<File[]>[] = [];
 
   for (const platform of platforms) {
-    promises.push(processor[platform](file, aspectRatio));
+    promises.push(processor[platform](base, ratio));
   }
 
   const files = await Promise.all(promises);
 
   return files.flat(1);
+}
+
+function createManifest(): File {
+  return blobToFile(
+    new Blob([MANIFEST]),
+    'manifest.webmanifest',
+    'application/manifest+json',
+  );
+}
+
+function createTemplate(platforms: IconKey[]): File {
+  const template = generateHTMLTemplate(platforms);
+
+  return blobToFile(new Blob([template]), 'index.html', 'text/html');
+}
+
+export async function createFiles(
+  base: File,
+  platforms: IconKey[],
+  config?: GeneratorConfig,
+): Promise<File[]> {
+  const files = await createIcons(base, platforms, config?.ratio);
+
+  if (platforms.includes('android')) {
+    files.push(createManifest());
+  }
+
+  if (config?.template) {
+    files.push(createTemplate(platforms));
+  }
+
+  return files;
 }
