@@ -20,8 +20,9 @@
         <p>
           Fav is a next-generation icon generator for modern websites.
           Fav allows you to generate compact favicon set for modern browsers
-          from a single source file, eliminating you from a hassle of
-          manually generating multitudes different format of the said icon.
+          from a single base icon, eliminating you from a hassle of
+          manually generating multitudes of different icon format for
+          the same icon.
           Fav is directly inspired by <a
             class="transition-colors text-primary hover:text-primary-dark"
             href="https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs"
@@ -44,8 +45,8 @@
           Fav executes all the required processing steps directly
           on your browser without any need to communicate with
           any backend server. Therefore, fav <strong>
-            does not store any form of your personal data and usage.
-          </strong>
+            does not store any form of your personal data and usage
+          </strong>.
         </p>
 
         <p>
@@ -68,7 +69,7 @@
           Back then, traditional browsers tend to have their own different
           formats and standards to manage favicons, which should be adhered
           to by responsible web developers. This situation is exacerbated by
-          the rise of smartphones which — unsurprisingly — have different
+          the rise of mobile devices which — unsurprisingly — have different
           standards for managing favicons in mobile web browsers.
         </p>
 
@@ -157,7 +158,8 @@
           <li>
             Since all process is done on your browser, the processing speed
             is 100% dependant on your hardware specification. But in general, it
-            should be fast.
+            should be fast. This includes image tracing, resizing, and image
+            compression.
           </li>
           <li>
             It is recommended to use an <code>.svg</code> file as the base icon

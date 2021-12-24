@@ -1,4 +1,4 @@
-import Optimizer from './worker?worker';
+import Tracer from './tracer?worker';
 import rasterCompressor from 'browser-image-compression';
 
 import { generateHTMLTemplate } from '@/scripts/template';
@@ -86,7 +86,7 @@ async function getVector(file: File): Promise<Blob> {
 
   const imgData = ctx.getImageData(0, 0, img.width, img.height);
 
-  const optz = new Optimizer();
+  const optz = new Tracer();
 
   return new Promise((resolve) => {
     optz.postMessage({
