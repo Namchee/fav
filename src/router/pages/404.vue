@@ -9,7 +9,11 @@
     <div class="flex flex-col items-center ">
       <Logo class="w-12 h-auto mb-8" />
       <h1
-        class="text-4xl md:text-5xl font-bold tracking-tighter leading-relaxed"
+        class="text-4xl md:text-5xl
+          font-bold
+          tracking-tighter
+          leading-relaxed
+          md:leading-normal"
       >
         Page Not Found
       </h1>
