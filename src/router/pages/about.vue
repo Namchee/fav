@@ -10,6 +10,8 @@
         alt="Fav — Modern Favicon Generator"
         title="Fav — Modern Favicon Generator"
         class="mx-auto w-36 md:w-48 h-auto"
+        width="181"
+        height="131"
       >
 
       <section class="text-content text-opacity-70">
