@@ -9,12 +9,12 @@
         src="https://res.cloudinary.com/namchee/image/upload/v1640331616/fav/about_av8pqu.svg"
         alt="Fav — Modern Favicon Generator"
         title="Fav — Modern Favicon Generator"
-        class="mx-auto w-36 md:w-48 h-auto"
+        class="mx-auto"
         width="181"
         height="131"
       >
 
-      <section class="text-content text-opacity-70">
+      <section class="text-content text-opacity-75 mt-24">
         <h2 class="font-bold text-content tracking-tight">
           What is Fav?
         </h2>
@@ -160,6 +160,23 @@
           If you're still confused about which line(s) should you include,
           you can check the <strong>include HTML template</strong> checkbox
           and Fav will generate a starter HTML template for you.
+        </p>
+
+        <p>
+          Aside from opening your web browser everytime you use fav, you can
+          also install fav locally as a progressive web application
+          <strong>or</strong> try out <a
+            class="font-bold
+            text-primary
+            transition-colors
+            hover:text-primary-dark
+            focus:(text-primary-dark)
+            active:text-primary-dark"
+            href="https://github.com/Namchee/fav-cli"
+            rel="noreferrer noopener"
+            aria-label="Fav CLI"
+          >
+            fav-cli</a>, a command-line utility version of fav.
         </p>
       </section>
 
