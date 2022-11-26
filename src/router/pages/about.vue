@@ -163,8 +163,9 @@
         </p>
 
         <p>
-          If you don't feel like to open your web browser to use fav, you can
-          also try out <a
+          Aside from opening your web browser everytime you use fav, you can
+          also install fav locally as a progressive web application
+          <strong>or</strong> try out <a
             class="font-bold
             text-primary
             transition-colors
