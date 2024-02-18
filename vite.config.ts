@@ -4,7 +4,6 @@ import { resolve } from 'path';
 
 import vue from '@vitejs/plugin-vue';
 
-import windi from 'vite-plugin-windicss';
 import svg from 'vite-svg-loader';
 
 import { VitePWA as pwa } from 'vite-plugin-pwa';
@@ -13,7 +12,6 @@ import { VitePWA as pwa } from 'vite-plugin-pwa';
 export default defineConfig({
   plugins: [
     vue(),
-    windi(),
     svg(),
     pwa({
       includeAssets: [

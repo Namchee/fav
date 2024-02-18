@@ -2,23 +2,19 @@
   <PageLayout>
     <div class="py-6">
       <div class="lg:leading-normal py-12">
-        <h1
-          class="font-semibold
+        <h1 class="font-semibold
             text-4xl
             text-content
             leading-tight
             lg:text-5xl
-            lg:leading-normal"
-        >
+            lg:leading-normal">
           Embrace favicons the modern way
         </h1>
 
-        <h2
-          class="text-lg
+        <h2 class="text-lg
             text-content-light
             tracking-tight
-            lg:text-2xl"
-        >
+            lg:text-2xl">
           Generate compact favicon set for your next websites,
           within few clicks
         </h2>
@@ -27,21 +23,13 @@
       <div class="grid md:grid-cols-2 gap-8 md:gap-16 py-8">
         <div class="space-y-8">
           <section ref="upload">
-            <p
-              class="text-content-light leading-loose mb-2 text-lg"
-            >
+            <p class="text-content-light leading-loose mb-2 text-lg">
               Step 1: Upload your base favicon
             </p>
 
-            <UploadBox
-              @error="handleFileError"
-              @file-change="handleFileUpload"
-            />
+            <UploadBox @error="handleFileError" @file-change="handleFileUpload" />
 
-            <p
-              v-if="error.file"
-              class="text-danger mt-2"
-            >
+            <p v-if="error.file" class="text-danger mt-2">
               {{ error.file }}
             </p>
           </section>
@@ -52,21 +40,12 @@
             </p>
 
             <div class="grid lg:grid-cols-2 md:auto-rows-fr gap-2">
-              <PlatformBox
-                v-for="platform in platforms"
-                :key="platform.value"
-                v-model:platforms="form.platforms"
-                :value="platform.value"
-                :disabled="platform.value === 'legacy'"
-                :title="platform.name"
-                :description="platform.description"
-              />
+              <PlatformBox v-for="platform in platforms" :key="platform.value" v-model:platforms="form.platforms"
+                :value="platform.value" :disabled="platform.value === 'legacy'" :title="platform.name"
+                :description="platform.description" />
             </div>
 
-            <p
-              v-if="error.platform"
-              class="text-danger mt-2"
-            >
+            <p v-if="error.platform" class="text-danger mt-2">
               {{ error.platform }}
             </p>
           </section>
@@ -77,49 +56,51 @@
             </p>
 
             <div class="inline-flex flex-col space-y-2">
-              <label
-                for="template"
-                class="flex items-center space-x-2 cursor-pointer"
-              >
-                <input
-                  id="template"
-                  v-model="form.template"
-                  type="checkbox"
-                  class="rounded
+              <label for="template" class="flex items-center space-x-2 cursor-pointer">
+                <input id="template" v-model="form.template" type="checkbox" class="rounded
                     w-4 h-4
                     cursor-pointer
                     text-primary
-                    focus:(outline-none ring-2 ring-primary ring-opacity-50)"
-                >
-                <p>Include HTML template</p>
+                    focus:(outline-none ring-2 ring-primary ring-opacity-50)">
+
+                <div class="flex items-center space-x-2">
+                  <p>
+                    Include HTML template
+                  </p>
+
+                  <TooltipProvider>
+                    <TooltipRoot>
+                      <TooltipTrigger
+                        class="text-black shadow-blackA7 hover:bg-green3 inline-flex h-4 w-4 items-center justify-center rounded-full bg-white shadow-[0_2px_10px] outline-none focus:shadow-[0_0_0_2px] cursor-help focus:shadow-black">
+                        <Help />
+                      </TooltipTrigger>
+                      <TooltipPortal>
+                        <TooltipContent
+                          class="data-[state=delayed-open]:data-[side=top]:animate-slideDownAndFade data-[state=delayed-open]:data-[side=right]:animate-slideLeftAndFade data-[state=delayed-open]:data-[side=left]:animate-slideRightAndFade data-[state=delayed-open]:data-[side=bottom]:animate-slideUpAndFade select-none rounded-[4px] bg-black px-[15px] py-[10px] text-[15px] leading-none shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] will-change-[transform,opacity]"
+                          :side-offset="5">
+                          Haha
+                          <TooltipArrow class="fill-shade" size="8" />
+                        </TooltipContent>
+                      </TooltipPortal>
+                    </TooltipRoot>
+                  </TooltipProvider>
+                </div>
               </label>
 
-              <label
-                for="aspect-ratio"
-                class="flex items-center space-x-2 cursor-pointer"
-              >
-                <input
-                  id="aspect-ratio"
-                  v-model="form.ratio"
-                  type="checkbox"
-                  class="rounded
+              <label for="aspect-ratio" class="flex items-center space-x-2 cursor-pointer">
+                <input id="aspect-ratio" v-model="form.ratio" type="checkbox" class="rounded
                     w-4 h-4
                     text-primary
-                    focus:(outline-none ring-2 ring-primary ring-opacity-50)"
-                >
-                <p>Keep image aspect ratio</p>
+                    focus:(outline-none ring-2 ring-primary ring-opacity-50)">
+                <p>
+                  Keep image aspect ratio
+                </p>
               </label>
             </div>
           </section>
 
-          <Button
-            theme="primary"
-            class="text-lg
-              w-32 h-12
-              tracking-wide"
-            :loading="loading"
-            @click="generateIcons"
-          >
+          <Button theme="primary" class="text-lg
+              w-32 h-12" :loading="loading" @click="generateIcons">
             Generate
           </Button>
         </div>
@@ -135,6 +116,8 @@
 <script lang="ts">
 import { computed, defineComponent, reactive, Ref, ref } from 'vue';
 
+import { TooltipArrow, TooltipContent, TooltipPortal, TooltipProvider, TooltipRoot, TooltipTrigger } from 'radix-vue';
+
 import { useHead } from '@vueuse/head';
 
 import PageLayout from '@/components/PageLayout.vue';
@@ -143,6 +126,7 @@ import Button from '@/components/Button.vue';
 import PreviewBox from '@/components/PreviewBox.vue';
 import UploadBox from '@/components/UploadBox.vue';
 import PlatformBox from '@/components/PlatformBox.vue';
+import Help from '@/assets/icons/help.svg?component';
 
 import { createArchive, triggerDownload } from '@/scripts/archive';
 import { createFiles } from '@/scripts/file';
@@ -158,6 +142,13 @@ export default defineComponent({
     PlatformBox,
     PageLayout,
     Button,
+    Help,
+    TooltipArrow,
+    TooltipContent,
+    TooltipPortal,
+    TooltipProvider,
+    TooltipRoot,
+    TooltipTrigger,
   },
 
   setup() {
@@ -168,7 +159,7 @@ export default defineComponent({
       ratio: true,
     });
 
-    const error = reactive<Record<string, string> >({
+    const error = reactive<Record<string, string>>({
       file: '',
       platforms: '',
     });
