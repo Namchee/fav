@@ -8,6 +8,7 @@
     ],
     "strict": true,
     "jsx": "preserve",
+    "jsxImportSource": "vue",
     "moduleResolution": "node",
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
@@ -28,7 +29,8 @@
   "include": [
     "./**/*.ts",
     "./**/*.vue",
-    "types.d.ts"
+    "types.d.ts",
+    "vite.config.ts",
   ],
   "exclude": [
     "node_modules"

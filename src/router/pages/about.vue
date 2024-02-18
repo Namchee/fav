@@ -2,7 +2,7 @@
   <PageLayout>
     <article
       class="w-full mx-auto
-        prose prose-lg lg:prose-xl
+        prose prose-lg
         py-16"
     >
       <img
@@ -15,7 +15,7 @@
       >
 
       <section class="text-content text-opacity-75 mt-24">
-        <h2 class="font-bold text-content tracking-tight">
+        <h2 class="font-bold text-content">
           What is Fav?
         </h2>
 
@@ -27,11 +27,11 @@
           the same icon.
           Fav is directly inspired by <a
             class="font-bold
-            text-primary
-            transition-colors
-            hover:text-primary-dark
-            focus:(text-primary-dark)
-            active:text-primary-dark"
+              text-primary
+              transition-colors
+              hover:text-primary-dark
+              focus:text-primary-dark
+              active:text-primary-dark"
             href="https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs"
             target="_blank"
             rel="noreferrer noopener"
@@ -40,11 +40,11 @@
             this extensive writeup</a>
           written by <a
             class="font-bold
-            text-primary
-            transition-colors
-            hover:text-primary-dark
-            focus:(text-primary-dark)
-            active:text-primary-dark"
+              text-primary
+              transition-colors
+              hover:text-primary-dark
+              focus:text-primary-dark
+              active:text-primary-dark"
             href="https://evilmartians.com/"
             target="_blank"
             rel="noreferrer noopener"
@@ -57,8 +57,7 @@
           Fav executes all the required processing steps directly
           on your browser without any need to communicate with
           any backend server. Therefore, fav <strong>
-            does not store any form of your personal data and usage
-          </strong>.
+            does not store any form of your personal data and usage</strong>.
         </p>
 
         <p>
@@ -66,8 +65,8 @@
         </p>
       </section>
 
-      <section class="text-content text-opacity-70">
-        <h2 class="font-bold text-content tracking-tight">
+      <section class="text-content text-opacity-80">
+        <h2 class="font-bold text-content">
           But, why another generator?
         </h2>
 
@@ -95,19 +94,19 @@
         </p>
       </section>
 
-      <section class="text-content text-opacity-70">
-        <h2 class="font-bold text-content tracking-tight">
+      <section class="text-content text-opacity-80">
+        <h2 class="font-bold text-content">
           Great! How do I use it then?
         </h2>
 
         <p>
           Just head to the <router-link
             class="font-bold
-            text-primary
-            transition-colors
-            hover:text-primary-dark
-            focus:(text-primary-dark)
-            active:text-primary-dark"
+              text-primary
+              transition-colors
+              hover:text-primary-dark
+              focus:text-primary-dark
+              active:text-primary-dark"
             href="https://evilmartians.com/"
             to="/"
             aria-label="Fav Homepage"
@@ -167,11 +166,11 @@
           also install fav locally as a progressive web application
           <strong>or</strong> try out <a
             class="font-bold
-            text-primary
-            transition-colors
-            hover:text-primary-dark
-            focus:(text-primary-dark)
-            active:text-primary-dark"
+              text-primary
+              transition-colors
+              hover:text-primary-dark
+              focus:text-primary-dark
+              active:text-primary-dark"
             href="https://github.com/Namchee/fav-cli"
             rel="noreferrer noopener"
             aria-label="Fav CLI"
@@ -180,8 +179,8 @@
         </p>
       </section>
 
-      <section class="text-content text-opacity-70">
-        <h2 class="font-bold text-content tracking-tight">
+      <section class="text-content text-opacity-80">
+        <h2 class="font-bold text-content">
           Caveats
         </h2>
 
@@ -204,8 +203,8 @@
         </ol>
       </section>
 
-      <section class="text-content text-opacity-70">
-        <h2 class="font-bold text-content tracking-tight">
+      <section class="text-content text-opacity-80">
+        <h2 class="font-bold text-content">
           Contribution
         </h2>
 
@@ -215,11 +214,11 @@
           <a
             href="https://github.com/Namchee/fav"
             class="font-bold
-          text-primary
-          transition-colors
-          hover:text-primary-dark
-          focus:(text-primary-dark)
-          active:text-primary-dark"
+              text-primary
+              transition-colors
+              hover:text-primary-dark
+              focus:text-primary-dark
+              active:text-primary-dark"
             rel="noreferrer noopener"
             target="_blank"
             aria-label="Repository Link"
@@ -229,8 +228,8 @@
         </p>
       </section>
 
-      <section class="text-content text-opacity-70">
-        <h2 class="font-bold text-content tracking-tight">
+      <section class="text-content text-opacity-80">
+        <h2 class="font-bold text-content">
           Disclaimer
         </h2>
 
@@ -240,14 +239,14 @@
             text-primary
             transition-colors
             hover:text-primary-dark
-            focus:(text-primary-dark)
+            focus:text-primary-dark
             active:text-primary-dark"
             href="https://evilmartians.com/"
             target="_blank"
             rel="noreferrer noopener"
             aria-label="EvilMartians Website"
           >Evil Martians</a> at all. Do not expect support
-          from them.
+          from them when using this project.
         </p>
       </section>
     </article>

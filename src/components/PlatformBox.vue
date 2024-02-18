@@ -8,7 +8,11 @@
       transition-all
       bg-opacity-10
       hover:bg-opacity-10
-      focus:(outline-none bg-opacity-10 ring-3 focus:ring-opacity-30)"
+      border
+      focus:outline-none
+      focus:bg-opacity-10
+      focus:ring-3
+      focus:ring-opacity-30"
     :class="labelClass"
   >
     <div class="flex justify-between items-center">
@@ -16,7 +20,6 @@
         class="font-bold
         text-content
         text-2xl
-        tracking-tight
         leading-relaxed"
         :class="titleClass"
       >
@@ -103,6 +106,8 @@ export default defineComponent({
         'hover:bg-content-shade': !checked.value,
         'focus:bg-content-shade': !checked.value,
         'focus:ring-content-shade': !checked.value,
+        'border-primary': checked.value,
+        'border-opacity-30': checked.value,
       };
     });
 
@@ -116,7 +121,7 @@ export default defineComponent({
       return {
         'text-content-light': !checked.value,
         'text-primary-light': checked.value,
-        'text-opacity-70': checked.value,
+        'text-opacity-80': checked.value,
       };
     });
 

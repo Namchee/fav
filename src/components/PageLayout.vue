@@ -2,6 +2,7 @@
   <div
     class="min-h-screen
       flex flex-col items-start
+      font-sans
       antialiased"
   >
     <NavigationVue />

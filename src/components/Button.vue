@@ -37,8 +37,16 @@ const activeThemes: Record<ThemeKey, string> = {
     hover:bg-primary-dark
     active:bg-primary-dark
     focus:bg-primary-dark
-    active:(outline-none ring ring-4 ring-primary-light ring-opacity-50)
-    focus:(outline-none ring ring-4 ring-primary-light ring-opacity-50)`,
+    active:outline-none
+    active:ring
+    active:ring-4
+    active:ring-primary-light
+    active:ring-opacity-50
+    focus:outline-none
+    focus:ring
+    focus:ring-4
+    focus:ring-primary-light
+    focus:ring-opacity-50`,
 };
 
 const disabledThemes: Record<ThemeKey, string> = {

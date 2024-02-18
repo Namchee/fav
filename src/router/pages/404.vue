@@ -27,7 +27,7 @@
           text-primary
           transition-colors
           hover:text-primary-dark
-          focus:(text-primary-dark)
+          focus:text-primary-dark
           active:text-primary-dark"
       >
         Back To Home
