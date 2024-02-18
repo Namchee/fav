@@ -3,7 +3,7 @@
     class="w-full mx-auto max-w-5xl
       flex flex-col items-center
       md:(flex-row justify-between)
-      border-t border-content-shade border-opacity-25
+      border-t border-content-shade border-opacity-50
       p-8
       text-sm
       text-content-light"

@@ -247,7 +247,7 @@
             rel="noreferrer noopener"
             aria-label="EvilMartians Website"
           >Evil Martians</a> at all. Do not expect support
-          from them.
+          from them when using this project.
         </p>
       </section>
     </article>

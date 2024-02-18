@@ -9,7 +9,7 @@ export default defineConfig({
   theme: {
     fontFamily: {
       sans: [
-        'Anderson Grotesk',
+        'Atkinson Hyperlegible',
         'system-ui',
         'Segoe UI',
         'Arial',

@@ -6,7 +6,7 @@
           class="font-semibold
             text-4xl
             text-content
-            tracking-tighter leading-tight
+            leading-tight
             lg:text-5xl
             lg:leading-normal"
         >
