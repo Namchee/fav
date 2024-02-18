@@ -30,7 +30,7 @@
               text-primary
               transition-colors
               hover:text-primary-dark
-              focus:(text-primary-dark)
+              focus:text-primary-dark
               active:text-primary-dark"
             href="https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs"
             target="_blank"
@@ -43,7 +43,7 @@
               text-primary
               transition-colors
               hover:text-primary-dark
-              focus:(text-primary-dark)
+              focus:text-primary-dark
               active:text-primary-dark"
             href="https://evilmartians.com/"
             target="_blank"
@@ -57,8 +57,7 @@
           Fav executes all the required processing steps directly
           on your browser without any need to communicate with
           any backend server. Therefore, fav <strong>
-            does not store any form of your personal data and usage
-          </strong>.
+            does not store any form of your personal data and usage</strong>.
         </p>
 
         <p>
@@ -106,7 +105,7 @@
               text-primary
               transition-colors
               hover:text-primary-dark
-              focus:(text-primary-dark)
+              focus:text-primary-dark
               active:text-primary-dark"
             href="https://evilmartians.com/"
             to="/"
@@ -170,7 +169,7 @@
               text-primary
               transition-colors
               hover:text-primary-dark
-              focus:(text-primary-dark)
+              focus:text-primary-dark
               active:text-primary-dark"
             href="https://github.com/Namchee/fav-cli"
             rel="noreferrer noopener"
@@ -218,7 +217,7 @@
               text-primary
               transition-colors
               hover:text-primary-dark
-              focus:(text-primary-dark)
+              focus:text-primary-dark
               active:text-primary-dark"
             rel="noreferrer noopener"
             target="_blank"
@@ -240,7 +239,7 @@
             text-primary
             transition-colors
             hover:text-primary-dark
-            focus:(text-primary-dark)
+            focus:text-primary-dark
             active:text-primary-dark"
             href="https://evilmartians.com/"
             target="_blank"

@@ -143,13 +143,15 @@ export default defineComponent({
         grid place-items-center
         rounded-md p-8
         transition-all
-        hover:(bg-content-shade
-          bg-opacity-10
-          border-content-shade
-          border-opacity-60)
-        group-focus:(
-          ring-3 ring-opacity-30 ring-content-shade
-          bg-content-shade bg-opacity-10)
+        hover:bg-content-shade
+        hover:bg-opacity-10
+        hover:border-content-shade
+        hover:border-opacity-60
+        group-focus:ring-3
+        group-focus:ring-opacity-30
+        group-focus:ring-content-shade
+        group-focus:bg-content-shade
+        group-focus:bg-opacity-10
         h-full
         ${dragClass}`;
     });

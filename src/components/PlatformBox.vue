@@ -9,7 +9,10 @@
       bg-opacity-10
       hover:bg-opacity-10
       border
-      focus:(outline-none bg-opacity-10 ring-3 focus:ring-opacity-30)"
+      focus:outline-none
+      focus:bg-opacity-10
+      focus:ring-3
+      focus:ring-opacity-30"
     :class="labelClass"
   >
     <div class="flex justify-between items-center">

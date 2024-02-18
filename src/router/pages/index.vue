@@ -61,9 +61,9 @@
                     w-4 h-4
                     cursor-pointer
                     text-primary
-                    focus:(outline-none ring-2 ring-primary ring-opacity-50)">
+                    focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50">
 
-                <div class="flex items-center space-x-2">
+                <div class="flex items-center space-x-[6px]">
                   <p>
                     Include HTML template
                   </p>
@@ -71,14 +71,14 @@
                   <TooltipProvider>
                     <TooltipRoot>
                       <TooltipTrigger
-                        class="text-black shadow-blackA7 hover:bg-green3 inline-flex h-4 w-4 items-center justify-center rounded-full bg-white shadow-[0_2px_10px] outline-none focus:shadow-[0_0_0_2px] cursor-help focus:shadow-black">
+                        class="opacity-50 inline-flex h-4 w-4 items-center justify-center outline-none focus:shadow-[0_0_0_2px] cursor-help focus:shadow-black">
                         <Help />
                       </TooltipTrigger>
                       <TooltipPortal>
                         <TooltipContent
-                          class="data-[state=delayed-open]:data-[side=top]:animate-slideDownAndFade data-[state=delayed-open]:data-[side=right]:animate-slideLeftAndFade data-[state=delayed-open]:data-[side=left]:animate-slideRightAndFade data-[state=delayed-open]:data-[side=bottom]:animate-slideUpAndFade select-none rounded-[4px] bg-black px-[15px] py-[10px] text-[15px] leading-none shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] will-change-[transform,opacity]"
+                          class="text-xs text-center leading-snug max-w-xs data-[state=delayed-open]:data-[side=top]:animate-slideDownAndFade data-[state=delayed-open]:data-[side=right]:animate-slideLeftAndFade data-[state=delayed-open]:data-[side=left]:animate-slideRightAndFade data-[state=delayed-open]:data-[side=bottom]:animate-slideUpAndFade select-none rounded-[4px] bg-black text-white px-[15px] py-[10px] text-[15px] leading-none shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] will-change-[transform,opacity]"
                           :side-offset="5">
-                          Haha
+                          When checked, Fav will provide an HTML template that contains headers that matches the generated favicon.
                           <TooltipArrow class="fill-shade" size="8" />
                         </TooltipContent>
                       </TooltipPortal>
@@ -91,10 +91,15 @@
                 <input id="aspect-ratio" v-model="form.ratio" type="checkbox" class="rounded
                     w-4 h-4
                     text-primary
-                    focus:(outline-none ring-2 ring-primary ring-opacity-50)">
-                <p>
-                  Keep image aspect ratio
-                </p>
+                    focus:outline-none
+                    focus:ring-2
+                    focus:ring-primary
+                    focus:ring-opacity-50">
+                <div class="flex items-center space-x-[6px]">
+                  <p>
+                    Keep image aspect ratio
+                  </p>
+                </div>
               </label>
             </div>
           </section>
