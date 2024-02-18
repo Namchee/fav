@@ -11,7 +11,6 @@
       <ImageIcon class="w-5 h-auto" />
       <p
         class="font-bold
-          tracking-tight
           leading-loose
           flex-1
           truncate"
