@@ -8,6 +8,7 @@
       transition-all
       bg-opacity-10
       hover:bg-opacity-10
+      border
       focus:(outline-none bg-opacity-10 ring-3 focus:ring-opacity-30)"
     :class="labelClass"
   >
@@ -16,7 +17,6 @@
         class="font-bold
         text-content
         text-2xl
-        tracking-tight
         leading-relaxed"
         :class="titleClass"
       >
@@ -103,6 +103,8 @@ export default defineComponent({
         'hover:bg-content-shade': !checked.value,
         'focus:bg-content-shade': !checked.value,
         'focus:ring-content-shade': !checked.value,
+        'border-primary': checked.value,
+        'border-opacity-30': checked.value,
       };
     });
 
@@ -116,7 +118,7 @@ export default defineComponent({
       return {
         'text-content-light': !checked.value,
         'text-primary-light': checked.value,
-        'text-opacity-70': checked.value,
+        'text-opacity-80': checked.value,
       };
     });
 

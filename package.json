@@ -15,6 +15,7 @@
     "imagetracerjs": "^1.2.6",
     "jszip": "^3.6.0",
     "nprogress": "^0.2.0",
+    "radix-vue": "^1.4.6",
     "svgo": "^2.8.0",
     "vue": "^3.2.26",
     "vue-router": "^4.0.12"
